@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Personalization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #E5E7EB;
+            border-radius: 2px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #2B3AEE, #00A79D);
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(43, 58, 238, 0.1);
+            margin-bottom: 24px;
+            border: 1px solid rgba(43, 58, 238, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #FBFBFD;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2B3AEE;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(43, 58, 238, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #9CA3AF;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6B7280;
+            pointer-events: none;
+            font-size: 12px;
+        }
+
+        select.form-input {
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6B7280;
+        }
+
+        .input-with-icon .form-input {
+            padding-left: 48px;
+        }
+
+        .experience-level {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .experience-option {
+            padding: 12px 8px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .experience-option:hover {
+            border-color: #2B3AEE;
+            background-color: #F0F4FF;
+        }
+
+        .experience-option.selected {
+            border-color: #2B3AEE;
+            background-color: #2B3AEE;
+            color: white;
+        }
+
+        .skills-section {
+            margin-top: 8px;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .skill-tag {
+            padding: 8px 16px;
+            background: #F0F4FF;
+            border: 1px solid #2B3AEE;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #2B3AEE;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .skill-tag.selected {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .add-skill {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .add-skill-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .add-skill-btn {
+            padding: 8px 16px;
+            background: #00A79D;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-skill-btn:hover {
+            background: #00857D;
+        }
+
+        .privacy-note {
+            background: #F0F4FF;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+            border-left: 4px solid #2B3AEE;
+        }
+
+        .privacy-note p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+
+        .buttons {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 18px 24px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(43, 58, 238, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: #D0D5DD;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #666;
+            border: 2px solid #D0D5DD;
+        }
+
+        .btn-secondary:hover {
+            background: #F8FAFC;
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="logo">AI Career</div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        
+        <div class="content slide-up">
+            <div class="welcome-section">
+                <div class="avatar">
+                    <span class="material-icons">person</span>
+                </div>
+                <h1>Tell Us About Yourself</h1>
+                <p class="subtitle">Personalize your AI career assistant for better recommendations</p>
+            </div>
+            
+            <div class="form-container">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons input-icon">person</span>
+                        <input type="text" class="form-input" id="fullName" placeholder="Enter your full name">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons input-icon">email</span>
+                        <input type="email" class="form-input" id="email" placeholder="your.email@example.com">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Country</label>
+                    <div class="select-wrapper">
+                        <select class="form-input" id="country">
+                            <option value="">Select your country</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="AU">Australia</option>
+                            <option value="DE">Germany</option>
+                            <option value="FR">France</option>
+                            <option value="IN">India</option>
+                            <option value="SG">Singapore</option>
+                            <option value="AE">United Arab Emirates</option>
+                            <option value="ZA">South Africa</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Target Role</label>
+                    <div class="select-wrapper">
+                        <select class="form-input" id="targetRole">
+                            <option value="">Select your target role</option>
+                            <option value="ai-engineer">AI Engineer</option>
+                            <option value="data-scientist">Data Scientist</option>
+                            <option value="machine-learning-engineer">Machine Learning Engineer</option>
+                            <option value="data-analyst">Data Analyst</option>
+                            <option value="ai-researcher">AI Researcher</option>
+                            <option value="nlp-engineer">NLP Engineer</option>
+                            <option value="computer-vision-engineer">Computer Vision Engineer</option>
+                            <option value="ai-product-manager">AI Product Manager</option>
+                            <option value="data-engineer">Data Engineer</option>
+                            <option value="business-intelligence-analyst">Business Intelligence Analyst</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Experience Level</label>
+                    <div class="experience-level">
+                        <div class="experience-option" data-level="entry">Entry Level</div>
+                        <div class="experience-option" data-level="mid">Mid Level</div>
+                        <div class="experience-option" data-level="senior">Senior Level</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Key Skills</label>
+                    <div class="skills-section">
+                        <div class="skills-tags" id="skillsContainer">
+                            <div class="skill-tag" data-skill="python">Python</div>
+                            <div class="skill-tag" data-skill="machine-learning">Machine Learning</div>
+                            <div class="skill-tag" data-skill="sql">SQL</div>
+                            <div class="skill-tag" data-skill="tensorflow">TensorFlow</div>
+                            <div class="skill-tag" data-skill="pytorch">PyTorch</div>
+                            <div class="skill-tag" data-skill="data-analysis">Data Analysis</div>
+                        </div>
+                        <div class="add-skill">
+                            <input type="text" class="add-skill-input" id="newSkillInput" placeholder="Add custom skill">
+                            <button class="add-skill-btn" id="addSkillBtn">Add</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Career Goals</label>
+                    <textarea class="form-input" id="careerGoals" placeholder="Describe your career aspirations and goals..." rows="3"></textarea>
+                </div>
+            </div>
+            
+            <div class="privacy-note">
+                <p><strong>Privacy Note:</strong> Your information helps us personalize your experience. We never share your data without your consent.</p>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-primary" id="continueBtn" disabled>
+                    Complete Setup & Continue
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+                <button class="btn btn-secondary" id="skipBtn">
+                    Skip for Now
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>AI Career App © 2023 - Your AI Career Assistant</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            const countrySelect = document.getElementById('country');
+            const targetRoleSelect = document.getElementById('targetRole');
+            const experienceOptions = document.querySelectorAll('.experience-option');
+            const skillTags = document.querySelectorAll('.skill-tag');
+            const skillsContainer = document.getElementById('skillsContainer');
+            const newSkillInput = document.getElementById('newSkillInput');
+            const addSkillBtn = document.getElementById('addSkillBtn');
+            const careerGoalsInput = document.getElementById('careerGoals');
+            const continueBtn = document.getElementById('continueBtn');
+            const backBtn = document.getElementById('backBtn');
+            const skipBtn = document.getElementById('skipBtn');
+
+            // Store selected values
+            let selectedExperience = '';
+            let selectedSkills = new Set(['python', 'machine-learning']); // Default skills
+
+            // Enable continue button when required fields are filled
+            function validateForm() {
+                const isNameValid = fullNameInput.value.trim().length > 0;
+                const isEmailValid = emailInput.value.trim().length > 0 && 
+                                   emailInput.value.includes('@');
+                const isCountryValid = countrySelect.value.length > 0;
+                const isRoleValid = targetRoleSelect.value.length > 0;
+                const isExperienceSelected = selectedExperience.length > 0;
+                
+                continueBtn.disabled = !(isNameValid && isEmailValid && isCountryValid && 
+                                       isRoleValid && isExperienceSelected);
+            }
+
+            // Add event listeners for form validation
+            fullNameInput.addEventListener('input', validateForm);
+            emailInput.addEventListener('input', validateForm);
+            countrySelect.addEventListener('change', validateForm);
+            targetRoleSelect.addEventListener('change', validateForm);
+
+            // Experience level selection
+            experienceOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    experienceOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    selectedExperience = this.getAttribute('data-level');
+                    validateForm();
+                });
+            });
+
+            // Skill tags selection
+            skillTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const skill = this.getAttribute('data-skill');
+                    
+                    if (selectedSkills.has(skill)) {
+                        selectedSkills.delete(skill);
+                        this.classList.remove('selected');
+                    } else {
+                        selectedSkills.add(skill);
+                        this.classList.add('selected');
+                    }
+                });
+            });
+
+            // Add custom skill
+            addSkillBtn.addEventListener('click', function() {
+                const newSkill = newSkillInput.value.trim();
+                if (newSkill && !Array.from(skillTags).some(tag => 
+                    tag.getAttribute('data-skill') === newSkill.toLowerCase())) {
+                    
+                    const newSkillTag = document.createElement('div');
+                    newSkillTag.className = 'skill-tag';
+                    newSkillTag.setAttribute('data-skill', newSkill.toLowerCase());
+                    newSkillTag.textContent = newSkill;
+                    
+                    newSkillTag.addEventListener('click', function() {
+                        const skill = this.getAttribute('data-skill');
+                        if (selectedSkills.has(skill)) {
+                            selectedSkills.delete(skill);
+                            this.classList.remove('selected');
+                        } else {
+                            selectedSkills.add(skill);
+                            this.classList.add('selected');
+                        }
+                    });
+                    
+                    skillsContainer.appendChild(newSkillTag);
+                    newSkillInput.value = '';
+                }
+            });
+
+            // Enter key to add skill
+            newSkillInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addSkillBtn.click();
+                }
+            });
+
+            // Continue button functionality
+            continueBtn.addEventListener('click', function() {
+                if (continueBtn.disabled) return;
+                
+                // Collect form data
+                const userData = {
+                    fullName: fullNameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    country: countrySelect.value,
+                    targetRole: targetRoleSelect.value,
+                    experienceLevel: selectedExperience,
+                    skills: Array.from(selectedSkills),
+                    careerGoals: careerGoalsInput.value.trim()
+                };
+                
+                // Add loading animation
+                this.innerHTML = 'Creating Your Profile... <span class="material-icons">autorenew</span>';
+                this.disabled = true;
+                
+                // Simulate API call and processing
+                setTimeout(function() {
+                    // In a real app, this would save data and navigate to dashboard
+                    console.log('User data saved:', userData);
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+            });
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                // In a real app, this would navigate back to permissions screen
+                alert('Going back to Permissions screen...');
+                // window.location.href = 'permissions.html';
+            });
+
+            // Skip button functionality
+            skipBtn.addEventListener('click', function() {
+                if (confirm('Skip personalization? You can always complete this later in settings.')) {
+                    // In a real app, this would navigate to dashboard with minimal setup
+                    alert('Navigating to dashboard with basic setup...');
+                    // window.location.href = 'dashboard.html';
+                }
+            });
+
+            // Add touch feedback for interactive elements
+            const interactiveElements = document.querySelectorAll('button, .experience-option, .skill-tag');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Auto-focus on name input
+            fullNameInput.focus();
+        });
+    </script>
+</body>
+</html>

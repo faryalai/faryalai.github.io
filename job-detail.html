@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Job Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FBFBFD;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .job-title-header {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Job Header */
+        .job-header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .job-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .job-company {
+            font-size: 18px;
+            color: #2B3AEE;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .match-badge {
+            background: linear-gradient(135deg, #00A79D, #2B3AEE);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .deadline {
+            background: #FF6B6B;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: #F0F4FF;
+            border: 1px solid #2B3AEE;
+            border-radius: 16px;
+            font-size: 12px;
+            color: #2B3AEE;
+            font-weight: 500;
+        }
+
+        /* Job Description */
+        .job-description {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #F0F4FF;
+        }
+
+        .description-content {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .description-content h3 {
+            color: #333;
+            margin: 20px 0 8px 0;
+            font-size: 16px;
+        }
+
+        .description-content ul {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .description-content li {
+            margin-bottom: 8px;
+        }
+
+        /* Resume Match */
+        .resume-match {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .match-score {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: conic-gradient(#00A79D 0% 85%, #E5E7EB 85% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .score-text {
+            position: relative;
+            font-size: 24px;
+            font-weight: 700;
+            color: #00A79D;
+            z-index: 1;
+        }
+
+        .match-details {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .match-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F4FF;
+        }
+
+        .match-item:last-child {
+            border-bottom: none;
+        }
+
+        .match-progress {
+            flex: 1;
+            height: 6px;
+            background: #E5E7EB;
+            border-radius: 3px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+
+        .match-progress-fill {
+            height: 100%;
+            background: #00A79D;
+            border-radius: 3px;
+        }
+
+        .match-percentage {
+            font-weight: 600;
+            color: #333;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 20px 16px;
+            display: flex;
+            gap: 12px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            box-shadow: 0 4px 12px rgba(43, 58, 238, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(43, 58, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #2B3AEE;
+            border: 2px solid #2B3AEE;
+        }
+
+        .btn-outline:hover {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        /* AI Email Composer Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: popupSlideIn 0.3s ease;
+        }
+
+        .popup-header {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            padding: 24px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+
+        .popup-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .popup-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .popup-body {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .popup-icon {
+            width: 80px;
+            height: 80px;
+            background: #F0F4FF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #2B3AEE;
+            font-size: 32px;
+        }
+
+        .popup-message {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .popup-features {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-icon {
+            color: #00A79D;
+            font-size: 16px;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .popup-btn {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .popup-btn-primary {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .popup-btn-primary:hover {
+            background: #1E2BC2;
+        }
+
+        .popup-btn-secondary {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .popup-btn-secondary:hover {
+            border-color: #666;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Job Details</h1>
+                <div class="job-title-header">Senior AI Engineer</div>
+            </div>
+        </div>
+
+        <!-- Job Header -->
+        <div class="job-header slide-up">
+            <div class="job-title">Senior AI Engineer</div>
+            <div class="job-company">Tech Innovations Inc.</div>
+            
+            <div class="job-meta">
+                <div class="meta-item">
+                    <span class="material-icons">location_on</span>
+                    San Francisco, CA • Remote
+                </div>
+                <div class="meta-item">
+                    <span class="material-icons">work</span>
+                    Full-time
+                </div>
+                <div class="meta-item">
+                    <span class="material-icons">schedule</span>
+                    Posted 2 hours ago
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+                <div class="match-badge">Your Match: 92%</div>
+                <div class="deadline">Apply by: Dec 15, 2023</div>
+            </div>
+
+            <div class="job-tags">
+                <div class="tag">AI</div>
+                <div class="tag">Python</div>
+                <div class="tag">TensorFlow</div>
+                <div class="tag">NLP</div>
+                <div class="tag">Machine Learning</div>
+                <div class="tag">Deep Learning</div>
+            </div>
+        </div>
+
+        <!-- Job Description -->
+        <div class="job-description slide-up">
+            <div class="section-title">Job Description</div>
+            <div class="description-content">
+                <p>We are looking for a Senior AI Engineer to join our innovative team and help build the next generation of AI-powered solutions. You will work on cutting-edge NLP and machine learning projects that impact millions of users.</p>
+                
+                <h3>Responsibilities:</h3>
+                <ul>
+                    <li>Design, develop, and deploy machine learning models for natural language processing</li>
+                    <li>Lead AI projects from conception to production deployment</li>
+                    <li>Collaborate with cross-functional teams to integrate AI capabilities</li>
+                    <li>Optimize model performance and scalability</li>
+                    <li>Mentor junior engineers and contribute to team knowledge sharing</li>
+                </ul>
+
+                <h3>Requirements:</h3>
+                <ul>
+                    <li>5+ years of experience in AI/ML engineering</li>
+                    <li>Strong proficiency in Python and ML frameworks (TensorFlow, PyTorch)</li>
+                    <li>Experience with NLP and transformer architectures</li>
+                    <li>Knowledge of cloud platforms (AWS, GCP, or Azure)</li>
+                    <li>Excellent problem-solving and communication skills</li>
+                </ul>
+
+                <h3>What We Offer:</h3>
+                <ul>
+                    <li>Competitive salary and equity package</li>
+                    <li>Flexible remote work options</li>
+                    <li>Professional development budget</li>
+                    <li>Health, dental, and vision insurance</li>
+                    <li>Cutting-edge technology stack</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Resume Match -->
+        <div class="resume-match slide-up">
+            <div class="section-title">Resume Match Analysis</div>
+            
+            <div class="match-score">
+                <div class="score-circle">
+                    <div class="score-text">92%</div>
+                </div>
+                <div class="match-details">Excellent match with your skills and experience</div>
+            </div>
+
+            <div class="match-item">
+                <span>Skills Match</span>
+                <div class="match-progress">
+                    <div class="match-progress-fill" style="width: 95%"></div>
+                </div>
+                <span class="match-percentage">95%</span>
+            </div>
+
+            <div class="match-item">
+                <span>Experience Level</span>
+                <div class="match-progress">
+                    <div class="match-progress-fill" style="width: 90%"></div>
+                </div>
+                <span class="match-percentage">90%</span>
+            </div>
+
+            <div class="match-item">
+                <span>Education Match</span>
+                <div class="match-progress">
+                    <div class="match-progress-fill" style="width: 88%"></div>
+                </div>
+                <span class="match-percentage">88%</span>
+            </div>
+
+            <div class="match-item">
+                <span>Location Preference</span>
+                <div class="match-progress">
+                    <div class="match-progress-fill" style="width: 100%"></div>
+                </div>
+                <span class="match-percentage">100%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <button class="btn btn-secondary" id="saveJobBtn">
+            <span class="material-icons">bookmark_border</span>
+            Save
+        </button>
+        <button class="btn btn-outline" id="generateCoverLetterBtn">
+            <span class="material-icons">description</span>
+            Cover Letter
+        </button>
+        <button class="btn btn-primary" id="applyBtn">
+            <span class="material-icons">send</span>
+            AI Apply
+        </button>
+    </div>
+
+    <!-- AI Email Composer Popup -->
+    <div class="popup-overlay" id="aiEmailPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-title">AI-Assisted Apply</div>
+                <div class="popup-subtitle">Smart Application Made Easy</div>
+            </div>
+            
+            <div class="popup-body">
+                <div class="popup-icon">
+                    <span class="material-icons">auto_awesome</span>
+                </div>
+                
+                <div class="popup-message">
+                    We'll prepare an email with your resume and AI-generated cover message. You can review, edit, and send manually. The app never sends emails automatically.
+                </div>
+
+                <div class="popup-features">
+                    <div class="feature-item">
+                        <span class="material-icons feature-icon">check_circle</span>
+                        <span>AI-generated personalized cover letter</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-icons feature-icon">check_circle</span>
+                        <span>Your resume attached automatically</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-icons feature-icon">check_circle</span>
+                        <span>Full control - you review and send manually</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-icons feature-icon">security</span>
+                        <span>We never send emails without your consent</span>
+                    </div>
+                </div>
+
+                <div class="popup-buttons">
+                    <button class="popup-btn popup-btn-secondary" id="cancelBtn">
+                        Cancel
+                    </button>
+                    <button class="popup-btn popup-btn-primary" id="continueBtn">
+                        <span class="material-icons">send</span>
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const saveJobBtn = document.getElementById('saveJobBtn');
+            const generateCoverLetterBtn = document.getElementById('generateCoverLetterBtn');
+            const applyBtn = document.getElementById('applyBtn');
+            const aiEmailPopup = document.getElementById('aiEmailPopup');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const continueBtn = document.getElementById('continueBtn');
+
+            let isJobSaved = false;
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    // window.location.href = 'job-feed.html';
+                    alert('Returning to job feed...');
+                }, 500);
+            });
+
+            // Save job functionality
+            saveJobBtn.addEventListener('click', function() {
+                isJobSaved = !isJobSaved;
+                const icon = this.querySelector('.material-icons');
+                const text = this.querySelector('span:last-child');
+                
+                if (isJobSaved) {
+                    icon.textContent = 'bookmark';
+                    text.textContent = 'Saved';
+                    this.style.color = '#2B3AEE';
+                    showToast('Job saved to your collection');
+                } else {
+                    icon.textContent = 'bookmark_border';
+                    text.textContent = 'Save';
+                    this.style.color = '';
+                    showToast('Job removed from saved');
+                }
+            });
+
+            // Generate cover letter functionality
+            generateCoverLetterBtn.addEventListener('click', function() {
+                showLoading(this, 'Generating...');
+                setTimeout(() => {
+                    alert('Cover letter generated! You can review it before applying.');
+                    this.innerHTML = '<span class="material-icons">description</span> Cover Letter';
+                }, 1500);
+            });
+
+            // Apply button functionality - opens AI email popup
+            applyBtn.addEventListener('click', function() {
+                aiEmailPopup.classList.add('active');
+            });
+
+            // Cancel button in popup
+            cancelBtn.addEventListener('click', function() {
+                aiEmailPopup.classList.remove('active');
+            });
+
+            // Continue button in popup - triggers email intent
+            continueBtn.addEventListener('click', function() {
+                showLoading(this, 'Preparing...');
+                
+                // Simulate AI processing and email preparation
+                setTimeout(() => {
+                    triggerEmailIntent();
+                    aiEmailPopup.classList.remove('active');
+                    this.innerHTML = '<span class="material-icons">send</span> Continue';
+                }, 1000);
+            });
+
+            // Close popup when clicking outside
+            aiEmailPopup.addEventListener('click', function(e) {
+                if (e.target === aiEmailPopup) {
+                    aiEmailPopup.classList.remove('active');
+                }
+            });
+
+            // Function to trigger email intent
+            function triggerEmailIntent() {
+                const jobTitle = "Senior AI Engineer";
+                const company = "Tech Innovations Inc.";
+                const hrEmail = "careers@techinnovations.com";
+                const userName = "Muhammad Yaseen";
+                
+                // AI-generated cover letter content
+                const coverLetter = `Dear Hiring Team,
+
+I am excited to apply for the ${jobTitle} position at ${company} that I discovered through the AI Career App. With my 5+ years of experience in AI engineering and specialization in natural language processing, I am confident I possess the skills and expertise needed to excel in this role.
+
+My background includes:
+• Developing and deploying machine learning models that improved text classification accuracy by 35%
+• Leading AI projects from conception to production deployment
+• Extensive experience with TensorFlow, PyTorch, and transformer architectures
+• Strong proficiency in Python and cloud platforms (AWS, GCP)
+
+I am particularly impressed by ${company}'s innovative approach to AI solutions and would be thrilled to contribute to your cutting-edge projects.
+
+I have attached my resume for your review and would welcome the opportunity to discuss how my skills and experience align with your team's needs.
+
+Best regards,
+${userName}
++1 (555) 123-4567
+linkedin.com/in/muhammadyaseen`;
+
+                // In a real mobile app, this would use Intent.ACTION_SEND
+                // For web demonstration, we'll create a mock email client simulation
+                simulateEmailClient({
+                    to: hrEmail,
+                    subject: `Application for ${jobTitle} - ${userName}`,
+                    body: coverLetter,
+                    attachment: "resume_yaseen_ahmed.pdf"
+                });
+            }
+
+            // Simulate email client (for demo purposes)
+            function simulateEmailClient(emailData) {
+                const emailWindow = document.createElement('div');
+                emailWindow.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: white;
+                    border-radius: 16px;
+                    padding: 0;
+                    max-width: 400px;
+                    width: 90%;
+                    max-height: 80vh;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                    z-index: 3000;
+                    overflow: hidden;
+                `;
+
+                emailWindow.innerHTML = `
+                    <div style="background: #2B3AEE; color: white; padding: 20px; display: flex; align-items: center; gap: 12px;">
+                        <span class="material-icons">mail</span>
+                        <div>
+                            <div style="font-weight: 600; font-size: 18px;">Email Client</div>
+                            <div style="font-size: 12px; opacity: 0.9;">Gmail/Outlook Simulation</div>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 20px; max-height: 50vh; overflow-y: auto;">
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">To:</label>
+                            <div style="font-size: 14px; color: #333;">${emailData.to}</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">Subject:</label>
+                            <div style="font-size: 14px; color: #333;">${emailData.subject}</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">Attachment:</label>
+                            <div style="font-size: 14px; color: #333; display: flex; align-items: center; gap: 8px;">
+                                <span class="material-icons" style="font-size: 16px;">attach_file</span>
+                                ${emailData.attachment}
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; font-size: 12px; color: #666; margin-bottom: 8px;">Body:</label>
+                            <div style="font-size: 14px; color: #333; line-height: 1.5; background: #F8FAFC; padding: 16px; border-radius: 8px; white-space: pre-wrap;">
+                                ${emailData.body}
+                            </div>
+                        </div>
+                        
+                        <div style="background: #F0F4FF; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                            <div style="font-size: 12px; color: #2B3AEE; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                <span class="material-icons" style="font-size: 16px;">info</span>
+                                <span>Review and edit the email before sending</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 16px 20px; background: #F8FAFC; border-top: 1px solid #E5E7EB; display: flex; gap: 12px;">
+                        <button id="closeEmail" style="flex: 1; padding: 12px; background: white; border: 1px solid #E5E7EB; border-radius: 8px; cursor: pointer;">Close</button>
+                        <button id="sendEmail" style="flex: 1; padding: 12px; background: #00A79D; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Send</button>
+                    </div>
+                `;
+
+                document.body.appendChild(emailWindow);
+
+                // Add event listeners for email window
+                document.getElementById('closeEmail').addEventListener('click', function() {
+                    emailWindow.remove();
+                    showToast('Email draft closed');
+                });
+
+                document.getElementById('sendEmail').addEventListener('click', function() {
+                    showLoading(this, 'Sending...');
+                    setTimeout(() => {
+                        emailWindow.remove();
+                        showToast('Application sent successfully!', 'success');
+                    }, 1500);
+                });
+            }
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Function to show toast notification
+            function showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                const backgroundColor = type === 'success' ? '#00A79D' : '#333';
+                
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 120px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: ${backgroundColor};
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1001;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    max-width: 300px;
+                    text-align: center;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.style.opacity = '1', 100);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (aiEmailPopup.classList.contains('active')) {
+                        aiEmailPopup.classList.remove('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

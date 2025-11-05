@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Resume Templates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FBFBFD;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 16px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Search Bar */
+        .search-section {
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 48px 16px 48px;
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            font-size: 16px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #2B3AEE;
+            box-shadow: 0 0 0 3px rgba(43, 58, 238, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Filter Chips */
+        .filter-section {
+            margin-bottom: 24px;
+        }
+
+        .filter-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 0 8px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .filter-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-chip {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .filter-chip:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .filter-chip.active {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        /* Templates Grid */
+        .templates-section {
+            margin-bottom: 32px;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .template-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.15);
+            border-color: #2B3AEE;
+        }
+
+        .template-preview {
+            height: 200px;
+            background: linear-gradient(135deg, #F0F4FF, #E5E7EB);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .template-content {
+            padding: 16px;
+        }
+
+        .template-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .template-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .template-badge {
+            background: #00A79D;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .template-description {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .template-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #999;
+        }
+
+        .template-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .preview-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2B3AEE;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .preview-btn:hover {
+            background: #1E2BC2;
+            transform: translateY(-1px);
+        }
+
+        /* Template Preview Elements */
+        .resume-mock {
+            width: 80%;
+            height: 140px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resume-header {
+            height: 20px;
+            background: #2B3AEE;
+        }
+
+        .resume-content {
+            padding: 12px;
+        }
+
+        .resume-line {
+            height: 8px;
+            background: #E5E7EB;
+            margin-bottom: 6px;
+            border-radius: 2px;
+        }
+
+        .resume-line.short {
+            width: 60%;
+        }
+
+        .resume-line.medium {
+            width: 80%;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+            flex: 1;
+            padding: 8px 0;
+        }
+
+        .nav-item.active {
+            color: #2B3AEE;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .nav-item.active .nav-icon {
+            transform: translateY(-2px);
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Choose Your Resume Template</h1>
+                <p>Select a template that matches your style and industry</p>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section slide-up">
+            <div class="search-container">
+                <span class="material-icons search-icon">search</span>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search templates...">
+                <button class="clear-search" id="clearSearch">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter Chips -->
+        <div class="filter-section slide-up">
+            <div class="filter-scroll">
+                <div class="filter-chip active" data-filter="all">All Templates</div>
+                <div class="filter-chip" data-filter="professional">Professional</div>
+                <div class="filter-chip" data-filter="tech">Tech</div>
+                <div class="filter-chip" data-filter="creative">Creative</div>
+                <div class="filter-chip" data-filter="ats">ATS-Friendly</div>
+                <div class="filter-chip" data-filter="onepage">One-Page</div>
+                <div class="filter-chip" data-filter="europass">Europass</div>
+            </div>
+        </div>
+
+        <!-- Templates Grid -->
+        <div class="templates-section slide-up">
+            <div class="templates-grid" id="templatesGrid">
+                <!-- Template 1 -->
+                <div class="template-card" data-categories="professional,ats,onepage">
+                    <div class="template-preview">
+                        <div class="resume-mock">
+                            <div class="resume-header"></div>
+                            <div class="resume-content">
+                                <div class="resume-line short"></div>
+                                <div class="resume-line"></div>
+                                <div class="resume-line medium"></div>
+                                <div class="resume-line"></div>
+                                <div class="resume-line short"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-header">
+                            <div class="template-name">Modern Pro</div>
+                            <div class="template-badge">ATS</div>
+                        </div>
+                        <div class="template-description">Clean, professional design optimized for applicant tracking systems</div>
+                        <div class="template-stats">
+                            <div class="template-rating">
+                                <span class="material-icons" style="color: #FFD700; font-size: 14px;">star</span>
+                                <span>4.8</span>
+                            </div>
+                            <div>• 2.3k uses</div>
+                        </div>
+                        <button class="preview-btn">Preview Template</button>
+                    </div>
+                </div>
+
+                <!-- Template 2 -->
+                <div class="template-card" data-categories="tech,creative,onepage">
+                    <div class="template-preview">
+                        <div class="resume-mock" style="background: linear-gradient(135deg, #2B3AEE, #00A79D);">
+                            <div class="resume-header" style="background: rgba(255,255,255,0.2);"></div>
+                            <div class="resume-content">
+                                <div class="resume-line short" style="background: rgba(255,255,255,0.6);"></div>
+                                <div class="resume-line" style="background: rgba(255,255,255,0.4);"></div>
+                                <div class="resume-line medium" style="background: rgba(255,255,255,0.6);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-header">
+                            <div class="template-name">Tech Innovator</div>
+                            <div class="template-badge" style="background: #FF9800;">Popular</div>
+                        </div>
+                        <div class="template-description">Modern design perfect for tech roles and creative positions</div>
+                        <div class="template-stats">
+                            <div class="template-rating">
+                                <span class="material-icons" style="color: #FFD700; font-size: 14px;">star</span>
+                                <span>4.9</span>
+                            </div>
+                            <div>• 3.1k uses</div>
+                        </div>
+                        <button class="preview-btn">Preview Template</button>
+                    </div>
+                </div>
+
+                <!-- Template 3 -->
+                <div class="template-card" data-categories="professional,ats">
+                    <div class="template-preview">
+                        <div class="resume-mock" style="background: #f8f9fa;">
+                            <div class="resume-header" style="background: #333;"></div>
+                            <div class="resume-content">
+                                <div class="resume-line" style="background: #dee2e6;"></div>
+                                <div class="resume-line short" style="background: #dee2e6;"></div>
+                                <div class="resume-line" style="background: #dee2e6;"></div>
+                                <div class="resume-line medium" style="background: #dee2e6;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-header">
+                            <div class="template-name">Executive</div>
+                            <div class="template-badge" style="background: #9C27B0;">Premium</div>
+                        </div>
+                        <div class="template-description">Elegant design for senior roles and executive positions</div>
+                        <div class="template-stats">
+                            <div class="template-rating">
+                                <span class="material-icons" style="color: #FFD700; font-size: 14px;">star</span>
+                                <span>4.7</span>
+                            </div>
+                            <div>• 1.5k uses</div>
+                        </div>
+                        <button class="preview-btn">Preview Template</button>
+                    </div>
+                </div>
+
+                <!-- Template 4 -->
+                <div class="template-card" data-categories="creative,onepage">
+                    <div class="template-preview">
+                        <div class="resume-mock" style="background: linear-gradient(135deg, #FF6B6B, #4ECDC4);">
+                            <div class="resume-header" style="background: rgba(255,255,255,0.3);"></div>
+                            <div class="resume-content">
+                                <div class="resume-line medium" style="background: rgba(255,255,255,0.7);"></div>
+                                <div class="resume-line short" style="background: rgba(255,255,255,0.5);"></div>
+                                <div class="resume-line" style="background: rgba(255,255,255,0.7);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-header">
+                            <div class="template-name">Creative Portfolio</div>
+                            <div class="template-badge" style="background: #00A79D;">New</div>
+                        </div>
+                        <div class="template-description">Colorful and creative design for designers and marketers</div>
+                        <div class="template-stats">
+                            <div class="template-rating">
+                                <span class="material-icons" style="color: #FFD700; font-size: 14px;">star</span>
+                                <span>4.6</span>
+                            </div>
+                            <div>• 890 uses</div>
+                        </div>
+                        <button class="preview-btn">Preview Template</button>
+                    </div>
+                </div>
+
+                <!-- Template 5 -->
+                <div class="template-card" data-categories="professional,ats,europass">
+                    <div class="template-preview">
+                        <div class="resume-mock" style="background: #fff; border: 2px solid #2B3AEE;">
+                            <div class="resume-header" style="background: #2B3AEE;"></div>
+                            <div class="resume-content">
+                                <div class="resume-line"></div>
+                                <div class="resume-line short"></div>
+                                <div class="resume-line"></div>
+                                <div class="resume-line medium"></div>
+                                <div class="resume-line short"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-header">
+                            <div class="template-name">Europass Standard</div>
+                            <div class="template-badge" style="background: #666;">EU</div>
+                        </div>
+                        <div class="template-description">Official Europass format for European job applications</div>
+                        <div class="template-stats">
+                            <div class="template-rating">
+                                <span class="material-icons" style="color: #FFD700; font-size: 14px;">star</span>
+                                <span>4.5</span>
+                            </div>
+                            <div>• 2.7k uses</div>
+                        </div>
+                        <button class="preview-btn">Preview Template</button>
+                    </div>
+                </div>
+
+                <!-- Template 6 -->
+                <div class="template-card" data-categories="tech,ats,onepage">
+                    <div class="template-preview">
+                        <div class="resume-mock" style="background: #1a1a1a;">
+                            <div class="resume-header" style="background: #00A79D;"></div>
+                            <div class="resume-content">
+                                <div class="resume-line" style="background: #333;"></div>
+                                <div class="resume-line short" style="background: #444;"></div>
+                                <div class="resume-line medium" style="background: #333;"></div>
+                                <div class="resume-line" style="background: #444;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-content">
+                        <div class="template-header">
+                            <div class="template-name">Dark Tech</div>
+                            <div class="template-badge" style="background: #2B3AEE;">Trending</div>
+                        </div>
+                        <div class="template-description">Modern dark theme for developers and tech professionals</div>
+                        <div class="template-stats">
+                            <div class="template-rating">
+                                <span class="material-icons" style="color: #FFD700; font-size: 14px;">star</span>
+                                <span>4.8</span>
+                            </div>
+                            <div>• 1.8k uses</div>
+                        </div>
+                        <button class="preview-btn">Preview Template</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">home</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">work</span>
+            <span class="nav-label">Jobs</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <span class="material-icons nav-icon">description</span>
+            <span class="nav-label">Resume</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">record_voice_over</span>
+            <span class="nav-label">Practice</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">person</span>
+            <span class="nav-label">Profile</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const searchInput = document.getElementById('searchInput');
+            const clearSearch = document.getElementById('clearSearch');
+            const filterChips = document.querySelectorAll('.filter-chip');
+            const templateCards = document.querySelectorAll('.template-card');
+            const previewButtons = document.querySelectorAll('.preview-btn');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            // Current filter state
+            let currentFilter = 'all';
+            let currentSearch = '';
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                alert('Going back to Dashboard...');
+                // window.location.href = 'dashboard.html';
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                currentSearch = this.value.toLowerCase().trim();
+                clearSearch.style.display = currentSearch ? 'block' : 'none';
+                filterTemplates();
+            });
+
+            clearSearch.addEventListener('click', function() {
+                searchInput.value = '';
+                currentSearch = '';
+                this.style.display = 'none';
+                filterTemplates();
+                searchInput.focus();
+            });
+
+            // Filter chip functionality
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    // Remove active class from all chips
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked chip
+                    this.classList.add('active');
+                    
+                    // Update current filter
+                    currentFilter = this.getAttribute('data-filter');
+                    filterTemplates();
+                });
+            });
+
+            // Filter templates based on current filter and search
+            function filterTemplates() {
+                templateCards.forEach(card => {
+                    const categories = card.getAttribute('data-categories');
+                    const templateName = card.querySelector('.template-name').textContent.toLowerCase();
+                    const templateDesc = card.querySelector('.template-description').textContent.toLowerCase();
+                    
+                    const matchesFilter = currentFilter === 'all' || categories.includes(currentFilter);
+                    const matchesSearch = !currentSearch || 
+                                         templateName.includes(currentSearch) || 
+                                         templateDesc.includes(currentSearch);
+                    
+                    if (matchesFilter && matchesSearch) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            // Preview button functionality
+            previewButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const templateCard = this.closest('.template-card');
+                    const templateName = templateCard.querySelector('.template-name').textContent;
+                    
+                    // Show loading state
+                    this.innerHTML = 'Loading... <span class="material-icons pulse">autorenew</span>';
+                    this.disabled = true;
+                    
+                    // Simulate loading
+                    setTimeout(() => {
+                        // window.location.href = `resume-preview.html?template=${index + 1}`;
+                        window.location.href = 'resume-preview.html';
+                    }, 800);
+                });
+            });
+
+            // Template card click functionality (opens preview)
+            templateCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Don't trigger if preview button was clicked
+                    if (!e.target.closest('.preview-btn')) {
+                        const templateName = this.querySelector('.template-name').textContent;
+                        const previewBtn = this.querySelector('.preview-btn');
+                        
+                        // Show loading state
+                        previewBtn.innerHTML = 'Loading... <span class="material-icons pulse">autorenew</span>';
+                        previewBtn.disabled = true;
+                        
+                        setTimeout(() => {
+                            // window.location.href = `resume-preview.html?template=${Array.from(templateCards).indexOf(this) + 1}`;
+                            window.location.href = 'resume-preview.html';
+                        }, 800);
+                    }
+                });
+            });
+
+            // Navigation functionality
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Navigate if not current page
+                    const label = this.querySelector('.nav-label').textContent;
+                    if (label !== 'Resume') {
+                        alert(`Navigating to ${label}...`);
+                        // window.location.href = `${label.toLowerCase()}.html`;
+                    }
+                });
+            });
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('.template-card, .filter-chip, .preview-btn, .nav-item, .back-btn');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && currentSearch) {
+                    searchInput.value = '';
+                    currentSearch = '';
+                    clearSearch.style.display = 'none';
+                    filterTemplates();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

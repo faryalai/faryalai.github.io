@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Mock Interview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Interview Info */
+        .interview-info {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .interview-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .info-details h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .info-details p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .timer {
+            background: #F0F4FF;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2B3AEE;
+        }
+
+        /* Interview Container */
+        .interview-container {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        /* Question Section */
+        .question-section {
+            margin-bottom: 24px;
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .question-card {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #2B3AEE;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .question-category {
+            background: #E5E7EB;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* Answer Section */
+        .answer-section {
+            margin-bottom: 24px;
+        }
+
+        .input-modes {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .mode-btn:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .mode-btn.active {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        /* Text Input */
+        .text-input-container {
+            margin-bottom: 16px;
+        }
+
+        .answer-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .answer-textarea:focus {
+            outline: none;
+            border-color: #2B3AEE;
+        }
+
+        .text-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .word-count {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .format-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .format-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .format-btn:hover {
+            color: #2B3AEE;
+            background: rgba(43, 58, 238, 0.1);
+        }
+
+        /* Voice Input */
+        .voice-input-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .voice-input-container.active {
+            display: block;
+        }
+
+        .voice-visualization {
+            width: 100%;
+            height: 80px;
+            background: #F8FAFC;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed #E5E7EB;
+        }
+
+        .voice-bars {
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: 2px;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .voice-bar {
+            width: 4px;
+            background: #2B3AEE;
+            border-radius: 2px;
+            transition: height 0.1s ease;
+        }
+
+        .voice-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .voice-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .record-btn {
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .record-btn:hover {
+            background: #FF5252;
+            transform: scale(1.05);
+        }
+
+        .record-btn.recording {
+            background: #F44336;
+            animation: pulse 1.5s infinite;
+        }
+
+        .stop-btn {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .stop-btn:hover {
+            background: #1E2BC2;
+            transform: scale(1.05);
+        }
+
+        .voice-timer {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .transcript-preview {
+            background: #F8FAFC;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #666;
+            min-height: 60px;
+            text-align: left;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-skip {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-skip:hover {
+            border-color: #666;
+        }
+
+        .btn-submit {
+            background: #00A79D;
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background: #00857D;
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            background: #D0D5DD;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .progress-count {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #E5E7EB;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2B3AEE, #00A79D);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Feedback Preview */
+        .feedback-preview {
+            background: #F0F4FF;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            border-left: 4px solid #00A79D;
+            display: none;
+        }
+
+        .feedback-preview.show {
+            display: block;
+        }
+
+        .feedback-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00A79D;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .feedback-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* End Session Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .modal-body {
+            padding: 24px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .session-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background: #F8FAFC;
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .feedback-summary {
+            background: #F0F4FF;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 12px;
+        }
+
+        .strengths-list, .improvements-list {
+            margin-bottom: 16px;
+        }
+
+        .list-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .strength-item, .improvement-item {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 6px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .strength-item::before {
+            content: '✓';
+            color: #00A79D;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .improvement-item::before {
+            content: '→';
+            color: #FF9800;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-review {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-review:hover {
+            border-color: #666;
+        }
+
+        .btn-done {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-done:hover {
+            background: #1E2BC2;
+        }
+
+        /* Bottom Button */
+        .bottom-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 20px 16px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .end-session-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, #FF6B6B, #FF9800);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .end-session-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .session-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Mock Interview</h1>
+                <p>AI-powered interview practice</p>
+            </div>
+        </div>
+
+        <!-- Interview Info -->
+        <div class="interview-info slide-up">
+            <div class="info-left">
+                <div class="interview-icon">
+                    <span class="material-icons">record_voice_over</span>
+                </div>
+                <div class="info-details">
+                    <h2>Machine Learning Interview</h2>
+                    <p>Technical • 15 questions • 45 min</p>
+                </div>
+            </div>
+            <div class="timer" id="timer">12:45</div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section slide-up">
+            <div class="progress-header">
+                <div class="progress-title">Interview Progress</div>
+                <div class="progress-count">Question 3 of 15</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 20%"></div>
+            </div>
+        </div>
+
+        <!-- Interview Container -->
+        <div class="interview-container slide-up">
+            <!-- Question Section -->
+            <div class="question-section">
+                <div class="section-label">
+                    <span class="material-icons">help</span>
+                    Current Question
+                </div>
+                <div class="question-card">
+                    <div class="question-text" id="questionText">
+                        Explain the bias-variance tradeoff in machine learning and how it affects model performance. Provide examples of high bias and high variance scenarios.
+                    </div>
+                    <div class="question-meta">
+                        <div class="question-category">ML Fundamentals</div>
+                        <div>Expected time: 3-4 minutes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Answer Section -->
+            <div class="answer-section">
+                <div class="section-label">
+                    <span class="material-icons">keyboard</span>
+                    Your Answer
+                </div>
+
+                <!-- Input Mode Selection -->
+                <div class="input-modes">
+                    <button class="mode-btn active" data-mode="text">
+                        <span class="material-icons">keyboard</span>
+                        Text Answer
+                    </button>
+                    <button class="mode-btn" data-mode="voice">
+                        <span class="material-icons">mic</span>
+                        Voice Answer
+                    </button>
+                </div>
+
+                <!-- Text Input -->
+                <div class="text-input-container" id="textInputContainer">
+                    <textarea class="answer-textarea" id="answerTextarea" placeholder="Type your answer here... You can use bullet points, examples, and structure your response as you would in a real interview."></textarea>
+                    <div class="text-actions">
+                        <div class="word-count" id="wordCount">0 words</div>
+                        <div class="format-buttons">
+                            <button class="format-btn" title="Bullet Points">
+                                <span class="material-icons">format_list_bulleted</span>
+                            </button>
+                            <button class="format-btn" title="Add Example">
+                                <span class="material-icons">lightbulb</span>
+                            </button>
+                            <button class="format-btn" title="Clear Text">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voice Input -->
+                <div class="voice-input-container" id="voiceInputContainer">
+                    <div class="voice-visualization">
+                        <div class="voice-bars" id="voiceBars">
+                            <!-- Voice bars will be generated dynamically -->
+                        </div>
+                    </div>
+                    <div class="voice-controls">
+                        <button class="voice-btn record-btn" id="recordBtn">
+                            <span class="material-icons">mic</span>
+                        </button>
+                        <button class="voice-btn stop-btn" id="stopBtn" style="display: none;">
+                            <span class="material-icons">stop</span>
+                        </button>
+                    </div>
+                    <div class="voice-timer" id="voiceTimer">00:00</div>
+                    <div class="transcript-preview" id="transcriptPreview">
+                        Your speech will appear here as you talk...
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="action-btn btn-skip" id="skipBtn">
+                        <span class="material-icons">skip_next</span>
+                        Skip Question
+                    </button>
+                    <button class="action-btn btn-submit" id="submitBtn" disabled>
+                        <span class="material-icons">send</span>
+                        Submit Answer
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feedback Preview -->
+            <div class="feedback-preview" id="feedbackPreview">
+                <div class="feedback-title">
+                    <span class="material-icons">auto_awesome</span>
+                    AI Feedback Preview
+                </div>
+                <div class="feedback-text" id="feedbackText">
+                    Your answer covers the key concepts well. Consider adding more specific examples of high bias (underfitting) and high variance (overfitting) scenarios to strengthen your response.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Button -->
+    <div class="bottom-button">
+        <button class="end-session-btn" id="endSessionBtn">
+            <span class="material-icons">flag</span>
+            End Interview Session
+        </button>
+    </div>
+
+    <!-- End Session Modal -->
+    <div class="modal-overlay" id="endSessionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Interview Completed!</div>
+                <div class="modal-subtitle">Great job on completing the mock interview</div>
+            </div>
+            <div class="modal-body">
+                <div class="session-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">12/15</div>
+                        <div class="stat-label">Questions Answered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">87%</div>
+                        <div class="stat-label">Overall Score</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">28min</div>
+                        <div class="stat-label">Time Spent</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.2/5</div>
+                        <div class="stat-label">AI Rating</div>
+                    </div>
+                </div>
+
+                <div class="feedback-summary">
+                    <div class="summary-title">Performance Summary</div>
+                    
+                    <div class="strengths-list">
+                        <div class="list-title">
+                            <span class="material-icons" style="color: #00A79D;">check_circle</span>
+                            Strengths
+                        </div>
+                        <div class="strength-item">Clear explanation of technical concepts</div>
+                        <div class="strength-item">Good structure in responses</div>
+                        <div class="strength-item">Appropriate use of examples</div>
+                    </div>
+
+                    <div class="improvements-list">
+                        <div class="list-title">
+                            <span class="material-icons" style="color: #FF9800;">trending_up</span>
+                            Areas for Improvement
+                        </div>
+                        <div class="improvement-item">Work on conciseness in answers</div>
+                        <div class="improvement-item">Include more real-world applications</div>
+                        <div class="improvement-item">Practice time management</div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="modal-btn btn-review" id="reviewAnswersBtn">
+                        <span class="material-icons">visibility</span>
+                        Review Answers
+                    </button>
+                    <button class="modal-btn btn-done" id="doneBtn">
+                        <span class="material-icons">check</span>
+                        Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const timer = document.getElementById('timer');
+            const questionText = document.getElementById('questionText');
+            const modeBtns = document.querySelectorAll('.mode-btn');
+            const textInputContainer = document.getElementById('textInputContainer');
+            const voiceInputContainer = document.getElementById('voiceInputContainer');
+            const answerTextarea = document.getElementById('answerTextarea');
+            const wordCount = document.getElementById('wordCount');
+            const recordBtn = document.getElementById('recordBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const voiceBars = document.getElementById('voiceBars');
+            const voiceTimer = document.getElementById('voiceTimer');
+            const transcriptPreview = document.getElementById('transcriptPreview');
+            const skipBtn = document.getElementById('skipBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const feedbackPreview = document.getElementById('feedbackPreview');
+            const feedbackText = document.getElementById('feedbackText');
+            const endSessionBtn = document.getElementById('endSessionBtn');
+            const endSessionModal = document.getElementById('endSessionModal');
+            const reviewAnswersBtn = document.getElementById('reviewAnswersBtn');
+            const doneBtn = document.getElementById('doneBtn');
+
+            // Interview state
+            let currentMode = 'text';
+            let isRecording = false;
+            let recordingTime = 0;
+            let recordingInterval;
+            let voiceBarsInterval;
+            let interviewTime = 12 * 60 + 45; // 12:45 in seconds
+            let currentQuestion = 3;
+            const totalQuestions = 15;
+
+            // Questions database
+            const questions = [
+                "Explain the bias-variance tradeoff in machine learning and how it affects model performance. Provide examples of high bias and high variance scenarios.",
+                "What is the difference between supervised and unsupervised learning? Give real-world examples of each.",
+                "How would you handle missing data in a dataset? Discuss different imputation techniques.",
+                "Explain how a decision tree works and when you would choose it over other algorithms.",
+                "What are regularization techniques in machine learning and why are they important?",
+                "Describe the concept of cross-validation and its importance in model evaluation.",
+                "How do you evaluate the performance of a classification model? Discuss different metrics.",
+                "What is overfitting and how can you prevent it in your models?",
+                "Explain the concept of gradient descent and its role in training machine learning models.",
+                "What are the differences between bagging and boosting ensemble methods?",
+                "How would you approach a natural language processing (NLP) problem?",
+                "Discuss the importance of feature engineering in machine learning projects.",
+                "What is transfer learning and when would you use it?",
+                "Explain the architecture of a convolutional neural network (CNN).",
+                "How do you stay updated with the latest developments in machine learning?"
+            ];
+
+            // Initialize voice visualization bars
+            function initializeVoiceBars() {
+                voiceBars.innerHTML = '';
+                for (let i = 0; i < 20; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'voice-bar';
+                    bar.style.height = '10px';
+                    voiceBars.appendChild(bar);
+                }
+            }
+
+            // Update voice visualization
+            function updateVoiceVisualization() {
+                const bars = voiceBars.querySelectorAll('.voice-bar');
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 50) + 10;
+                    bar.style.height = `${randomHeight}px`;
+                    bar.style.background = `linear-gradient(to top, #2B3AEE, #00A79D)`;
+                });
+            }
+
+            // Format time for display
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            // Update word count
+            function updateWordCount() {
+                const text = answerTextarea.value.trim();
+                const words = text ? text.split(/\s+/).length : 0;
+                wordCount.textContent = `${words} word${words !== 1 ? 's' : ''}`;
+                submitBtn.disabled = words === 0;
+            }
+
+            // Start recording
+            function startRecording() {
+                isRecording = true;
+                recordBtn.style.display = 'none';
+                stopBtn.style.display = 'flex';
+                recordBtn.classList.add('recording');
+                
+                // Start timer
+                recordingTime = 0;
+                recordingInterval = setInterval(() => {
+                    recordingTime++;
+                    voiceTimer.textContent = formatTime(recordingTime);
+                }, 1000);
+
+                // Start voice visualization
+                voiceBarsInterval = setInterval(updateVoiceVisualization, 100);
+
+                // Simulate speech recognition (in real app, this would use Web Speech API)
+                simulateSpeechRecognition();
+            }
+
+            // Stop recording
+            function stopRecording() {
+                isRecording = false;
+                recordBtn.style.display = 'flex';
+                stopBtn.style.display = 'none';
+                recordBtn.classList.remove('recording');
+                
+                // Stop timer and visualization
+                clearInterval(recordingInterval);
+                clearInterval(voiceBarsInterval);
+                
+                // Reset voice bars
+                initializeVoiceBars();
+            }
+
+            // Simulate speech recognition (mock implementation)
+            function simulateSpeechRecognition() {
+                let transcript = "The bias-variance tradeoff is a fundamental concept in machine learning that deals with the balance between underfitting and overfitting. ";
+                let index = 0;
+                
+                const typeInterval = setInterval(() => {
+                    if (!isRecording) {
+                        clearInterval(typeInterval);
+                        return;
+                    }
+                    
+                    if (index < transcript.length) {
+                        transcriptPreview.textContent = transcript.substring(0, index + 1);
+                        index++;
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 50);
+            }
+
+            // Get random question
+            function getRandomQuestion() {
+                const usedQuestions = [2]; // Current question index
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * questions.length);
+                } while (usedQuestions.includes(randomIndex));
+                
+                usedQuestions.push(randomIndex);
+                return questions[randomIndex];
+            }
+
+            // Show next question
+            function showNextQuestion() {
+                if (currentQuestion < totalQuestions) {
+                    currentQuestion++;
+                    questionText.textContent = getRandomQuestion();
+                    answerTextarea.value = '';
+                    transcriptPreview.textContent = 'Your speech will appear here as you talk...';
+                    updateWordCount();
+                    updateProgress();
+                    feedbackPreview.classList.remove('show');
+                    
+                    // Reset to text mode
+                    switchMode('text');
+                } else {
+                    endSessionModal.classList.add('active');
+                }
+            }
+
+            // Update progress
+            function updateProgress() {
+                const progressFill = document.querySelector('.progress-fill');
+                const progressCount = document.querySelector('.progress-count');
+                const progress = (currentQuestion / totalQuestions) * 100;
+                
+                progressFill.style.width = `${progress}%`;
+                progressCount.textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+            }
+
+            // Switch input mode
+            function switchMode(mode) {
+                currentMode = mode;
+                
+                // Update mode buttons
+                modeBtns.forEach(btn => {
+                    if (btn.getAttribute('data-mode') === mode) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Show/hide input containers
+                if (mode === 'text') {
+                    textInputContainer.style.display = 'block';
+                    voiceInputContainer.classList.remove('active');
+                    if (isRecording) stopRecording();
+                } else {
+                    textInputContainer.style.display = 'none';
+                    voiceInputContainer.classList.add('active');
+                    initializeVoiceBars();
+                }
+            }
+
+            // Simulate AI feedback
+            function simulateAIFeedback() {
+                const feedbacks = [
+                    "Good explanation of the core concepts. Consider adding more specific examples to strengthen your response.",
+                    "Well-structured answer that covers the main points. Work on being more concise in your delivery.",
+                    "Technical accuracy is good, but practice connecting concepts to real-world applications.",
+                    "Your answer demonstrates solid understanding. Try to include more practical implementation details.",
+                    "Good coverage of the topic. Focus on improving the flow between different parts of your answer."
+                ];
+                
+                const randomFeedback = feedbacks[Math.floor(Math.random() * feedbacks.length)];
+                feedbackText.textContent = randomFeedback;
+                feedbackPreview.classList.add('show');
+            }
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to leave? Your progress will be saved.')) {
+                    showLoading(this);
+                    setTimeout(() => {
+                        alert('Returning to Interview Prep...');
+                        // window.location.href = 'interview-topics.html';
+                    }, 500);
+                }
+            });
+
+            // Mode switching
+            modeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const mode = this.getAttribute('data-mode');
+                    switchMode(mode);
+                });
+            });
+
+            // Text input events
+            answerTextarea.addEventListener('input', updateWordCount);
+
+            // Voice recording
+            recordBtn.addEventListener('click', startRecording);
+            stopBtn.addEventListener('click', stopRecording);
+
+            // Skip question
+            skipBtn.addEventListener('click', function() {
+                if (confirm('Skip this question and move to the next one?')) {
+                    showNextQuestion();
+                }
+            });
+
+            // Submit answer
+            submitBtn.addEventListener('click', function() {
+                showLoading(this, 'Analyzing...');
+                setTimeout(() => {
+                    simulateAIFeedback();
+                    this.innerHTML = '<span class="material-icons">send</span> Submit Answer';
+                    
+                    // Auto-advance after 3 seconds
+                    setTimeout(showNextQuestion, 3000);
+                }, 1500);
+            });
+
+            // Format buttons
+            document.querySelectorAll('.format-btn').forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    const icon = this.querySelector('.material-icons').textContent;
+                    switch(icon) {
+                        case 'format_list_bulleted':
+                            answerTextarea.value += '\n• ';
+                            answerTextarea.focus();
+                            break;
+                        case 'lightbulb':
+                            answerTextarea.value += '\nExample: ';
+                            answerTextarea.focus();
+                            break;
+                        case 'delete':
+                            if (confirm('Clear all text?')) {
+                                answerTextarea.value = '';
+                                updateWordCount();
+                            }
+                            break;
+                    }
+                });
+            });
+
+            // End session
+            endSessionBtn.addEventListener('click', function() {
+                if (confirm('End the interview session and view your results?')) {
+                    endSessionModal.classList.add('active');
+                }
+            });
+
+            // Modal actions
+            reviewAnswersBtn.addEventListener('click', function() {
+                alert('Opening answer review...');
+                // window.location.href = 'interview-review.html';
+            });
+
+            doneBtn.addEventListener('click', function() {
+                showLoading(this, 'Saving...');
+                setTimeout(() => {
+                    alert('Interview session completed!');
+                    // window.location.href = 'interview-topics.html';
+                }, 1000);
+            });
+
+            // Close modal when clicking outside
+            endSessionModal.addEventListener('click', function(e) {
+                if (e.target === endSessionModal) {
+                    endSessionModal.classList.remove('active');
+                }
+            });
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Interview timer
+            setInterval(() => {
+                interviewTime++;
+                timer.textContent = formatTime(interviewTime);
+            }, 1000);
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .mode-btn, .format-btn');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (endSessionModal.classList.contains('active')) {
+                        endSessionModal.classList.remove('active');
+                    } else {
+                        backBtn.click();
+                    }
+                } else if (e.key === 'Enter' && e.ctrlKey && currentMode === 'text') {
+                    submitBtn.click();
+                }
+            });
+
+            // Initialize
+            initializeVoiceBars();
+            updateWordCount();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Privacy & Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Privacy Header */
+        .privacy-header {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(43, 58, 238, 0.1);
+            border: 1px solid rgba(43, 58, 238, 0.1);
+            text-align: center;
+        }
+
+        .privacy-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .privacy-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .privacy-subtitle {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Settings Cards */
+        .settings-section {
+            margin-bottom: 24px;
+        }
+
+        .settings-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .icon-ai { background: rgba(43, 58, 238, 0.1); color: #2B3AEE; }
+        .icon-download { background: rgba(0, 167, 157, 0.1); color: #00A79D; }
+        .icon-delete { background: rgba(244, 67, 54, 0.1); color: #F44336; }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Toggle Switch */
+        .toggle-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #F0F4FF;
+        }
+
+        .toggle-content {
+            flex: 1;
+        }
+
+        .toggle-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .toggle-description {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #E5E7EB;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked + .toggle-slider {
+            background: #2B3AEE;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-download {
+            background: #00A79D;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #00857D;
+            transform: translateY(-1px);
+        }
+
+        .btn-delete {
+            background: white;
+            color: #F44336;
+            border: 2px solid #F44336;
+        }
+
+        .btn-delete:hover {
+            background: #F44336;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* Data Usage Info */
+        .data-usage {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #2B3AEE;
+        }
+
+        .data-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .data-list {
+            list-style: none;
+        }
+
+        .data-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .data-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-item .material-icons {
+            font-size: 16px;
+            color: #00A79D;
+        }
+
+        /* Security Notice */
+        .security-notice {
+            background: #FFF3E0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+            border-left: 4px solid #FF9800;
+        }
+
+        .security-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .security-icon {
+            color: #FF9800;
+            font-size: 20px;
+        }
+
+        .security-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .security-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .highlight-text {
+            background: #FFF3E0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            text-align: center;
+            border: 1px solid #FFE0B2;
+        }
+
+        .highlight-text p {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .highlight-text strong {
+            color: #2B3AEE;
+        }
+
+        /* Confirmation Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: #FFEBEE;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #F44336;
+            font-size: 32px;
+        }
+
+        .modal-text {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-warning {
+            background: #FFEBEE;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border-left: 4px solid #F44336;
+        }
+
+        .warning-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #F44336;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .warning-list {
+            list-style: none;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .warning-list li {
+            margin-bottom: 4px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .warning-list li:before {
+            content: "•";
+            color: #F44336;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .confirmation-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .confirmation-input:focus {
+            outline: none;
+            border-color: #2B3AEE;
+        }
+
+        .confirmation-input::placeholder {
+            color: #999;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-cancel:hover {
+            border-color: #666;
+        }
+
+        .btn-confirm {
+            background: #F44336;
+            color: white;
+        }
+
+        .btn-confirm:hover:not(:disabled) {
+            background: #D32F2F;
+        }
+
+        .btn-confirm:disabled {
+            background: #D0D5DD;
+            cursor: not-allowed;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Privacy & Data</h1>
+                <p>Control your data and privacy settings</p>
+            </div>
+        </div>
+
+        <!-- Privacy Header -->
+        <div class="privacy-header slide-up">
+            <div class="privacy-icon">
+                <span class="material-icons">privacy_tip</span>
+            </div>
+            <div class="privacy-title">Your Privacy Matters</div>
+            <div class="privacy-subtitle">We're committed to protecting your data</div>
+        </div>
+
+        <!-- AI Suggestions Settings -->
+        <div class="settings-section slide-up">
+            <div class="settings-card">
+                <div class="card-header">
+                    <div class="card-icon icon-ai">
+                        <span class="material-icons">auto_awesome</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">AI Personalization</div>
+                        <div class="card-description">
+                            Allow AI to use your data for personalized career suggestions, resume improvements, and job recommendations.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toggle-section">
+                    <div class="toggle-content">
+                        <div class="toggle-title">Allow AI suggestions using your data</div>
+                        <div class="toggle-description">Enables personalized career guidance and smarter recommendations</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="aiSuggestionsToggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="data-usage">
+                    <div class="data-title">
+                        <span class="material-icons">info</span>
+                        How your data is used
+                    </div>
+                    <ul class="data-list">
+                        <li class="data-item">
+                            <span class="material-icons">check</span>
+                            Resume content analysis for ATS optimization
+                        </li>
+                        <li class="data-item">
+                            <span class="material-icons">check</span>
+                            Job application patterns for better matches
+                        </li>
+                        <li class="data-item">
+                            <span class="material-icons">check</span>
+                            Skills assessment for career roadmap
+                        </li>
+                        <li class="data-item">
+                            <span class="material-icons">check</span>
+                            Interview performance for personalized practice
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Management -->
+        <div class="settings-section slide-up">
+            <div class="settings-card">
+                <div class="card-header">
+                    <div class="card-icon icon-download">
+                        <span class="material-icons">download</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Data Export</div>
+                        <div class="card-description">
+                            Download a copy of all your personal data, including resumes, applications, and activity history.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn btn-download" id="downloadDataBtn">
+                        <span class="material-icons">file_download</span>
+                        Download My Data
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Deletion -->
+        <div class="settings-section slide-up">
+            <div class="settings-card">
+                <div class="card-header">
+                    <div class="card-icon icon-delete">
+                        <span class="material-icons">delete_forever</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Account Management</div>
+                        <div class="card-description">
+                            Permanently delete your account and all associated data. This action cannot be undone.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn btn-delete" id="deleteAccountBtn">
+                        <span class="material-icons">warning</span>
+                        Delete My Account
+                    </button>
+                </div>
+
+                <div class="security-notice">
+                    <div class="security-header">
+                        <span class="material-icons security-icon">security</span>
+                        <div class="security-title">Important Notice</div>
+                    </div>
+                    <div class="security-text">
+                        Account deletion is permanent and irreversible. All your data including resumes, job applications, 
+                        interview history, and career roadmap progress will be permanently removed from our servers.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Promise -->
+        <div class="highlight-text slide-up">
+            <p>
+                <strong>We never send emails or share data without your consent.</strong><br>
+                Your privacy is our priority. We only use your data to improve your career journey.
+            </p>
+        </div>
+    </div>
+
+    <!-- Delete Account Confirmation Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Delete Account</div>
+                <div class="modal-subtitle">This action cannot be undone</div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <span class="material-icons">warning</span>
+                </div>
+                
+                <div class="modal-text">
+                    <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">
+                        Are you absolutely sure?
+                    </div>
+                    <div style="font-size: 14px; color: #666;">
+                        This will permanently delete your account and remove all your data from our servers.
+                    </div>
+                </div>
+
+                <div class="modal-warning">
+                    <div class="warning-title">
+                        <span class="material-icons" style="font-size: 16px;">error</span>
+                        You will lose:
+                    </div>
+                    <ul class="warning-list">
+                        <li>All resume versions and templates</li>
+                        <li>Job application history and matches</li>
+                        <li>Career roadmap progress and milestones</li>
+                        <li>Interview practice history and feedback</li>
+                        <li>Account settings and preferences</li>
+                    </ul>
+                </div>
+
+                <input type="text" class="confirmation-input" id="confirmationInput" 
+                       placeholder="Type 'DELETE' to confirm" autocomplete="off">
+
+                <div class="modal-actions">
+                    <button class="modal-btn btn-cancel" id="cancelDelete">
+                        Cancel
+                    </button>
+                    <button class="modal-btn btn-confirm" id="confirmDelete" disabled>
+                        Delete Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const aiSuggestionsToggle = document.getElementById('aiSuggestionsToggle');
+            const downloadDataBtn = document.getElementById('downloadDataBtn');
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+            const deleteModal = document.getElementById('deleteModal');
+            const confirmationInput = document.getElementById('confirmationInput');
+            const cancelDelete = document.getElementById('cancelDelete');
+            const confirmDelete = document.getElementById('confirmDelete');
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Profile...');
+                    // window.location.href = 'profile.html';
+                }, 500);
+            });
+
+            // AI Suggestions Toggle
+            aiSuggestionsToggle.addEventListener('change', function() {
+                const isEnabled = this.checked;
+                showToast(isEnabled ? 
+                    'AI suggestions enabled' : 
+                    'AI suggestions disabled'
+                );
+                
+                // In a real app, this would save to user preferences
+                console.log('AI suggestions setting:', isEnabled);
+            });
+
+            // Download Data functionality
+            downloadDataBtn.addEventListener('click', function() {
+                showLoading(this, 'Preparing data...');
+                
+                setTimeout(() => {
+                    // Simulate data preparation and download
+                    const data = {
+                        userInfo: {
+                            name: "Yaseen Ahmed",
+                            email: "yaseen.ahmed@email.com",
+                            joinDate: "2023-10-15"
+                        },
+                        resumes: [
+                            { name: "Senior AI Engineer", lastModified: "2024-01-15" },
+                            { name: "Data Scientist", lastModified: "2024-01-10" },
+                            { name: "ML Engineer", lastModified: "2024-01-05" }
+                        ],
+                        jobApplications: 24,
+                        roadmapProgress: "60%",
+                        interviewSessions: 8
+                    };
+                    
+                    // Create and trigger download
+                    const dataStr = JSON.stringify(data, null, 2);
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                    const url = URL.createObjectURL(dataBlob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `career-app-data-${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    
+                    showToast('Data download started');
+                    this.innerHTML = '<span class="material-icons">file_download</span> Download My Data';
+                }, 2000);
+            });
+
+            // Delete Account functionality
+            deleteAccountBtn.addEventListener('click', function() {
+                deleteModal.classList.add('active');
+                confirmationInput.value = '';
+                confirmDelete.disabled = true;
+            });
+
+            // Confirmation input validation
+            confirmationInput.addEventListener('input', function() {
+                const isConfirmed = this.value.trim().toUpperCase() === 'DELETE';
+                confirmDelete.disabled = !isConfirmed;
+            });
+
+            // Cancel delete
+            cancelDelete.addEventListener('click', function() {
+                deleteModal.classList.remove('active');
+            });
+
+            // Confirm delete
+            confirmDelete.addEventListener('click', function() {
+                if (confirmDelete.disabled) return;
+                
+                showLoading(this, 'Deleting...');
+                
+                setTimeout(() => {
+                    // In a real app, this would call the account deletion API
+                    console.log('Account deletion confirmed');
+                    showToast('Account deletion in progress...');
+                    deleteModal.classList.remove('active');
+                    
+                    // Simulate account deletion process
+                    setTimeout(() => {
+                        alert('Account successfully deleted. Thank you for using AI Career App!');
+                        // window.location.href = 'goodbye.html';
+                    }, 1000);
+                }, 1500);
+            });
+
+            // Close modal when clicking outside
+            deleteModal.addEventListener('click', function(e) {
+                if (e.target === deleteModal) {
+                    deleteModal.classList.remove('active');
+                }
+            });
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Function to show toast notification
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1001;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    max-width: 300px;
+                    text-align: center;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.style.opacity = '1', 100);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .toggle-switch, .settings-card');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (deleteModal.classList.contains('active')) {
+                        deleteModal.classList.remove('active');
+                    } else {
+                        backBtn.click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

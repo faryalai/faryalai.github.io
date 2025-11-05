@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Topic Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .topic-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .topic-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .difficulty-badge {
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .difficulty-medium {
+            background: #FFF4E5;
+            color: #FF9800;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .progress-percentage {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00A79D;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #E5E7EB;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2B3AEE, #00A79D);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Tabs */
+        .tabs-section {
+            margin-bottom: 20px;
+        }
+
+        .tabs-container {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E5E7EB;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .tab:hover {
+            color: #2B3AEE;
+        }
+
+        .tab.active {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Notes Section */
+        .notes-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-text {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .key-concepts {
+            margin: 24px 0;
+        }
+
+        .concept-item {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #2B3AEE;
+        }
+
+        .concept-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .concept-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .resources-list {
+            margin-top: 24px;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .resource-item:hover {
+            border-color: #2B3AEE;
+            background: #F0F4FF;
+        }
+
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #2B3AEE;
+            background: rgba(43, 58, 238, 0.1);
+            flex-shrink: 0;
+        }
+
+        .resource-details {
+            flex: 1;
+        }
+
+        .resource-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .resource-meta {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Practice Questions Section */
+        .questions-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .question-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-counter {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            padding: 8px 12px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .question-card {
+            margin-bottom: 24px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-item {
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-item:hover {
+            border-color: #2B3AEE;
+            background: #F0F4FF;
+        }
+
+        .option-item.selected {
+            border-color: #2B3AEE;
+            background: #F0F4FF;
+        }
+
+        .option-item.correct {
+            border-color: #00A79D;
+            background: #E8F5E8;
+        }
+
+        .option-item.incorrect {
+            border-color: #F44336;
+            background: #FFEBEE;
+        }
+
+        .option-label {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            flex-shrink: 0;
+        }
+
+        .option-item.selected .option-label {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        .option-text {
+            flex: 1;
+            color: #333;
+        }
+
+        .answer-feedback {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            border-left: 4px solid #00A79D;
+            display: none;
+        }
+
+        .answer-feedback.show {
+            display: block;
+        }
+
+        .feedback-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00A79D;
+            margin-bottom: 8px;
+        }
+
+        .feedback-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-check {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-check:hover:not(:disabled) {
+            background: #1E2BC2;
+        }
+
+        .btn-next {
+            background: #00A79D;
+            color: white;
+        }
+
+        .btn-next:hover {
+            background: #00857D;
+        }
+
+        /* Flashcards Section */
+        .flashcards-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            margin-bottom: 24px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+        }
+
+        .flashcard-back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+            border: 2px solid #E5E7EB;
+        }
+
+        .flashcard-term {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .flashcard-hint {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .flashcard-definition {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .flashcard-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .flashcard-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .flashcard-counter {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Bottom Button */
+        .bottom-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 20px 16px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .mock-interview-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.3);
+        }
+
+        .mock-interview-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(43, 58, 238, 0.4);
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <div class="topic-title">Machine Learning – Core Concepts</div>
+                <div class="topic-meta">
+                    <span>15 questions • 45 min</span>
+                    <div class="difficulty-badge difficulty-medium">Medium</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section slide-up">
+            <div class="progress-header">
+                <div class="progress-title">Your Progress</div>
+                <div class="progress-percentage">60% Complete</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+            </div>
+            <div class="progress-stats">
+                <span>9/15 questions practiced</span>
+                <span>27 min spent</span>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-section slide-up">
+            <div class="tabs-container">
+                <div class="tab active" data-tab="notes">
+                    <span class="material-icons" style="font-size: 18px;">notes</span>
+                    Notes
+                </div>
+                <div class="tab" data-tab="questions">
+                    <span class="material-icons" style="font-size: 18px;">quiz</span>
+                    Practice
+                </div>
+                <div class="tab" data-tab="flashcards">
+                    <span class="material-icons" style="font-size: 18px;">style</span>
+                    Flashcards
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Content -->
+        <div class="content-section active" id="notesContent">
+            <div class="notes-content slide-up">
+                <div class="section-title">
+                    <span class="material-icons">description</span>
+                    Study Notes
+                </div>
+
+                <div class="summary-text">
+                    Machine Learning is a subset of artificial intelligence that enables systems to learn and improve from experience without being explicitly programmed. It focuses on developing algorithms that can access data and use it to learn for themselves.
+                </div>
+
+                <div class="key-concepts">
+                    <div class="concept-item">
+                        <div class="concept-title">Supervised Learning</div>
+                        <div class="concept-description">
+                            Algorithms are trained using labeled examples, where the desired output is known. Common applications include classification and regression problems.
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <div class="concept-title">Unsupervised Learning</div>
+                        <div class="concept-description">
+                            Algorithms are used when the information used to train is neither classified nor labeled. Common applications include clustering and association.
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <div class="concept-title">Model Evaluation</div>
+                        <div class="concept-description">
+                            Techniques like cross-validation, confusion matrices, and ROC curves help assess model performance and prevent overfitting.
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <div class="concept-title">Bias-Variance Tradeoff</div>
+                        <div class="concept-description">
+                            The balance between underfitting (high bias) and overfitting (high variance) that every machine learning model must navigate.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resources-list">
+                    <div class="section-title">
+                        <span class="material-icons">menu_book</span>
+                        Recommended Resources
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="resource-icon">
+                            <span class="material-icons">school</span>
+                        </div>
+                        <div class="resource-details">
+                            <div class="resource-name">ML Crash Course by Google</div>
+                            <div class="resource-meta">Free • 15 hours • Exercises included</div>
+                        </div>
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="resource-icon">
+                            <span class="material-icons">video_library</span>
+                        </div>
+                        <div class="resource-details">
+                            <div class="resource-name">Andrew Ng's Machine Learning</div>
+                            <div class="resource-meta">Coursera • 55 hours • Certificate</div>
+                        </div>
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="resource-icon">
+                            <span class="material-icons">article</span>
+                        </div>
+                        <div class="resource-details">
+                            <div class="resource-name">Hands-On ML with Scikit-Learn</div>
+                            <div class="resource-meta">Book • Practical examples • Code</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Questions Content -->
+        <div class="content-section" id="questionsContent">
+            <div class="questions-content slide-up">
+                <div class="question-nav">
+                    <div class="question-counter">Question 1 of 15</div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn" id="prevQuestion" disabled>
+                            <span class="material-icons" style="font-size: 16px;">chevron_left</span>
+                        </button>
+                        <button class="nav-btn" id="nextQuestion">
+                            <span class="material-icons" style="font-size: 16px;">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-text">
+                        What is the primary difference between supervised and unsupervised learning?
+                    </div>
+
+                    <div class="options-list">
+                        <div class="option-item" data-option="A">
+                            <div class="option-label">A</div>
+                            <div class="option-text">Supervised learning uses neural networks, unsupervised doesn't</div>
+                        </div>
+                        <div class="option-item" data-option="B">
+                            <div class="option-label">B</div>
+                            <div class="option-text">Supervised learning requires labeled data, unsupervised doesn't</div>
+                        </div>
+                        <div class="option-item" data-option="C">
+                            <div class="option-label">C</div>
+                            <div class="option-text">Unsupervised learning is faster than supervised learning</div>
+                        </div>
+                        <div class="option-item" data-option="D">
+                            <div class="option-label">D</div>
+                            <div class="option-text">Supervised learning is for classification, unsupervised for regression</div>
+                        </div>
+                    </div>
+
+                    <div class="answer-feedback" id="answerFeedback">
+                        <div class="feedback-title">Explanation</div>
+                        <div class="feedback-text">
+                            Supervised learning uses labeled datasets to train algorithms, while unsupervised learning finds patterns in unlabeled data. Option B correctly identifies this fundamental difference.
+                        </div>
+                    </div>
+
+                    <div class="question-actions">
+                        <button class="action-btn btn-check" id="checkAnswer">
+                            <span class="material-icons">check_circle</span>
+                            Check Answer
+                        </button>
+                        <button class="action-btn btn-next" id="showExplanation" style="display: none;">
+                            <span class="material-icons">lightbulb</span>
+                            Show Explanation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flashcards Content -->
+        <div class="content-section" id="flashcardsContent">
+            <div class="flashcards-content slide-up">
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-front">
+                            <div class="flashcard-term">Overfitting</div>
+                            <div class="flashcard-hint">Click to flip</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="flashcard-definition">
+                                When a model learns the training data too well, including noise and outliers, resulting in poor performance on new, unseen data.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-actions">
+                    <button class="action-btn" id="markKnown" style="background: #00A79D; color: white;">
+                        <span class="material-icons">check</span>
+                        I Know This
+                    </button>
+                    <button class="action-btn" id="markReview" style="background: #FF9800; color: white;">
+                        <span class="material-icons">schedule</span>
+                        Review Again
+                    </button>
+                </div>
+
+                <div class="flashcard-nav">
+                    <button class="nav-btn" id="prevFlashcard">
+                        <span class="material-icons" style="font-size: 16px;">chevron_left</span>
+                        Previous
+                    </button>
+                    <div class="flashcard-counter">Card 1 of 8</div>
+                    <button class="nav-btn" id="nextFlashcard">
+                        Next
+                        <span class="material-icons" style="font-size: 16px;">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Button -->
+    <div class="bottom-button">
+        <button class="mock-interview-btn" id="mockInterviewBtn">
+            <span class="material-icons">record_voice_over</span>
+            Start Mock Interview
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const tabs = document.querySelectorAll('.tab');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mockInterviewBtn = document.getElementById('mockInterviewBtn');
+
+            // Practice Questions Elements
+            const prevQuestion = document.getElementById('prevQuestion');
+            const nextQuestion = document.getElementById('nextQuestion');
+            const optionItems = document.querySelectorAll('.option-item');
+            const checkAnswer = document.getElementById('checkAnswer');
+            const showExplanation = document.getElementById('showExplanation');
+            const answerFeedback = document.getElementById('answerFeedback');
+
+            // Flashcards Elements
+            const flashcard = document.getElementById('flashcard');
+            const markKnown = document.getElementById('markKnown');
+            const markReview = document.getElementById('markReview');
+            const prevFlashcard = document.getElementById('prevFlashcard');
+            const nextFlashcard = document.getElementById('nextFlashcard');
+
+            // Current state
+            let currentTab = 'notes';
+            let selectedOption = null;
+            let currentQuestion = 1;
+            let currentFlashcard = 1;
+            const totalQuestions = 15;
+            const totalFlashcards = 8;
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Topics...');
+                    // window.location.href = 'interview-topics.html';
+                }, 500);
+            });
+
+            // Tab switching functionality
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contentSections.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`${tabName}Content`).classList.add('active');
+                    
+                    currentTab = tabName;
+                });
+            });
+
+            // Option selection for practice questions
+            optionItems.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    optionItems.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    selectedOption = this.getAttribute('data-option');
+                    
+                    // Enable check answer button
+                    checkAnswer.disabled = false;
+                });
+            });
+
+            // Check answer functionality
+            checkAnswer.addEventListener('click', function() {
+                if (!selectedOption) return;
+
+                // Show correct answer (B is correct)
+                optionItems.forEach(option => {
+                    const optionValue = option.getAttribute('data-option');
+                    if (optionValue === 'B') {
+                        option.classList.add('correct');
+                    } else if (optionValue === selectedOption && selectedOption !== 'B') {
+                        option.classList.add('incorrect');
+                    }
+                });
+
+                // Show feedback
+                answerFeedback.classList.add('show');
+                
+                // Update button
+                checkAnswer.style.display = 'none';
+                showExplanation.style.display = 'flex';
+            });
+
+            // Show explanation functionality
+            showExplanation.addEventListener('click', function() {
+                // In a real app, this would show detailed explanation
+                alert('Detailed explanation would be shown here...');
+            });
+
+            // Question navigation
+            nextQuestion.addEventListener('click', function() {
+                if (currentQuestion < totalQuestions) {
+                    currentQuestion++;
+                    updateQuestionNavigation();
+                    resetQuestionState();
+                }
+            });
+
+            prevQuestion.addEventListener('click', function() {
+                if (currentQuestion > 1) {
+                    currentQuestion--;
+                    updateQuestionNavigation();
+                    resetQuestionState();
+                }
+            });
+
+            // Flashcard functionality
+            flashcard.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
+
+            // Flashcard actions
+            markKnown.addEventListener('click', function() {
+                showToast('Card marked as known');
+                // In real app, this would update spaced repetition system
+            });
+
+            markReview.addEventListener('click', function() {
+                showToast('Card added to review list');
+                // In real app, this would schedule for later review
+            });
+
+            // Flashcard navigation
+            nextFlashcard.addEventListener('click', function() {
+                if (currentFlashcard < totalFlashcards) {
+                    currentFlashcard++;
+                    updateFlashcardNavigation();
+                    resetFlashcardState();
+                }
+            });
+
+            prevFlashcard.addEventListener('click', function() {
+                if (currentFlashcard > 1) {
+                    currentFlashcard--;
+                    updateFlashcardNavigation();
+                    resetFlashcardState();
+                }
+            });
+
+            // Mock interview button functionality
+            mockInterviewBtn.addEventListener('click', function() {
+                showLoading(this, 'Starting...');
+                setTimeout(() => {
+                    alert('Starting AI Mock Interview for Machine Learning...');
+                    // window.location.href = 'mock-interview.html?topic=machine-learning';
+                }, 1000);
+            });
+
+            // Helper functions
+            function updateQuestionNavigation() {
+                document.querySelector('.question-counter').textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+                prevQuestion.disabled = currentQuestion === 1;
+                nextQuestion.disabled = currentQuestion === totalQuestions;
+            }
+
+            function resetQuestionState() {
+                // Reset option selection
+                optionItems.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                selectedOption = null;
+                
+                // Reset buttons and feedback
+                checkAnswer.style.display = 'flex';
+                checkAnswer.disabled = true;
+                showExplanation.style.display = 'none';
+                answerFeedback.classList.remove('show');
+            }
+
+            function updateFlashcardNavigation() {
+                document.querySelector('.flashcard-counter').textContent = `Card ${currentFlashcard} of ${totalFlashcards}`;
+                prevFlashcard.disabled = currentFlashcard === 1;
+                nextFlashcard.disabled = currentFlashcard === totalFlashcards;
+            }
+
+            function resetFlashcardState() {
+                // Reset flashcard to front
+                flashcard.classList.remove('flipped');
+            }
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Function to show toast notification
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1001;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    max-width: 300px;
+                    text-align: center;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.style.opacity = '1', 100);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .option-item, .resource-item, .flashcard, .tab');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    backBtn.click();
+                } else if (e.key === 'ArrowLeft' && currentTab === 'questions') {
+                    prevQuestion.click();
+                } else if (e.key === 'ArrowRight' && currentTab === 'questions') {
+                    nextQuestion.click();
+                } else if (e.key === ' ' && currentTab === 'flashcards') {
+                    flashcard.click();
+                }
+            });
+
+            // Initialize
+            updateQuestionNavigation();
+            updateFlashcardNavigation();
+        });
+    </script>
+</body>
+</html>

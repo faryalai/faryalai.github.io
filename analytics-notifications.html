@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Analytics & Notifications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Analytics Header */
+        .analytics-header {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(43, 58, 238, 0.1);
+            border: 1px solid rgba(43, 58, 238, 0.1);
+            text-align: center;
+        }
+
+        .analytics-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .analytics-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .analytics-subtitle {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 24px;
+        }
+
+        .icon-applications { background: rgba(43, 58, 238, 0.1); color: #2B3AEE; }
+        .icon-interviews { background: rgba(0, 167, 157, 0.1); color: #00A79D; }
+        .icon-success { background: rgba(76, 175, 80, 0.1); color: #4CAF50; }
+        .icon-pending { background: rgba(255, 152, 0, 0.1); color: #FF9800; }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .material-icons {
+            color: #2B3AEE;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            position: relative;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chart-action-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .chart-action-btn:hover {
+            background: #F0F4FF;
+            color: #2B3AEE;
+        }
+
+        .chart-wrapper {
+            height: 200px;
+            position: relative;
+        }
+
+        /* Applications Table */
+        .applications-section {
+            margin-bottom: 24px;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .table-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .export-btn {
+            background: #2B3AEE;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .export-btn:hover {
+            background: #1E2BC4;
+            transform: translateY(-1px);
+        }
+
+        .applications-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .applications-table th {
+            text-align: left;
+            padding: 12px 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .applications-table td {
+            padding: 12px 8px;
+            font-size: 14px;
+            color: #333;
+            border-bottom: 1px solid #F0F4FF;
+        }
+
+        .applications-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-applied { background: #E3F2FD; color: #1976D2; }
+        .status-interview { background: #FFF3E0; color: #F57C00; }
+        .status-offer { background: #E8F5E8; color: #4CAF50; }
+        .status-rejected { background: #FFEBEE; color: #D32F2F; }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .company-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: #F0F4FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #2B3AEE;
+            font-weight: 600;
+        }
+
+        /* Notifications Section */
+        .notifications-section {
+            margin-bottom: 24px;
+        }
+
+        .notifications-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border-bottom: 1px solid #F0F4FF;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item:hover {
+            background: #F8FAFC;
+            border-radius: 8px;
+        }
+
+        .notification-item.unread {
+            background: #F0F7FF;
+            border-radius: 8px;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .icon-job-match { background: rgba(43, 58, 238, 0.1); color: #2B3AEE; }
+        .icon-resume-suggestion { background: rgba(0, 167, 157, 0.1); color: #00A79D; }
+        .icon-roadmap { background: rgba(255, 152, 0, 0.1); color: #FF9800; }
+        .icon-interview-alert { background: rgba(76, 175, 80, 0.1); color: #4CAF50; }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .notification-title .unread-dot {
+            width: 8px;
+            height: 8px;
+            background: #2B3AEE;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .notification-message {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .notification-action-btn {
+            background: none;
+            border: 1px solid #E5E7EB;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .notification-action-btn:hover {
+            background: #2B3AEE;
+            color: white;
+            border-color: #2B3AEE;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: #E5E7EB;
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .empty-description {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .quick-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Analytics & Notifications</h1>
+                <p>Track your job search progress</p>
+            </div>
+        </div>
+
+        <!-- Analytics Header -->
+        <div class="analytics-header slide-up">
+            <div class="analytics-icon">
+                <span class="material-icons">analytics</span>
+            </div>
+            <div class="analytics-title">Your Career Dashboard</div>
+            <div class="analytics-subtitle">Monitor applications, interviews, and achievements</div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats slide-up">
+            <div class="stat-card">
+                <div class="stat-icon icon-applications">
+                    <span class="material-icons">send</span>
+                </div>
+                <div class="stat-value">24</div>
+                <div class="stat-label">Applications</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-interviews">
+                    <span class="material-icons">calendar_today</span>
+                </div>
+                <div class="stat-value">5</div>
+                <div class="stat-label">Interviews</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-success">
+                    <span class="material-icons">check_circle</span>
+                </div>
+                <div class="stat-value">82%</div>
+                <div class="stat-label">Match Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-pending">
+                    <span class="material-icons">schedule</span>
+                </div>
+                <div class="stat-value">3</div>
+                <div class="stat-label">Pending</div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section slide-up">
+            <div class="section-title">
+                <span class="material-icons">bar_chart</span>
+                Application Analytics
+            </div>
+
+            <!-- Applications Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Applications Sent This Week</div>
+                    <div class="chart-actions">
+                        <button class="chart-action-btn" title="Refresh">
+                            <span class="material-icons">refresh</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="applicationsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Interviews Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Interview Invites</div>
+                    <div class="chart-actions">
+                        <button class="chart-action-btn" title="Refresh">
+                            <span class="material-icons">refresh</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="interviewsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Applications Table -->
+        <div class="applications-section slide-up">
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="table-title">Recent Applications</div>
+                    <button class="export-btn" id="exportCSV">
+                        <span class="material-icons">download</span>
+                        Export CSV
+                    </button>
+                </div>
+                
+                <div class="table-scroll">
+                    <table class="applications-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Position</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="company-info">
+                                        <div class="company-logo">TC</div>
+                                        <span>TechCorp</span>
+                                    </div>
+                                </td>
+                                <td>AI Engineer</td>
+                                <td>Jan 15</td>
+                                <td><span class="status-badge status-interview">Interview</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="company-info">
+                                        <div class="company-logo">DS</div>
+                                        <span>DataSystems</span>
+                                    </div>
+                                </td>
+                                <td>Data Scientist</td>
+                                <td>Jan 14</td>
+                                <td><span class="status-badge status-applied">Applied</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="company-info">
+                                        <div class="company-logo">AI</div>
+                                        <span>AI Innovations</span>
+                                    </div>
+                                </td>
+                                <td>ML Engineer</td>
+                                <td>Jan 12</td>
+                                <td><span class="status-badge status-offer">Offer</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="company-info">
+                                        <div class="company-logo">CC</div>
+                                        <span>CloudCorp</span>
+                                    </div>
+                                </td>
+                                <td>Cloud Architect</td>
+                                <td>Jan 10</td>
+                                <td><span class="status-badge status-rejected">Rejected</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="company-info">
+                                        <div class="company-logo">FS</div>
+                                        <span>FinTech Solutions</span>
+                                    </div>
+                                </td>
+                                <td>Data Analyst</td>
+                                <td>Jan 8</td>
+                                <td><span class="status-badge status-applied">Applied</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Section -->
+        <div class="notifications-section slide-up">
+            <div class="section-title">
+                <span class="material-icons">notifications</span>
+                Recent Notifications
+            </div>
+
+            <div class="notifications-container">
+                <!-- Job Match Notification -->
+                <div class="notification-item unread">
+                    <div class="notification-icon icon-job-match">
+                        <span class="material-icons">work</span>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">
+                            <span class="unread-dot"></span>
+                            New Job Match Found
+                        </div>
+                        <div class="notification-message">
+                            Senior AI Engineer at TechVision matches 92% of your profile
+                        </div>
+                        <div class="notification-time">2 hours ago</div>
+                        <div class="notification-actions">
+                            <button class="notification-action-btn">View Job</button>
+                            <button class="notification-action-btn">Dismiss</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Suggestion Notification -->
+                <div class="notification-item unread">
+                    <div class="notification-icon icon-resume-suggestion">
+                        <span class="material-icons">auto_awesome</span>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">
+                            <span class="unread-dot"></span>
+                            Resume AI Suggestion Available
+                        </div>
+                        <div class="notification-message">
+                            AI found 3 ways to improve your resume for Data Scientist roles
+                        </div>
+                        <div class="notification-time">5 hours ago</div>
+                        <div class="notification-actions">
+                            <button class="notification-action-btn">Review</button>
+                            <button class="notification-action-btn">Dismiss</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roadmap Milestone Notification -->
+                <div class="notification-item">
+                    <div class="notification-icon icon-roadmap">
+                        <span class="material-icons">flag</span>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Roadmap Milestone Reminder</div>
+                        <div class="notification-message">
+                            Complete Python fundamentals to unlock Machine Learning path
+                        </div>
+                        <div class="notification-time">1 day ago</div>
+                        <div class="notification-actions">
+                            <button class="notification-action-btn">View Roadmap</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interview Alert Notification -->
+                <div class="notification-item">
+                    <div class="notification-icon icon-interview-alert">
+                        <span class="material-icons">videocam</span>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Interview Preparation Ready</div>
+                        <div class="notification-message">
+                            Practice questions available for your upcoming TechCorp interview
+                        </div>
+                        <div class="notification-time">2 days ago</div>
+                        <div class="notification-actions">
+                            <button class="notification-action-btn">Practice Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const exportCSVBtn = document.getElementById('exportCSV');
+            const notificationItems = document.querySelectorAll('.notification-item');
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Dashboard...');
+                    // window.location.href = 'dashboard.html';
+                }, 500);
+            });
+
+            // Export CSV functionality
+            exportCSVBtn.addEventListener('click', function() {
+                showLoading(this, 'Exporting...');
+                
+                setTimeout(() => {
+                    // Simulate CSV export
+                    const applicationsData = [
+                        ['Company', 'Position', 'Date', 'Status'],
+                        ['TechCorp', 'AI Engineer', '2024-01-15', 'Interview'],
+                        ['DataSystems', 'Data Scientist', '2024-01-14', 'Applied'],
+                        ['AI Innovations', 'ML Engineer', '2024-01-12', 'Offer'],
+                        ['CloudCorp', 'Cloud Architect', '2024-01-10', 'Rejected'],
+                        ['FinTech Solutions', 'Data Analyst', '2024-01-08', 'Applied']
+                    ];
+                    
+                    let csvContent = "data:text/csv;charset=utf-8,";
+                    applicationsData.forEach(row => {
+                        csvContent += row.join(",") + "\r\n";
+                    });
+                    
+                    const encodedUri = encodeURI(csvContent);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", "job_applications.csv");
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    showToast('CSV exported successfully');
+                    this.innerHTML = '<span class="material-icons">download</span> Export CSV';
+                }, 1500);
+            });
+
+            // Mark notifications as read when clicked
+            notificationItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('notification-action-btn')) {
+                        this.classList.remove('unread');
+                        const unreadDot = this.querySelector('.unread-dot');
+                        if (unreadDot) {
+                            unreadDot.style.display = 'none';
+                        }
+                    }
+                });
+            });
+
+            // Initialize Charts
+            initializeCharts();
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Function to show toast notification
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1001;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    max-width: 300px;
+                    text-align: center;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.style.opacity = '1', 100);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Initialize Charts
+            function initializeCharts() {
+                // Applications Chart (Bar Chart)
+                const applicationsCtx = document.getElementById('applicationsChart').getContext('2d');
+                const applicationsChart = new Chart(applicationsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Applications',
+                            data: [3, 5, 2, 4, 6, 1, 3],
+                            backgroundColor: '#2B3AEE',
+                            borderColor: '#2B3AEE',
+                            borderWidth: 0,
+                            borderRadius: 6,
+                            barPercentage: 0.6,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(43, 58, 238, 0.9)',
+                                titleColor: 'white',
+                                bodyColor: 'white',
+                                cornerRadius: 8,
+                                displayColors: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                },
+                                ticks: {
+                                    stepSize: 2,
+                                    color: '#666'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Interviews Chart (Line Chart)
+                const interviewsCtx = document.getElementById('interviewsChart').getContext('2d');
+                const interviewsChart = new Chart(interviewsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                        datasets: [{
+                            label: 'Interview Invites',
+                            data: [1, 3, 2, 4],
+                            backgroundColor: 'rgba(0, 167, 157, 0.1)',
+                            borderColor: '#00A79D',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#00A79D',
+                            pointBorderColor: 'white',
+                            pointBorderWidth: 2,
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 167, 157, 0.9)',
+                                titleColor: 'white',
+                                bodyColor: 'white',
+                                cornerRadius: 8,
+                                displayColors: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    color: '#666'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#666'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .notification-item, .stat-card');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    backBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

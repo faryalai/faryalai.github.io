@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FBFBFD;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 10px;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto 30px;
+            display: block;
+        }
+
+        .hero-image svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .content {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #2B3AEE;
+            color: white;
+            box-shadow: 0 4px 12px rgba(43, 58, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #1E2BC2;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #2B3AEE;
+            border: 2px solid #2B3AEE;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 40px;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #D0D5DD;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background-color: #2B3AEE;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header fade-in">
+            <div class="logo">AI Career</div>
+        </div>
+        
+        <div class="hero-image slide-up">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background -->
+                <rect width="300" height="200" fill="#F0F4FF" rx="12"/>
+                
+                <!-- Person figure -->
+                <circle cx="150" cy="80" r="25" fill="#2B3AEE"/>
+                <rect x="135" y="105" width="30" height="50" fill="#2B3AEE" rx="5"/>
+                
+                <!-- AI assistant representation -->
+                <circle cx="220" cy="60" r="15" fill="#00A79D"/>
+                <path d="M220 45 L220 75 M205 60 L235 60" stroke="#00A79D" stroke-width="2" stroke-linecap="round"/>
+                
+                <!-- Career path lines -->
+                <path d="M80 150 L150 120 L220 150" stroke="#2B3AEE" stroke-width="3" stroke-linecap="round" fill="none"/>
+                
+                <!-- Success indicators -->
+                <circle cx="80" cy="150" r="8" fill="#FFD700"/>
+                <circle cx="150" cy="120" r="8" fill="#FFD700"/>
+                <circle cx="220" cy="150" r="8" fill="#FFD700"/>
+                
+                <!-- Document/Resume representation -->
+                <rect x="100" y="160" width="40" height="25" fill="white" stroke="#2B3AEE" stroke-width="1" rx="2"/>
+                <line x1="105" y1="165" x2="135" y2="165" stroke="#2B3AEE" stroke-width="1"/>
+                <line x1="105" y1="170" x2="125" y2="170" stroke="#2B3AEE" stroke-width="1"/>
+                <line x1="105" y1="175" x2="130" y2="175" stroke="#2B3AEE" stroke-width="1"/>
+                <line x1="105" y1="180" x2="120" y2="180" stroke="#2B3AEE" stroke-width="1"/>
+            </svg>
+        </div>
+        
+        <div class="content slide-up">
+            <h1>Build Your Career with AI Assistance</h1>
+            <p class="subtitle">Create resumes, apply smartly, and grow your future.</p>
+            
+            <div class="buttons">
+                <button class="btn btn-primary" id="getStartedBtn">
+                    Get Started
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+                <button class="btn btn-secondary" id="learnMoreBtn">
+                    Learn More
+                </button>
+            </div>
+        </div>
+        
+        <div class="indicators">
+            <div class="indicator active"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+        </div>
+        
+        <div class="footer">
+            <p>AI Career App © 2023</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get Started button functionality
+            const getStartedBtn = document.getElementById('getStartedBtn');
+            getStartedBtn.addEventListener('click', function() {
+                // Add loading animation
+                this.innerHTML = 'Loading... <span class="material-icons">autorenew</span>';
+                this.disabled = true;
+                
+                // Simulate loading before navigation
+                setTimeout(function() {
+                    window.location.href = 'permissions.html';
+                }, 1000);
+            });
+            
+            // Learn More button functionality
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+            learnMoreBtn.addEventListener('click', function() {
+                // Show more information about the app
+                alert('AI Career App helps you:\n\n• Create professional resumes with AI assistance\n• Find and apply to jobs that match your profile\n• Plan your career growth with personalized roadmaps\n• Prepare for interviews with AI-powered practice');
+            });
+            
+            // Add subtle hover effects for buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Add touch feedback for mobile
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+            
+            // Add swipe functionality for onboarding screens
+            let startX = 0;
+            let endX = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                startX = e.changedTouches[0].screenX;
+            });
+            
+            document.addEventListener('touchend', function(e) {
+                endX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                // If swipe is significant enough
+                if (Math.abs(endX - startX) > 50) {
+                    if (endX < startX) {
+                        // Swipe left - go to next screen
+                        getStartedBtn.click();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

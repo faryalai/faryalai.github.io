@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Permissions & Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FBFBFD;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #E5E7EB;
+            border-radius: 2px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 66%;
+            background-color: #2B3AEE;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .policy-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 32px;
+            border: 1px solid #E5E7EB;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #D0D5DD;
+            border-radius: 6px;
+            margin-right: 16px;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox:checked {
+            background-color: #2B3AEE;
+            border-color: #2B3AEE;
+        }
+
+        .checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 16px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checkbox-label {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .policy-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .policy-link {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background-color: #F8FAFC;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2B3AEE;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+
+        .policy-link:hover {
+            background-color: #F0F4FF;
+            transform: translateY(-2px);
+        }
+
+        .policy-link .material-icons {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+
+        .buttons {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #2B3AEE;
+            color: white;
+            box-shadow: 0 4px 12px rgba(43, 58, 238, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: #1E2BC2;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            background-color: #D0D5DD;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #666;
+            border: 1px solid #D0D5DD;
+        }
+
+        .btn-secondary:hover {
+            background-color: #F8FAFC;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2B3AEE;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .close-modal:hover {
+            background-color: #F0F4FF;
+        }
+
+        .modal-body {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .modal-body h3 {
+            margin: 20px 0 10px;
+            color: #333;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .modal-body ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="logo">AI Career</div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        
+        <div class="content slide-up">
+            <h1>Permissions & Policy</h1>
+            <p class="description">To provide you with the best experience, we need your agreement to our policies and terms.</p>
+            
+            <div class="policy-card">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="policyCheckbox" class="checkbox">
+                    <label for="policyCheckbox" class="checkbox-label">
+                        I agree to the Privacy Policy & Terms of Use
+                    </label>
+                </div>
+                
+                <div class="policy-links">
+                    <a href="#" class="policy-link" id="privacyPolicyLink">
+                        <span class="material-icons">privacy_tip</span>
+                        Privacy Policy
+                    </a>
+                    <a href="#" class="policy-link" id="termsLink">
+                        <span class="material-icons">description</span>
+                        Terms of Service
+                    </a>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-primary" id="continueBtn" disabled>
+                    Continue
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+                <button class="btn btn-secondary" id="laterBtn">
+                    Maybe Later
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>AI Career App © 2023</p>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Privacy Policy</h2>
+                <button class="close-modal" id="closePrivacyModal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Data Collection</h3>
+                <p>We collect information to provide better services to all our users. This includes:</p>
+                <ul>
+                    <li>Personal information you provide (name, email, career goals)</li>
+                    <li>Resume content and job application data</li>
+                    <li>How you use our services (features used, time spent)</li>
+                </ul>
+                
+                <h3>How We Use Your Data</h3>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Personalize your career recommendations</li>
+                    <li>Improve our AI algorithms for better resume and job matching</li>
+                    <li>Communicate important updates about our services</li>
+                </ul>
+                
+                <h3>Data Security</h3>
+                <p>We implement security measures to protect your information from unauthorized access, alteration, or destruction.</p>
+                
+                <h3>Your Rights</h3>
+                <p>You have the right to access, correct, or delete your personal data at any time through the app settings.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Terms of Service</h2>
+                <button class="close-modal" id="closeTermsModal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Acceptance of Terms</h3>
+                <p>By using AI Career App, you agree to these terms and conditions. Please read them carefully.</p>
+                
+                <h3>User Responsibilities</h3>
+                <p>You agree to:</p>
+                <ul>
+                    <li>Provide accurate information in your profile and resume</li>
+                    <li>Use the app for lawful purposes only</li>
+                    <li>Not misuse the AI-generated content</li>
+                </ul>
+                
+                <h3>AI-Generated Content</h3>
+                <p>Our AI provides suggestions for resumes, cover letters, and career advice. You are responsible for reviewing and verifying all AI-generated content before use.</p>
+                
+                <h3>Service Availability</h3>
+                <p>We strive to maintain service availability but do not guarantee uninterrupted access. We may temporarily suspend services for maintenance or upgrades.</p>
+                
+                <h3>Limitation of Liability</h3>
+                <p>AI Career App is not responsible for job application outcomes, interview results, or career decisions made based on our suggestions.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const policyCheckbox = document.getElementById('policyCheckbox');
+            const continueBtn = document.getElementById('continueBtn');
+            const backBtn = document.getElementById('backBtn');
+            const laterBtn = document.getElementById('laterBtn');
+            const privacyPolicyLink = document.getElementById('privacyPolicyLink');
+            const termsLink = document.getElementById('termsLink');
+            const privacyModal = document.getElementById('privacyModal');
+            const termsModal = document.getElementById('termsModal');
+            const closePrivacyModal = document.getElementById('closePrivacyModal');
+            const closeTermsModal = document.getElementById('closeTermsModal');
+
+            // Enable/disable continue button based on checkbox
+            policyCheckbox.addEventListener('change', function() {
+                continueBtn.disabled = !this.checked;
+            });
+
+            // Continue button functionality
+            continueBtn.addEventListener('click', function() {
+                if (!policyCheckbox.checked) return;
+                
+                // Add loading animation
+                this.innerHTML = 'Loading... <span class="material-icons">autorenew</span>';
+                this.disabled = true;
+                
+                // Simulate loading before navigation
+                setTimeout(function() {
+                    window.location.href = 'personalization.html';
+                }, 1000);
+            });
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                // In a real app, this would navigate back to the previous screen
+                alert('Going back to Welcome screen...');
+                // window.location.href = 'welcome.html';
+            });
+
+            // Later button functionality
+            laterBtn.addEventListener('click', function() {
+                // Show message about limited functionality without agreeing to policies
+                alert('You can browse the app, but some features will be limited until you agree to our policies.');
+                
+                // In a real app, this might navigate to a limited version of the app
+                // window.location.href = 'limited-dashboard.html';
+            });
+
+            // Open Privacy Policy modal
+            privacyPolicyLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                privacyModal.style.display = 'flex';
+            });
+
+            // Open Terms of Service modal
+            termsLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                termsModal.style.display = 'flex';
+            });
+
+            // Close modals
+            closePrivacyModal.addEventListener('click', function() {
+                privacyModal.style.display = 'none';
+            });
+
+            closeTermsModal.addEventListener('click', function() {
+                termsModal.style.display = 'none';
+            });
+
+            // Close modals when clicking outside the content
+            window.addEventListener('click', function(e) {
+                if (e.target === privacyModal) {
+                    privacyModal.style.display = 'none';
+                }
+                if (e.target === termsModal) {
+                    termsModal.style.display = 'none';
+                }
+            });
+
+            // Add touch feedback for interactive elements
+            const interactiveElements = document.querySelectorAll('button, .policy-link, .checkbox');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Add keyboard support for accessibility
+            document.addEventListener('keydown', function(e) {
+                // Close modals with Escape key
+                if (e.key === 'Escape') {
+                    privacyModal.style.display = 'none';
+                    termsModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

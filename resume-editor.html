@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Resume Editor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FBFBFD;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 8px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .template-name {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .tabs-scroll {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            padding: 4px 0 12px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .tabs-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tab:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .tab.active {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        /* Main Content */
+        .editor-container {
+            display: flex;
+            gap: 16px;
+            min-height: 500px;
+        }
+
+        /* Form Section */
+        .form-section {
+            flex: 1;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #FBFBFD;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #2B3AEE;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(43, 58, 238, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.5;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 12px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Dynamic Items */
+        .dynamic-item {
+            background: #F8FAFC;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #EF4444;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .remove-btn:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .add-more-btn {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 2px dashed #D0D5DD;
+            border-radius: 12px;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-more-btn:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+            background-color: rgba(43, 58, 238, 0.05);
+        }
+
+        /* AI Suggestions Panel */
+        .ai-panel {
+            width: 0;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .ai-panel.expanded {
+            width: 300px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ai-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .ai-content {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .suggestion-item {
+            background: #F0F4FF;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #2B3AEE;
+        }
+
+        .suggestion-type {
+            font-size: 12px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .suggestion-text {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .suggestion-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .suggestion-btn {
+            padding: 6px 12px;
+            border: 1px solid #2B3AEE;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-accept {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-accept:hover {
+            background: #1E2BC2;
+        }
+
+        .btn-dismiss {
+            background: transparent;
+            color: #2B3AEE;
+        }
+
+        .btn-dismiss:hover {
+            background: rgba(43, 58, 238, 0.1);
+        }
+
+        .ai-loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .toggle-ai-panel {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(43, 58, 238, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .toggle-ai-panel:hover {
+            transform: scale(1.1);
+        }
+
+        /* Bottom Toolbar */
+        .bottom-toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .toolbar-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-save {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #1E2BC2;
+        }
+
+        .btn-preview {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-preview:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .btn-export {
+            background: #00A79D;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background: #00857D;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .editor-container {
+                flex-direction: column;
+            }
+            
+            .ai-panel.expanded {
+                width: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1000;
+                border-radius: 0;
+            }
+            
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .container {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Resume Editor</h1>
+                <div class="template-name">Modern Pro Template</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container slide-up">
+            <div class="tabs-scroll">
+                <div class="tab active" data-tab="personal">Personal Info</div>
+                <div class="tab" data-tab="experience">Experience</div>
+                <div class="tab" data-tab="education">Education</div>
+                <div class="tab" data-tab="projects">Projects</div>
+                <div class="tab" data-tab="skills">Skills</div>
+                <div class="tab" data-tab="certifications">Certifications</div>
+                <div class="tab" data-tab="summary">Summary</div>
+            </div>
+        </div>
+
+        <!-- Main Editor -->
+        <div class="editor-container">
+            <!-- Form Section -->
+            <div class="form-section slide-up" id="formSection">
+                <!-- Personal Info Tab Content -->
+                <div class="tab-content active" data-tab="personal">
+                    <div class="section-title">
+                        <span class="material-icons">person</span>
+                        Personal Information
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="fullName" placeholder="Enter your full name" value="Yaseen Ahmed">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Professional Title</label>
+                        <input type="text" class="form-input" id="professionalTitle" placeholder="e.g., AI Engineer" value="AI Engineer & Machine Learning Specialist">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-row">
+                            <div>
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" id="email" placeholder="your.email@example.com" value="yaseen.ahmed@email.com">
+                            </div>
+                            <div>
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-input" id="phone" placeholder="+1 (555) 123-4567" value="+1 (555) 123-4567">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-input" id="location" placeholder="City, Country" value="San Francisco, CA">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn Profile</label>
+                        <input type="url" class="form-input" id="linkedin" placeholder="linkedin.com/in/yourname" value="linkedin.com/in/yaseenahmed">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Portfolio/GitHub</label>
+                        <input type="url" class="form-input" id="portfolio" placeholder="github.com/yourname" value="github.com/yaseenahmed">
+                    </div>
+                </div>
+
+                <!-- Experience Tab Content -->
+                <div class="tab-content" data-tab="experience">
+                    <div class="section-title">
+                        <span class="material-icons">work</span>
+                        Work Experience
+                    </div>
+
+                    <div class="dynamic-items" id="experienceItems">
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <div class="item-title">Experience #1</div>
+                                <button class="remove-btn" onclick="removeItem(this)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Job Title</label>
+                                <input type="text" class="form-input" value="Senior AI Engineer">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Company</label>
+                                <input type="text" class="form-input" value="Tech Innovations Inc.">
+                            </div>
+                            <div class="form-group">
+                                <div class="input-row">
+                                    <div>
+                                        <label class="form-label">Start Date</label>
+                                        <input type="month" class="form-input" value="2021-01">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">End Date</label>
+                                        <input type="month" class="form-input" value="2023-12">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-input" value="San Francisco, CA">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description & Achievements</label>
+                                <textarea class="form-textarea">• Developed and deployed NLP models that improved text classification accuracy by 35%
+• Led a team of 4 engineers in building computer vision solutions
+• Implemented ML pipelines reducing model training time by 60%</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-more-btn" onclick="addExperience()">
+                        <span class="material-icons">add</span>
+                        Add Another Experience
+                    </button>
+                </div>
+
+                <!-- Skills Tab Content -->
+                <div class="tab-content" data-tab="skills">
+                    <div class="section-title">
+                        <span class="material-icons">psychology</span>
+                        Skills & Technologies
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Technical Skills</label>
+                        <textarea class="form-textarea" placeholder="Enter your skills (one per line)">Python
+TensorFlow
+PyTorch
+Machine Learning
+Deep Learning
+Natural Language Processing
+Computer Vision
+AWS
+Docker
+SQL</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Soft Skills</label>
+                        <textarea class="form-textarea" placeholder="Enter your soft skills">Leadership
+Team Management
+Problem Solving
+Communication
+Project Management
+Agile Methodology</textarea>
+                    </div>
+                </div>
+
+                <!-- Summary Tab Content -->
+                <div class="tab-content" data-tab="summary">
+                    <div class="section-title">
+                        <span class="material-icons">description</span>
+                        Professional Summary
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Summary</label>
+                        <textarea class="form-textarea" id="professionalSummary">Results-driven AI Engineer with 5+ years of experience in developing machine learning models and AI solutions. Specialized in natural language processing, computer vision, and deep learning architectures. Proven track record of delivering AI projects that improve efficiency and drive business growth.</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Suggestions Panel -->
+            <div class="ai-panel" id="aiPanel">
+                <div class="ai-header">
+                    <span class="material-icons">auto_awesome</span>
+                    <div class="ai-title">AI Suggestions</div>
+                </div>
+                <div class="ai-content" id="aiContent">
+                    <div class="suggestion-item">
+                        <div class="suggestion-type">Wording Improvement</div>
+                        <div class="suggestion-text">Consider changing "Results-driven" to "Accomplished" for a more professional tone that resonates with tech recruiters.</div>
+                        <div class="suggestion-actions">
+                            <button class="suggestion-btn btn-accept">Apply</button>
+                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
+                        </div>
+                    </div>
+                    <div class="suggestion-item">
+                        <div class="suggestion-type">Keyword Optimization</div>
+                        <div class="suggestion-text">Add "Transformer Models" and "LLM Fine-tuning" to match current AI job market trends.</div>
+                        <div class="suggestion-actions">
+                            <button class="suggestion-btn btn-accept">Apply</button>
+                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
+                        </div>
+                    </div>
+                    <div class="suggestion-item">
+                        <div class="suggestion-type">Impact Statement</div>
+                        <div class="suggestion-text">Quantify your achievements: "Improved model accuracy by 35%" could be "Boosted classification accuracy by 35% through optimized neural architectures"</div>
+                        <div class="suggestion-actions">
+                            <button class="suggestion-btn btn-accept">Apply</button>
+                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Panel Toggle -->
+    <button class="toggle-ai-panel" id="toggleAiPanel">
+        <span class="material-icons">auto_awesome</span>
+    </button>
+
+    <!-- Bottom Toolbar -->
+    <div class="bottom-toolbar">
+        <button class="toolbar-btn btn-save" id="saveBtn">
+            <span class="material-icons">save</span>
+            Save
+        </button>
+        <button class="toolbar-btn btn-preview" id="previewBtn">
+            <span class="material-icons">visibility</span>
+            Preview
+        </button>
+        <button class="toolbar-btn btn-export" id="exportBtn">
+            <span class="material-icons">download</span>
+            Export
+        </button>
+    </div>
+
+    <script>
+        // Global variables
+        let experienceCount = 1;
+        let isAiPanelOpen = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const toggleAiPanel = document.getElementById('toggleAiPanel');
+            const aiPanel = document.getElementById('aiPanel');
+            const saveBtn = document.getElementById('saveBtn');
+            const previewBtn = document.getElementById('previewBtn');
+            const exportBtn = document.getElementById('exportBtn');
+            const professionalSummary = document.getElementById('professionalSummary');
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to template gallery...');
+                    // window.location.href = 'resume-gallery.html';
+                }, 500);
+            });
+
+            // Tab switching functionality
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.querySelector(`.tab-content[data-tab="${tabName}"]`).classList.add('active');
+                    
+                    // Load AI suggestions for this tab
+                    loadAiSuggestions(tabName);
+                });
+            });
+
+            // AI Panel toggle functionality
+            toggleAiPanel.addEventListener('click', function() {
+                isAiPanelOpen = !isAiPanelOpen;
+                aiPanel.classList.toggle('expanded', isAiPanelOpen);
+                
+                // Update icon
+                const icon = this.querySelector('.material-icons');
+                icon.textContent = isAiPanelOpen ? 'close' : 'auto_awesome';
+            });
+
+            // Save button functionality
+            saveBtn.addEventListener('click', function() {
+                showLoading(this, 'Saving...');
+                setTimeout(() => {
+                    alert('Resume saved successfully!');
+                    this.innerHTML = '<span class="material-icons">save</span> Save';
+                }, 1000);
+            });
+
+            // Preview button functionality
+            previewBtn.addEventListener('click', function() {
+                showLoading(this, 'Generating Preview...');
+                setTimeout(() => {
+                    window.location.href = 'resume-preview-filled.html?mode=editor';
+                    this.innerHTML = '<span class="material-icons">visibility</span> Preview';
+                }, 800);
+            });
+
+            // Export button functionality
+            exportBtn.addEventListener('click', function() {
+                const exportMenu = document.createElement('div');
+                exportMenu.style.cssText = `
+                    position: fixed;
+                    bottom: 80px;
+                    right: 20px;
+                    background: white;
+                    border-radius: 12px;
+                    padding: 16px;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+                    border: 1px solid #E5E7EB;
+                    z-index: 1001;
+                    min-width: 200px;
+                `;
+                
+                exportMenu.innerHTML = `
+                    <div style="font-weight: 600; margin-bottom: 12px; color: #333;">Export As:</div>
+                    <button class="export-option" data-format="pdf" style="width: 100%; padding: 12px; background: #2B3AEE; color: white; border: none; border-radius: 8px; margin-bottom: 8px; cursor: pointer;">PDF Document</button>
+                    <button class="export-option" data-format="word" style="width: 100%; padding: 12px; background: #00A79D; color: white; border: none; border-radius: 8px; cursor: pointer;">Word Document</button>
+                `;
+                
+                document.body.appendChild(exportMenu);
+                
+                // Handle export option clicks
+                exportMenu.querySelectorAll('.export-option').forEach(option => {
+                    option.addEventListener('click', function() {
+                        const format = this.getAttribute('data-format');
+                        showLoading(exportBtn, `Exporting ${format.toUpperCase()}...`);
+                        setTimeout(() => {
+                            exportBtn.innerHTML = '<span class="material-icons">download</span> Export';
+                            exportMenu.remove();
+                        }, 1500);
+                    });
+                });
+                
+                // Close menu when clicking outside
+                setTimeout(() => {
+                    const closeMenu = (e) => {
+                        if (!exportMenu.contains(e.target) && e.target !== exportBtn) {
+                            exportMenu.remove();
+                            document.removeEventListener('click', closeMenu);
+                        }
+                    };
+                    document.addEventListener('click', closeMenu);
+                }, 100);
+            });
+
+            // AI Suggestion functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-accept')) {
+                    const suggestionText = e.target.closest('.suggestion-item').querySelector('.suggestion-text').textContent;
+                    applySuggestion(suggestionText);
+                } else if (e.target.classList.contains('btn-dismiss')) {
+                    e.target.closest('.suggestion-item').style.opacity = '0';
+                    setTimeout(() => {
+                        e.target.closest('.suggestion-item').remove();
+                    }, 300);
+                }
+            });
+
+            // Auto-save on input change
+            let saveTimeout;
+            const inputs = document.querySelectorAll('.form-input, .form-textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    clearTimeout(saveTimeout);
+                    saveTimeout = setTimeout(() => {
+                        // Auto-save logic would go here
+                        console.log('Auto-saving...');
+                    }, 2000);
+                });
+            });
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .tab, .add-more-btn');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Load initial AI suggestions
+            loadAiSuggestions('personal');
+        });
+
+        // Function to show loading state
+        function showLoading(button, text = 'Loading...') {
+            const originalHTML = button.innerHTML;
+            button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.disabled = false;
+            }, 1000);
+        }
+
+        // Function to add new experience
+        function addExperience() {
+            experienceCount++;
+            const experienceItems = document.getElementById('experienceItems');
+            const newExperience = document.createElement('div');
+            newExperience.className = 'dynamic-item';
+            newExperience.innerHTML = `
+                <div class="item-header">
+                    <div class="item-title">Experience #${experienceCount}</div>
+                    <button class="remove-btn" onclick="removeItem(this)">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Job Title</label>
+                    <input type="text" class="form-input" placeholder="e.g., Senior AI Engineer">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Company</label>
+                    <input type="text" class="form-input" placeholder="e.g., Tech Company Inc.">
+                </div>
+                <div class="form-group">
+                    <div class="input-row">
+                        <div>
+                            <label class="form-label">Start Date</label>
+                            <input type="month" class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">End Date</label>
+                            <input type="month" class="form-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-input" placeholder="City, Country">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description & Achievements</label>
+                    <textarea class="form-textarea" placeholder="• Describe your responsibilities and achievements&#10;• Use bullet points for clarity&#10;• Quantify results when possible"></textarea>
+                </div>
+            `;
+            experienceItems.appendChild(newExperience);
+            
+            // Scroll to new experience
+            newExperience.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Function to remove item
+        function removeItem(button) {
+            const item = button.closest('.dynamic-item');
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            setTimeout(() => {
+                item.remove();
+            }, 300);
+        }
+
+        // Function to load AI suggestions
+        function loadAiSuggestions(tabName) {
+            const aiContent = document.getElementById('aiContent');
+            aiContent.innerHTML = '<div class="ai-loading"><span class="material-icons pulse">auto_awesome</span><br>Analyzing content for suggestions...</div>';
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                // In real app, this would fetch AI suggestions from backend
+                const suggestions = getAiSuggestionsForTab(tabName);
+                aiContent.innerHTML = suggestions;
+            }, 1000);
+        }
+
+        // Function to get AI suggestions (mock data)
+        function getAiSuggestionsForTab(tabName) {
+            const suggestions = {
+                personal: `
+                    <div class="suggestion-item">
+                        <div class="suggestion-type">Profile Enhancement</div>
+                        <div class="suggestion-text">Consider adding a professional headline that highlights your AI expertise and years of experience.</div>
+                        <div class="suggestion-actions">
+                            <button class="suggestion-btn btn-accept">Apply</button>
+                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
+                        </div>
+                    </div>
+                `,
+                experience: `
+                    <div class="suggestion-item">
+                        <div class="suggestion-type">Action Verbs</div>
+                        <div class="suggestion-text">Start bullet points with strong action verbs like "Architected", "Engineered", or "Optimized" instead of "Worked on".</div>
+                        <div class="suggestion-actions">
+                            <button class="suggestion-btn btn-accept">Apply</button>
+                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
+                        </div>
+                    </div>
+                `,
+                skills: `
+                    <div class="suggestion-item">
+                        <div class="suggestion-type">Skill Grouping</div>
+                        <div class="suggestion-text">Group related skills together (ML Frameworks, Cloud Platforms, Programming Languages) for better readability.</div>
+                        <div class="suggestion-actions">
+                            <button class="suggestion-btn btn-accept">Apply</button>
+                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
+                        </div>
+                    </div>
+                `,
+                summary: `
+                    <div class="suggestion-item">
+                        <div class="suggestion-type">Keyword Optimization</div>
+                        <div class="suggestion-text">Add "Transformer Architectures" and "Large Language Models" to match current AI job requirements.</div>
+                        <div class="suggestion-actions">
+                            <button class="suggestion-btn btn-accept">Apply</button>
+                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
+                        </div>
+                    </div>
+                `
+            };
+            
+            return suggestions[tabName] || '<div class="ai-loading">No suggestions available for this section.</div>';
+        }
+
+        // Function to apply AI suggestion
+        function applySuggestion(suggestionText) {
+            alert(`Applying suggestion: ${suggestionText}`);
+            // In real app, this would automatically update the relevant field
+        }
+    </script>
+</body>
+</html>

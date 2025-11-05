@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Subscription & Billing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Subscription Header */
+        .subscription-header {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(43, 58, 238, 0.1);
+            border: 1px solid rgba(43, 58, 238, 0.1);
+            text-align: center;
+        }
+
+        .subscription-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .subscription-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .subscription-subtitle {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Current Plan */
+        .current-plan {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(43, 58, 238, 0.3);
+        }
+
+        .current-plan-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .current-plan-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .current-plan-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .current-plan-features {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .current-plan-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .current-plan-features li:last-child {
+            margin-bottom: 0;
+        }
+
+        .current-plan-features .material-icons {
+            font-size: 16px;
+        }
+
+        .manage-subscription {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .manage-subscription:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Plans Section */
+        .plans-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .material-icons {
+            color: #2B3AEE;
+        }
+
+        .plans-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .plan-card.popular {
+            border: 2px solid #2B3AEE;
+            transform: scale(1.02);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #2B3AEE;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .plan-header {
+            margin-bottom: 20px;
+        }
+
+        .plan-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .plan-price {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .price-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2B3AEE;
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .plan-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .plan-features li:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feature-included {
+            background: rgba(0, 167, 157, 0.1);
+            color: #00A79D;
+        }
+
+        .feature-excluded {
+            background: rgba(244, 67, 54, 0.1);
+            color: #F44336;
+        }
+
+        .feature-icon .material-icons {
+            font-size: 14px;
+        }
+
+        .subscribe-btn {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1E2BC4;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2B3AEE;
+            border: 2px solid #2B3AEE;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(43, 58, 238, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .btn-current {
+            background: #E5E7EB;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        /* Billing Info */
+        .billing-info {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .billing-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .billing-title .material-icons {
+            color: #2B3AEE;
+        }
+
+        .billing-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .billing-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F4FF;
+        }
+
+        .billing-item:last-child {
+            border-bottom: none;
+        }
+
+        .billing-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .billing-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .billing-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .billing-action-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-outline {
+            background: white;
+            color: #2B3AEE;
+            border: 1px solid #2B3AEE;
+        }
+
+        .btn-outline:hover {
+            background: rgba(43, 58, 238, 0.05);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .faq-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .faq-title .material-icons {
+            color: #2B3AEE;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #F0F4FF;
+            padding-bottom: 16px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+        }
+
+        .faq-toggle {
+            color: #2B3AEE;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(180deg);
+        }
+
+        /* Payment Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .selected-plan {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2B3AEE;
+        }
+
+        .selected-plan-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .selected-plan-price {
+            font-size: 16px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .payment-methods {
+            margin-bottom: 24px;
+        }
+
+        .payment-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #2B3AEE;
+        }
+
+        .payment-option.selected {
+            border-color: #2B3AEE;
+            background: rgba(43, 58, 238, 0.05);
+        }
+
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F0F4FF;
+            color: #2B3AEE;
+            font-size: 20px;
+        }
+
+        .payment-details {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .payment-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .payment-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #E5E7EB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-radio.selected {
+            border-color: #2B3AEE;
+        }
+
+        .payment-radio.selected:after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #2B3AEE;
+            border-radius: 50%;
+        }
+
+        .terms-agreement {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #F8FAFC;
+            border-radius: 12px;
+        }
+
+        .terms-checkbox {
+            margin-top: 2px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #E5E7EB;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .terms-checkbox.selected {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        .terms-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .terms-text a {
+            color: #2B3AEE;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-cancel:hover {
+            border-color: #666;
+        }
+
+        .btn-confirm {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-confirm:hover:not(:disabled) {
+            background: #1E2BC4;
+        }
+
+        .btn-confirm:disabled {
+            background: #D0D5DD;
+            cursor: not-allowed;
+        }
+
+        /* Success Modal */
+        .success-modal .modal-header {
+            background: linear-gradient(135deg, #00A79D, #2B3AEE);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 167, 157, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #00A79D;
+            font-size: 32px;
+        }
+
+        .success-text {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .success-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .success-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Subscription & Billing</h1>
+                <p>Choose the plan that works for you</p>
+            </div>
+        </div>
+
+        <!-- Subscription Header -->
+        <div class="subscription-header slide-up">
+            <div class="subscription-icon">
+                <span class="material-icons">workspace_premium</span>
+            </div>
+            <div class="subscription-title">Upgrade Your Career Journey</div>
+            <div class="subscription-subtitle">Unlock premium features to accelerate your career growth</div>
+        </div>
+
+        <!-- Current Plan -->
+        <div class="current-plan slide-up">
+            <div class="current-plan-badge">Current Plan</div>
+            <div class="current-plan-name">Free Plan</div>
+            <div class="current-plan-desc">Basic features to get started</div>
+            <ul class="current-plan-features">
+                <li>
+                    <span class="material-icons">check</span>
+                    3 Resume Templates
+                </li>
+                <li>
+                    <span class="material-icons">check</span>
+                    3 Job Applications per day
+                </li>
+                <li>
+                    <span class="material-icons">check</span>
+                    Basic AI Suggestions
+                </li>
+            </ul>
+            <button class="manage-subscription" id="manageSubscription">
+                <span class="material-icons">settings</span>
+                Manage Subscription
+            </button>
+        </div>
+
+        <!-- Available Plans -->
+        <div class="plans-section slide-up">
+            <div class="section-title">
+                <span class="material-icons">star</span>
+                Available Plans
+            </div>
+            <div class="plans-container">
+                <!-- Free Plan -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <div class="plan-name">Free</div>
+                        <div class="plan-price">
+                            <span class="price-amount">$0</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <div class="plan-description">Perfect for getting started</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>3 Resume Templates</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>3 Job Applications per day</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>Basic AI Resume Suggestions</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-excluded">
+                                <span class="material-icons">close</span>
+                            </div>
+                            <span>Advanced Career Roadmap</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-excluded">
+                                <span class="material-icons">close</span>
+                            </div>
+                            <span>Personalized Interview Prep</span>
+                        </li>
+                    </ul>
+                    <button class="subscribe-btn btn-current" disabled>
+                        <span class="material-icons">check</span>
+                        Current Plan
+                    </button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="plan-card popular">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="plan-header">
+                        <div class="plan-name">Pro</div>
+                        <div class="plan-price">
+                            <span class="price-amount">$9.99</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <div class="plan-description">For serious job seekers</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>Unlimited Resume Templates</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>15 Job Applications per day</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>Advanced AI Resume Suggestions</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>Detailed Career Roadmap</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-excluded">
+                                <span class="material-icons">close</span>
+                            </div>
+                            <span>Personalized Interview Prep</span>
+                        </li>
+                    </ul>
+                    <button class="subscribe-btn btn-primary" data-plan="pro" data-price="9.99">
+                        <span class="material-icons">rocket_launch</span>
+                        Upgrade to Pro
+                    </button>
+                </div>
+
+                <!-- Career Coach Plan -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <div class="plan-name">Career Coach</div>
+                        <div class="plan-price">
+                            <span class="price-amount">$19.99</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <div class="plan-description">Maximum career acceleration</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>Everything in Pro</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>Unlimited Job Applications</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>Advanced Analytics & Insights</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>Personalized Roadmap Mentoring</span>
+                        </li>
+                        <li>
+                            <div class="feature-icon feature-included">
+                                <span class="material-icons">check</span>
+                            </div>
+                            <span>1-on-1 Interview Preparation</span>
+                        </li>
+                    </ul>
+                    <button class="subscribe-btn btn-primary" data-plan="career-coach" data-price="19.99">
+                        <span class="material-icons">school</span>
+                        Get Career Coach
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Billing Information -->
+        <div class="billing-info slide-up">
+            <div class="billing-title">
+                <span class="material-icons">receipt</span>
+                Billing Information
+            </div>
+            <div class="billing-details">
+                <div class="billing-item">
+                    <span class="billing-label">Current Plan</span>
+                    <span class="billing-value">Free</span>
+                </div>
+                <div class="billing-item">
+                    <span class="billing-label">Next Billing Date</span>
+                    <span class="billing-value">-</span>
+                </div>
+                <div class="billing-item">
+                    <span class="billing-label">Payment Method</span>
+                    <span class="billing-value">Not set</span>
+                </div>
+            </div>
+            <div class="billing-actions">
+                <button class="billing-action-btn btn-outline" id="viewInvoices">
+                    <span class="material-icons">description</span>
+                    View Invoices
+                </button>
+                <button class="billing-action-btn btn-outline" id="updatePayment">
+                    <span class="material-icons">payment</span>
+                    Update Payment
+                </button>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section slide-up">
+            <div class="faq-title">
+                <span class="material-icons">help</span>
+                Frequently Asked Questions
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How does billing work?
+                        <span class="material-icons faq-toggle">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        All subscriptions are billed monthly through Google Play Billing. Your subscription will automatically renew each month unless canceled at least 24 hours before the end of the current billing period.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Can I change plans anytime?
+                        <span class="material-icons faq-toggle">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, you can upgrade your plan at any time. When upgrading, you'll be charged the prorated difference for the remainder of your billing cycle. Downgrades will take effect at the start of your next billing cycle.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Is there a free trial?
+                        <span class="material-icons faq-toggle">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        We offer a 7-day free trial for both Pro and Career Coach plans. You can cancel anytime during the trial period without being charged.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How do I cancel my subscription?
+                        <span class="material-icons faq-toggle">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        You can cancel your subscription through the Google Play Store. Go to your account settings in the Play Store, find "Subscriptions," and select the AI Career App subscription to cancel.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Complete Your Purchase</div>
+                <div class="modal-subtitle">Review and confirm your subscription</div>
+            </div>
+            <div class="modal-body">
+                <div class="selected-plan" id="selectedPlanInfo">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <div class="payment-methods">
+                    <div class="payment-title">Payment Method</div>
+                    <div class="payment-options">
+                        <div class="payment-option selected" onclick="selectPaymentMethod(this)">
+                            <div class="payment-icon">
+                                <span class="material-icons">credit_card</span>
+                            </div>
+                            <div class="payment-details">
+                                <div class="payment-name">Google Play Billing</div>
+                                <div class="payment-desc">Charged to your Google Account</div>
+                            </div>
+                            <div class="payment-radio selected"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="terms-agreement">
+                    <div class="terms-checkbox" onclick="toggleTermsAgreement(this)"></div>
+                    <div class="terms-text">
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that my subscription will automatically renew and I can cancel anytime through Google Play Store settings.
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="modal-btn btn-cancel" id="cancelPayment">
+                        Cancel
+                    </button>
+                    <button class="modal-btn btn-confirm" id="confirmPayment" disabled>
+                        Confirm Purchase
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content success-modal">
+            <div class="modal-header">
+                <div class="modal-title">Welcome to Pro!</div>
+                <div class="modal-subtitle">Your subscription is now active</div>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">
+                    <span class="material-icons">check</span>
+                </div>
+                <div class="success-text">
+                    <div class="success-title">Successfully Upgraded!</div>
+                    <div class="success-desc" id="successPlanInfo">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn btn-confirm" id="successContinue">
+                        Start Exploring
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const manageSubscriptionBtn = document.getElementById('manageSubscription');
+            const subscribeButtons = document.querySelectorAll('.subscribe-btn:not(.btn-current)');
+            const viewInvoicesBtn = document.getElementById('viewInvoices');
+            const updatePaymentBtn = document.getElementById('updatePayment');
+            const paymentModal = document.getElementById('paymentModal');
+            const successModal = document.getElementById('successModal');
+            const cancelPaymentBtn = document.getElementById('cancelPayment');
+            const confirmPaymentBtn = document.getElementById('confirmPayment');
+            const successContinueBtn = document.getElementById('successContinue');
+            const selectedPlanInfo = document.getElementById('selectedPlanInfo');
+            const successPlanInfo = document.getElementById('successPlanInfo');
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Profile...');
+                    // window.location.href = 'profile.html';
+                }, 500);
+            });
+
+            // Manage subscription button
+            manageSubscriptionBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Redirecting to Google Play Store...');
+                    // In a real app, this would open the Play Store subscription management
+                }, 500);
+            });
+
+            // Subscribe buttons
+            subscribeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const plan = this.getAttribute('data-plan');
+                    const price = this.getAttribute('data-price');
+                    
+                    // Update selected plan info
+                    let planName, planDesc;
+                    switch(plan) {
+                        case 'pro':
+                            planName = 'Pro Plan';
+                            planDesc = 'Unlimited resumes + 15 applies/day';
+                            break;
+                        case 'career-coach':
+                            planName = 'Career Coach Plan';
+                            planDesc = 'Advanced analytics + roadmap mentoring';
+                            break;
+                        default:
+                            planName = 'Unknown Plan';
+                            planDesc = '';
+                    }
+                    
+                    selectedPlanInfo.innerHTML = `
+                        <div class="selected-plan-name">${planName}</div>
+                        <div class="selected-plan-price">$${price}/month</div>
+                    `;
+                    
+                    successPlanInfo.innerHTML = `
+                        You now have access to all ${planName} features. 
+                        Start exploring your enhanced career tools!
+                    `;
+                    
+                    // Store selected plan for confirmation
+                    confirmPaymentBtn.setAttribute('data-plan', plan);
+                    confirmPaymentBtn.setAttribute('data-price', price);
+                    
+                    // Show payment modal
+                    paymentModal.classList.add('active');
+                    
+                    // Reset terms agreement
+                    const termsCheckbox = document.querySelector('.terms-checkbox');
+                    termsCheckbox.classList.remove('selected');
+                    confirmPaymentBtn.disabled = true;
+                });
+            });
+
+            // View invoices
+            viewInvoicesBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Opening invoice history...');
+                    // In a real app, this would show invoice history
+                }, 500);
+            });
+
+            // Update payment method
+            updatePaymentBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Redirecting to payment settings...');
+                    // In a real app, this would open payment method update
+                }, 500);
+            });
+
+            // Cancel payment
+            cancelPaymentBtn.addEventListener('click', function() {
+                paymentModal.classList.remove('active');
+            });
+
+            // Confirm payment
+            confirmPaymentBtn.addEventListener('click', function() {
+                if (confirmPaymentBtn.disabled) return;
+                
+                const plan = this.getAttribute('data-plan');
+                const price = this.getAttribute('data-price');
+                
+                showLoading(this, 'Processing...');
+                
+                // Simulate payment processing
+                setTimeout(() => {
+                    // In a real app, this would integrate with Google Play Billing
+                    console.log(`Processing payment for ${plan} plan at $${price}/month`);
+                    
+                    // Show success modal
+                    paymentModal.classList.remove('active');
+                    successModal.classList.add('active');
+                }, 2000);
+            });
+
+            // Success continue button
+            successContinueBtn.addEventListener('click', function() {
+                successModal.classList.remove('active');
+                // In a real app, this would redirect to the dashboard or new features
+                alert('Welcome to your new plan! Enjoy the enhanced features.');
+            });
+
+            // Close modals when clicking outside
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .plan-card, .payment-option');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (paymentModal.classList.contains('active')) {
+                        paymentModal.classList.remove('active');
+                    } else if (successModal.classList.contains('active')) {
+                        successModal.classList.remove('active');
+                    } else {
+                        backBtn.click();
+                    }
+                }
+            });
+        });
+
+        // Toggle FAQ answer visibility
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggleIcon = element.querySelector('.faq-toggle');
+            
+            answer.classList.toggle('active');
+            toggleIcon.classList.toggle('active');
+        }
+
+        // Select payment method
+        function selectPaymentMethod(element) {
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            paymentOptions.forEach(option => {
+                option.classList.remove('selected');
+                option.querySelector('.payment-radio').classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            element.querySelector('.payment-radio').classList.add('selected');
+        }
+
+        // Toggle terms agreement
+        function toggleTermsAgreement(element) {
+            element.classList.toggle('selected');
+            const confirmPaymentBtn = document.getElementById('confirmPayment');
+            confirmPaymentBtn.disabled = !element.classList.contains('selected');
+        }
+    </script>
+</body>
+</html>

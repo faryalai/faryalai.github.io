@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Career Roadmap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: #E5E7EB;
+            z-index: 1;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 15px;
+            left: 40px;
+            width: 33%;
+            height: 3px;
+            background: #2B3AEE;
+            z-index: 2;
+            transition: width 0.5s ease;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 3;
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-circle {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        .step.completed .step-circle {
+            background: #00A79D;
+            border-color: #00A79D;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .step.active .step-label {
+            color: #2B3AEE;
+            font-weight: 600;
+        }
+
+        /* Setup Container */
+        .setup-container {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(43, 58, 238, 0.1);
+            border: 1px solid rgba(43, 58, 238, 0.1);
+        }
+
+        .setup-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .setup-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .setup-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .setup-subtitle {
+            font-size: 16px;
+            color: #666;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #FBFBFD;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #2B3AEE;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(43, 58, 238, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.5;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 12px;
+            cursor: pointer;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            margin-top: 8px;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .skill-tag {
+            padding: 8px 16px;
+            background: #F0F4FF;
+            border: 1px solid #2B3AEE;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #2B3AEE;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .skill-tag.selected {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .add-skill {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .add-skill-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .add-skill-btn {
+            padding: 12px 20px;
+            background: #00A79D;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-skill-btn:hover {
+            background: #00857D;
+        }
+
+        /* Time Availability */
+        .time-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .time-option {
+            padding: 16px 8px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .time-option:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .time-option.selected {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        .time-custom {
+            grid-column: 1 / -1;
+            margin-top: 8px;
+        }
+
+        .custom-time-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .custom-time-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .time-unit {
+            color: #666;
+            font-size: 14px;
+            min-width: 80px;
+        }
+
+        /* AI Suggestions */
+        .ai-suggestions {
+            background: #F0F4FF;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+            border-left: 4px solid #00A79D;
+        }
+
+        .suggestion-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .suggestion-icon {
+            color: #00A79D;
+            font-size: 20px;
+        }
+
+        .suggestion-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .suggestion-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Action Button */
+        .action-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 20px 16px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.3);
+        }
+
+        .generate-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(43, 58, 238, 0.4);
+        }
+
+        .generate-btn:disabled {
+            background: #D0D5DD;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .progress-steps {
+                padding: 0 10px;
+            }
+            
+            .progress-steps::before {
+                left: 30px;
+                right: 30px;
+            }
+            
+            .progress-fill {
+                left: 30px;
+            }
+            
+            .time-options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Career Roadmap</h1>
+                <p>Create your personalized AI career plan</p>
+            </div>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps fade-in">
+            <div class="progress-fill"></div>
+            <div class="step completed">
+                <div class="step-circle">
+                    <span class="material-icons" style="font-size: 16px;">check</span>
+                </div>
+                <div class="step-label">Profile</div>
+            </div>
+            <div class="step active">
+                <div class="step-circle">2</div>
+                <div class="step-label">Goals</div>
+            </div>
+            <div class="step">
+                <div class="step-circle">3</div>
+                <div class="step-label">Plan</div>
+            </div>
+        </div>
+
+        <!-- Setup Container -->
+        <div class="setup-container slide-up">
+            <div class="setup-header">
+                <div class="setup-icon">
+                    <span class="material-icons">flag</span>
+                </div>
+                <div class="setup-title">Define Your Career Goals</div>
+                <div class="setup-subtitle">Tell us about your background and aspirations</div>
+            </div>
+
+            <form id="careerGoalForm">
+                <!-- Current Education -->
+                <div class="form-group">
+                    <label class="form-label">Current Education Level</label>
+                    <select class="form-select" id="educationLevel" required>
+                        <option value="">Select your education level</option>
+                        <option value="highschool">High School Diploma</option>
+                        <option value="associate">Associate Degree</option>
+                        <option value="bachelor">Bachelor's Degree</option>
+                        <option value="master">Master's Degree</option>
+                        <option value="phd">PhD</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Field of Study -->
+                <div class="form-group">
+                    <label class="form-label">Field of Study</label>
+                    <input type="text" class="form-input" id="fieldOfStudy" placeholder="e.g., Computer Science, Engineering, etc.">
+                </div>
+
+                <!-- Current Skills -->
+                <div class="form-group">
+                    <label class="form-label">Current Skills</label>
+                    <div class="skills-section">
+                        <div class="skills-tags" id="skillsContainer">
+                            <div class="skill-tag" data-skill="python">Python</div>
+                            <div class="skill-tag" data-skill="sql">SQL</div>
+                            <div class="skill-tag" data-skill="javascript">JavaScript</div>
+                            <div class="skill-tag" data-skill="html">HTML/CSS</div>
+                            <div class="skill-tag" data-skill="java">Java</div>
+                            <div class="skill-tag" data-skill="communication">Communication</div>
+                        </div>
+                        <div class="add-skill">
+                            <input type="text" class="add-skill-input" id="newSkillInput" placeholder="Add custom skill">
+                            <button type="button" class="add-skill-btn" id="addSkillBtn">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Role -->
+                <div class="form-group">
+                    <label class="form-label">Target Role</label>
+                    <div class="input-with-icon">
+                        <select class="form-select" id="targetRole" required>
+                            <option value="">Select your target role</option>
+                            <option value="ai-engineer">AI Engineer</option>
+                            <option value="data-scientist">Data Scientist</option>
+                            <option value="ml-engineer">Machine Learning Engineer</option>
+                            <option value="data-analyst">Data Analyst</option>
+                            <option value="software-engineer">Software Engineer</option>
+                            <option value="frontend-engineer">Frontend Engineer</option>
+                            <option value="backend-engineer">Backend Engineer</option>
+                            <option value="devops-engineer">DevOps Engineer</option>
+                            <option value="product-manager">Product Manager</option>
+                            <option value="ux-designer">UX Designer</option>
+                        </select>
+                        <span class="material-icons input-icon">work_outline</span>
+                    </div>
+                </div>
+
+                <!-- Time Availability -->
+                <div class="form-group">
+                    <label class="form-label">Weekly Time Availability</label>
+                    <div class="time-options">
+                        <div class="time-option" data-hours="5">
+                            <div>5 hrs/week</div>
+                            <div style="font-size: 12px; opacity: 0.8;">Casual</div>
+                        </div>
+                        <div class="time-option" data-hours="10">
+                            <div>10 hrs/week</div>
+                            <div style="font-size: 12px; opacity: 0.8;">Part-time</div>
+                        </div>
+                        <div class="time-option" data-hours="20">
+                            <div>20 hrs/week</div>
+                            <div style="font-size: 12px; opacity: 0.8;">Serious</div>
+                        </div>
+                        <div class="time-option time-custom">
+                            <div class="custom-time-input">
+                                <input type="number" id="customHours" min="1" max="40" placeholder="Custom hours">
+                                <span class="time-unit">hours per week</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Goals Description -->
+                <div class="form-group">
+                    <label class="form-label">Career Goals & Aspirations</label>
+                    <textarea class="form-textarea" id="careerGoals" placeholder="Describe your career aspirations, what you want to achieve, and any specific interests in your target field..."></textarea>
+                </div>
+            </form>
+
+            <!-- AI Suggestions -->
+            <div class="ai-suggestions">
+                <div class="suggestion-header">
+                    <span class="material-icons suggestion-icon">auto_awesome</span>
+                    <div class="suggestion-title">AI Career Insights</div>
+                </div>
+                <div class="suggestion-content">
+                    Based on your profile, we'll create a personalized learning path with milestones, resources, and projects tailored to your goals and time availability.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Button -->
+    <div class="action-button">
+        <button class="generate-btn" id="generateBtn" disabled>
+            <span class="material-icons">auto_awesome</span>
+            Generate AI Roadmap
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const educationLevel = document.getElementById('educationLevel');
+            const fieldOfStudy = document.getElementById('fieldOfStudy');
+            const targetRole = document.getElementById('targetRole');
+            const careerGoals = document.getElementById('careerGoals');
+            const generateBtn = document.getElementById('generateBtn');
+            const skillTags = document.querySelectorAll('.skill-tag');
+            const skillsContainer = document.getElementById('skillsContainer');
+            const newSkillInput = document.getElementById('newSkillInput');
+            const addSkillBtn = document.getElementById('addSkillBtn');
+            const timeOptions = document.querySelectorAll('.time-option');
+            const customHours = document.getElementById('customHours');
+
+            // Store selected values
+            let selectedSkills = new Set(['python', 'sql']);
+            let selectedTime = null;
+
+            // Initialize selected skills
+            skillTags.forEach(tag => {
+                const skill = tag.getAttribute('data-skill');
+                if (selectedSkills.has(skill)) {
+                    tag.classList.add('selected');
+                }
+            });
+
+            // Validate form function
+            function validateForm() {
+                const isEducationValid = educationLevel.value.length > 0;
+                const isRoleValid = targetRole.value.length > 0;
+                const isTimeSelected = selectedTime !== null;
+                const hasSkills = selectedSkills.size > 0;
+                
+                generateBtn.disabled = !(isEducationValid && isRoleValid && isTimeSelected && hasSkills);
+            }
+
+            // Add event listeners for form validation
+            educationLevel.addEventListener('change', validateForm);
+            targetRole.addEventListener('change', validateForm);
+
+            // Skill tags selection
+            skillTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const skill = this.getAttribute('data-skill');
+                    
+                    if (selectedSkills.has(skill)) {
+                        selectedSkills.delete(skill);
+                        this.classList.remove('selected');
+                    } else {
+                        selectedSkills.add(skill);
+                        this.classList.add('selected');
+                    }
+                    validateForm();
+                });
+            });
+
+            // Add custom skill
+            addSkillBtn.addEventListener('click', function() {
+                const newSkill = newSkillInput.value.trim();
+                if (newSkill && !Array.from(skillTags).some(tag => 
+                    tag.getAttribute('data-skill') === newSkill.toLowerCase())) {
+                    
+                    const newSkillTag = document.createElement('div');
+                    newSkillTag.className = 'skill-tag';
+                    newSkillTag.setAttribute('data-skill', newSkill.toLowerCase());
+                    newSkillTag.textContent = newSkill;
+                    
+                    newSkillTag.addEventListener('click', function() {
+                        const skill = this.getAttribute('data-skill');
+                        if (selectedSkills.has(skill)) {
+                            selectedSkills.delete(skill);
+                            this.classList.remove('selected');
+                        } else {
+                            selectedSkills.add(skill);
+                            this.classList.add('selected');
+                        }
+                        validateForm();
+                    });
+                    
+                    skillsContainer.appendChild(newSkillTag);
+                    newSkillInput.value = '';
+                    selectedSkills.add(newSkill.toLowerCase());
+                    validateForm();
+                }
+            });
+
+            // Enter key to add skill
+            newSkillInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addSkillBtn.click();
+                }
+            });
+
+            // Time availability selection
+            timeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    if (this.classList.contains('time-custom')) return;
+                    
+                    // Remove selected class from all options
+                    timeOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    selectedTime = this.getAttribute('data-hours');
+                    validateForm();
+                });
+            });
+
+            // Custom time input
+            customHours.addEventListener('input', function() {
+                const hours = parseInt(this.value);
+                if (hours >= 1 && hours <= 40) {
+                    selectedTime = hours.toString();
+                    // Remove selected from other options
+                    timeOptions.forEach(opt => {
+                        if (!opt.classList.contains('time-custom')) {
+                            opt.classList.remove('selected');
+                        }
+                    });
+                    validateForm();
+                }
+            });
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Dashboard...');
+                    // window.location.href = 'dashboard.html';
+                }, 500);
+            });
+
+            // Generate roadmap functionality
+            generateBtn.addEventListener('click', function() {
+                if (generateBtn.disabled) return;
+                
+                // Collect form data
+                const formData = {
+                    educationLevel: educationLevel.value,
+                    fieldOfStudy: fieldOfStudy.value,
+                    skills: Array.from(selectedSkills),
+                    targetRole: targetRole.value,
+                    timeAvailability: selectedTime,
+                    careerGoals: careerGoals.value
+                };
+                
+                // Show loading state
+                this.innerHTML = 'Creating Your AI Roadmap... <span class="material-icons pulse">auto_awesome</span>';
+                // this.disabled = true;
+                window.location.href = 'roadmap-result.html';
+                
+                // Simulate AI processing
+                setTimeout(() => {
+                    console.log('Roadmap data:', formData);
+                    alert('AI Career Roadmap generated successfully!');
+                    // window.location.href = 'roadmap-result.html';
+                }, 2000);
+            });
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .skill-tag, .time-option, .back-btn');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Auto-focus on first field
+            educationLevel.focus();
+
+            // Initialize form validation
+            validateForm();
+        });
+    </script>
+</body>
+</html>

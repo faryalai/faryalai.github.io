@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Job Finder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FBFBFD;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 16px 48px 16px 48px;
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            font-size: 16px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #2B3AEE;
+            box-shadow: 0 0 0 3px rgba(43, 58, 238, 0.1);
+        }
+
+        .location-input {
+            flex: 0.7;
+            padding: 16px 48px 16px 48px;
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            font-size: 16px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .location-input:focus {
+            outline: none;
+            border-color: #2B3AEE;
+            box-shadow: 0 0 0 3px rgba(43, 58, 238, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .location-wrapper {
+            position: relative;
+            flex: 0.7;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Filter Chips */
+        .filter-section {
+            margin-bottom: 24px;
+        }
+
+        .filter-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 0 8px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .filter-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-chip {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .filter-chip:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .filter-chip.active {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        /* Results Info */
+        .results-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .sort-select {
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            background: white;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Job Cards */
+        .jobs-section {
+            margin-bottom: 32px;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.15);
+            border-color: #2B3AEE;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .job-company {
+            font-size: 16px;
+            color: #2B3AEE;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .job-location {
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .bookmark-btn {
+            background: none;
+            border: none;
+            color: #D0D5DD;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .bookmark-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+            color: #2B3AEE;
+        }
+
+        .bookmark-btn.saved {
+            color: #2B3AEE;
+        }
+
+        .match-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #00A79D, #2B3AEE);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: #F0F4FF;
+            border: 1px solid #2B3AEE;
+            border-radius: 16px;
+            font-size: 12px;
+            color: #2B3AEE;
+            font-weight: 500;
+        }
+
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #F0F4FF;
+        }
+
+        .job-type {
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .job-salary {
+            font-size: 14px;
+            color: #00A79D;
+            font-weight: 600;
+        }
+
+        .view-jd-btn {
+            padding: 12px 24px;
+            background: #2B3AEE;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .view-jd-btn:hover {
+            background: #1E2BC2;
+            transform: translateY(-1px);
+        }
+
+        /* Quick Apply Badge */
+        .quick-apply-badge {
+            background: #00A79D;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+            flex: 1;
+            padding: 8px 0;
+        }
+
+        .nav-item.active {
+            color: #2B3AEE;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .nav-item.active .nav-icon {
+            transform: translateY(-2px);
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .location-wrapper {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>AI Job Finder</h1>
+                <p>Find your perfect role with AI-powered matching</p>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section slide-up">
+            <div class="search-container">
+                <div class="input-wrapper">
+                    <span class="material-icons search-icon">search</span>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Job title, skills, or company">
+                    <button class="clear-search" id="clearSearch">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                <div class="location-wrapper">
+                    <span class="material-icons search-icon">location_on</span>
+                    <input type="text" class="location-input" id="locationInput" placeholder="Location">
+                    <button class="clear-search" id="clearLocation">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Chips -->
+            <div class="filter-section">
+                <div class="filter-scroll">
+                    <div class="filter-chip active" data-filter="all">All Jobs</div>
+                    <div class="filter-chip" data-filter="remote">Remote</div>
+                    <div class="filter-chip" data-filter="fulltime">Full-time</div>
+                    <div class="filter-chip" data-filter="internship">Internship</div>
+                    <div class="filter-chip" data-filter="europe">Europe</div>
+                    <div class="filter-chip" data-filter="usa">USA</div>
+                    <div class="filter-chip" data-filter="ai">AI Roles</div>
+                    <div class="filter-chip" data-filter="tech">Tech</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Info -->
+        <div class="results-info slide-up">
+            <div class="results-count" id="resultsCount">24 jobs found</div>
+            <select class="sort-select" id="sortSelect">
+                <option value="relevance">Sort by: Relevance</option>
+                <option value="match">Sort by: Match Score</option>
+                <option value="date">Sort by: Date Posted</option>
+                <option value="salary">Sort by: Salary</option>
+            </select>
+        </div>
+
+        <!-- Job Cards -->
+        <div class="jobs-section">
+            <!-- Job Card 1 -->
+            <div class="job-card fade-in" data-categories="remote,fulltime,usa,ai,tech">
+                <div class="match-badge">Match: 92%</div>
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Senior AI Engineer</div>
+                        <div class="job-company">Tech Innovations Inc.</div>
+                        <div class="job-location">
+                            <span class="material-icons" style="font-size: 16px;">location_on</span>
+                            San Francisco, CA • Remote
+                        </div>
+                    </div>
+                    <button class="bookmark-btn" data-job="1">
+                        <span class="material-icons">bookmark_border</span>
+                    </button>
+                </div>
+
+                <div class="job-tags">
+                    <div class="tag">AI</div>
+                    <div class="tag">Python</div>
+                    <div class="tag">TensorFlow</div>
+                    <div class="tag">NLP</div>
+                    <div class="tag">Machine Learning</div>
+                </div>
+
+                <div class="job-meta">
+                    <div>
+                        <div class="job-type">
+                            <span class="material-icons" style="font-size: 16px;">schedule</span>
+                            Full-time • Posted 2h ago
+                        </div>
+                        <div class="job-salary">$140,000 - $180,000</div>
+                    </div>
+                    <button class="view-jd-btn" data-job="1">
+                        <span class="material-icons">visibility</span>
+                        View JD
+                        <span class="quick-apply-badge">AI Apply</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Job Card 2 -->
+            <div class="job-card fade-in" data-categories="fulltime,europe,ai,tech">
+                <div class="match-badge">Match: 87%</div>
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Machine Learning Researcher</div>
+                        <div class="job-company">DeepMind AI Labs</div>
+                        <div class="job-location">
+                            <span class="material-icons" style="font-size: 16px;">location_on</span>
+                            London, UK • Hybrid
+                        </div>
+                    </div>
+                    <button class="bookmark-btn" data-job="2">
+                        <span class="material-icons">bookmark_border</span>
+                    </button>
+                </div>
+
+                <div class="job-tags">
+                    <div class="tag">Research</div>
+                    <div class="tag">PyTorch</div>
+                    <div class="tag">Deep Learning</div>
+                    <div class="tag">Computer Vision</div>
+                </div>
+
+                <div class="job-meta">
+                    <div>
+                        <div class="job-type">
+                            <span class="material-icons" style="font-size: 16px;">schedule</span>
+                            Full-time • Posted 1d ago
+                        </div>
+                        <div class="job-salary">£85,000 - £110,000</div>
+                    </div>
+                    <button class="view-jd-btn" data-job="2">
+                        <span class="material-icons">visibility</span>
+                        View JD
+                        <span class="quick-apply-badge">AI Apply</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Job Card 3 -->
+            <div class="job-card fade-in" data-categories="internship,usa,ai,tech">
+                <div class="match-badge">Match: 78%</div>
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">AI Intern</div>
+                        <div class="job-company">OpenAI</div>
+                        <div class="job-location">
+                            <span class="material-icons" style="font-size: 16px;">location_on</span>
+                            San Francisco, CA • On-site
+                        </div>
+                    </div>
+                    <button class="bookmark-btn" data-job="3">
+                        <span class="material-icons">bookmark_border</span>
+                    </button>
+                </div>
+
+                <div class="job-tags">
+                    <div class="tag">Internship</div>
+                    <div class="tag">Python</div>
+                    <div class="tag">LLM</div>
+                    <div class="tag">Research</div>
+                </div>
+
+                <div class="job-meta">
+                    <div>
+                        <div class="job-type">
+                            <span class="material-icons" style="font-size: 16px;">schedule</span>
+                            Internship • Posted 3d ago
+                        </div>
+                        <div class="job-salary">$7,000 - $9,000/mo</div>
+                    </div>
+                    <button class="view-jd-btn" data-job="3">
+                        <span class="material-icons">visibility</span>
+                        View JD
+                    </button>
+                </div>
+            </div>
+
+            <!-- Job Card 4 -->
+            <div class="job-card fade-in" data-categories="remote,fulltime,europe,tech">
+                <div class="match-badge">Match: 85%</div>
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">NLP Engineer</div>
+                        <div class="job-company">Hugging Face</div>
+                        <div class="job-location">
+                            <span class="material-icons" style="font-size: 16px;">location_on</span>
+                            Remote • Europe
+                        </div>
+                    </div>
+                    <button class="bookmark-btn saved" data-job="4">
+                        <span class="material-icons">bookmark</span>
+                    </button>
+                </div>
+
+                <div class="job-tags">
+                    <div class="tag">NLP</div>
+                    <div class="tag">Transformers</div>
+                    <div class="tag">Python</div>
+                    <div class="tag">Hugging Face</div>
+                    <div class="tag">Remote</div>
+                </div>
+
+                <div class="job-meta">
+                    <div>
+                        <div class="job-type">
+                            <span class="material-icons" style="font-size: 16px;">schedule</span>
+                            Full-time • Posted 5h ago
+                        </div>
+                        <div class="job-salary">€70,000 - €90,000</div>
+                    </div>
+                    <button class="view-jd-btn" data-job="4">
+                        <span class="material-icons">visibility</span>
+                        View JD
+                        <span class="quick-apply-badge">AI Apply</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Job Card 5 -->
+            <div class="job-card fade-in" data-categories="fulltime,usa,ai,tech">
+                <div class="match-badge">Match: 91%</div>
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Computer Vision Specialist</div>
+                        <div class="job-company">Tesla AI</div>
+                        <div class="job-location">
+                            <span class="material-icons" style="font-size: 16px;">location_on</span>
+                            Palo Alto, CA • On-site
+                        </div>
+                    </div>
+                    <button class="bookmark-btn" data-job="5">
+                        <span class="material-icons">bookmark_border</span>
+                    </button>
+                </div>
+
+                <div class="job-tags">
+                    <div class="tag">Computer Vision</div>
+                    <div class="tag">Python</div>
+                    <div class="tag">PyTorch</div>
+                    <div class="tag">Autonomous Driving</div>
+                </div>
+
+                <div class="job-meta">
+                    <div>
+                        <div class="job-type">
+                            <span class="material-icons" style="font-size: 16px;">schedule</span>
+                            Full-time • Posted 1d ago
+                        </div>
+                        <div class="job-salary">$150,000 - $190,000</div>
+                    </div>
+                    <button class="view-jd-btn" data-job="5">
+                        <span class="material-icons">visibility</span>
+                        View JD
+                        <span class="quick-apply-badge">AI Apply</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">home</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <span class="material-icons nav-icon">work</span>
+            <span class="nav-label">Jobs</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">timeline</span>
+            <span class="nav-label">Roadmap</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">record_voice_over</span>
+            <span class="nav-label">Practice</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">person</span>
+            <span class="nav-label">Profile</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const searchInput = document.getElementById('searchInput');
+            const locationInput = document.getElementById('locationInput');
+            const clearSearch = document.getElementById('clearSearch');
+            const clearLocation = document.getElementById('clearLocation');
+            const filterChips = document.querySelectorAll('.filter-chip');
+            const jobCards = document.querySelectorAll('.job-card');
+            const bookmarkBtns = document.querySelectorAll('.bookmark-btn');
+            const viewJdBtns = document.querySelectorAll('.view-jd-btn');
+            const sortSelect = document.getElementById('sortSelect');
+            const resultsCount = document.getElementById('resultsCount');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            // Current filter state
+            let currentFilters = new Set(['all']);
+            let currentSearch = '';
+            let currentLocation = '';
+            let savedJobs = new Set(['4']); // Pre-saved job 4
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Dashboard...');
+                    // window.location.href = 'dashboard.html';
+                }, 500);
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                currentSearch = this.value.toLowerCase().trim();
+                clearSearch.style.display = currentSearch ? 'block' : 'none';
+                filterJobs();
+            });
+
+            locationInput.addEventListener('input', function() {
+                currentLocation = this.value.toLowerCase().trim();
+                clearLocation.style.display = currentLocation ? 'block' : 'none';
+                filterJobs();
+            });
+
+            clearSearch.addEventListener('click', function() {
+                searchInput.value = '';
+                currentSearch = '';
+                this.style.display = 'none';
+                filterJobs();
+                searchInput.focus();
+            });
+
+            clearLocation.addEventListener('click', function() {
+                locationInput.value = '';
+                currentLocation = '';
+                this.style.display = 'none';
+                filterJobs();
+                locationInput.focus();
+            });
+
+            // Filter chip functionality
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    if (filter === 'all') {
+                        // If "All" is clicked, clear other filters
+                        currentFilters.clear();
+                        currentFilters.add('all');
+                        filterChips.forEach(c => c.classList.remove('active'));
+                        this.classList.add('active');
+                    } else {
+                        // Remove "all" filter when specific filters are selected
+                        currentFilters.delete('all');
+                        filterChips[0].classList.remove('active');
+                        
+                        if (currentFilters.has(filter)) {
+                            currentFilters.delete(filter);
+                            this.classList.remove('active');
+                        } else {
+                            currentFilters.add(filter);
+                            this.classList.add('active');
+                        }
+                        
+                        // If no filters selected, show all
+                        if (currentFilters.size === 0) {
+                            currentFilters.add('all');
+                            filterChips[0].classList.add('active');
+                        }
+                    }
+                    
+                    filterJobs();
+                });
+            });
+
+            // Sort functionality
+            sortSelect.addEventListener('change', function() {
+                sortJobs(this.value);
+            });
+
+            // Bookmark functionality
+            bookmarkBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const jobId = this.getAttribute('data-job');
+                    const icon = this.querySelector('.material-icons');
+                    
+                    if (savedJobs.has(jobId)) {
+                        savedJobs.delete(jobId);
+                        this.classList.remove('saved');
+                        icon.textContent = 'bookmark_border';
+                        showToast('Job removed from saved');
+                    } else {
+                        savedJobs.add(jobId);
+                        this.classList.add('saved');
+                        icon.textContent = 'bookmark';
+                        showToast('Job saved for later');
+                    }
+                });
+            });
+
+            // View JD button functionality
+            viewJdBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const jobId = this.getAttribute('data-job');
+                    const jobCard = this.closest('.job-card');
+                    const jobTitle = jobCard.querySelector('.job-title').textContent;
+                    const company = jobCard.querySelector('.job-company').textContent;
+                    
+                    showLoading(this, 'Loading...');
+                    setTimeout(() => {
+                        // window.location.href = `job-detail.html?id=${jobId}`;
+                        window.location.href = 'job-detail.html';
+                        this.innerHTML = '<span class="material-icons">visibility</span> View JD';
+                    }, 800);
+                });
+            });
+
+            // Filter and sort jobs
+            function filterJobs() {
+                let visibleCount = 0;
+                
+                jobCards.forEach(card => {
+                    const categories = card.getAttribute('data-categories').split(',');
+                    const title = card.querySelector('.job-title').textContent.toLowerCase();
+                    const company = card.querySelector('.job-company').textContent.toLowerCase();
+                    const location = card.querySelector('.job-location').textContent.toLowerCase();
+                    const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                    
+                    const matchesSearch = !currentSearch || 
+                                         title.includes(currentSearch) || 
+                                         company.includes(currentSearch) ||
+                                         tags.some(tag => tag.includes(currentSearch));
+                    
+                    const matchesLocation = !currentLocation || location.includes(currentLocation);
+                    
+                    const matchesFilter = currentFilters.has('all') || 
+                                         categories.some(cat => currentFilters.has(cat));
+                    
+                    if (matchesSearch && matchesLocation && matchesFilter) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                        // Add slight delay for staggered animation
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+                
+                // Update results count
+                resultsCount.textContent = `${visibleCount} job${visibleCount !== 1 ? 's' : ''} found`;
+            }
+
+            // Sort jobs
+            function sortJobs(sortBy) {
+                const container = document.querySelector('.jobs-section');
+                const cards = Array.from(jobCards).filter(card => card.style.display !== 'none');
+                
+                cards.sort((a, b) => {
+                    switch(sortBy) {
+                        case 'match':
+                            const aMatch = parseInt(a.querySelector('.match-badge').textContent.replace('Match: ', '').replace('%', ''));
+                            const bMatch = parseInt(b.querySelector('.match-badge').textContent.replace('Match: ', '').replace('%', ''));
+                            return bMatch - aMatch;
+                            
+                        case 'date':
+                            // Simulate date sorting - in real app would use actual dates
+                            return Math.random() - 0.5;
+                            
+                        case 'salary':
+                            // Simulate salary sorting - in real app would use actual salaries
+                            return Math.random() - 0.5;
+                            
+                        default: // relevance
+                            return 0;
+                    }
+                });
+                
+                // Re-append cards in sorted order
+                cards.forEach(card => container.appendChild(card));
+            }
+
+            // Navigation functionality
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Navigate if not current page
+                    const label = this.querySelector('.nav-label').textContent;
+                    if (label !== 'Jobs') {
+                        alert(`Navigating to ${label}...`);
+                        // window.location.href = `${label.toLowerCase()}.html`;
+                    }
+                });
+            });
+
+            // Show toast notification
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1001;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.style.opacity = '1', 100);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .job-card, .filter-chip, .nav-item');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.9';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && (currentSearch || currentLocation)) {
+                    if (currentSearch) {
+                        searchInput.value = '';
+                        currentSearch = '';
+                        clearSearch.style.display = 'none';
+                    }
+                    if (currentLocation) {
+                        locationInput.value = '';
+                        currentLocation = '';
+                        clearLocation.style.display = 'none';
+                    }
+                    filterJobs();
+                }
+            });
+
+            // Initialize
+            filterJobs();
+        });
+    </script>
+</body>
+</html>

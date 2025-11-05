@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Template Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FBFBFD;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 16px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .template-name {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Preview Container */
+        .preview-container {
+            margin-bottom: 24px;
+        }
+
+        .preview-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .zoom-btn:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .preview-wrapper {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E5E7EB;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Resume Preview */
+        .resume-preview {
+            background: white;
+            min-height: 600px;
+            transform-origin: top center;
+            transition: transform 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+
+        /* Modern Pro Template Style */
+        .resume-modern {
+            padding: 40px;
+            background: white;
+            color: #333;
+        }
+
+        .resume-header {
+            border-bottom: 3px solid #2B3AEE;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .resume-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .resume-title {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .resume-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .resume-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 16px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .item-date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .item-subtitle {
+            color: #2B3AEE;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .item-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .skill-item {
+            background: #F0F4FF;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #2B3AEE;
+            text-align: center;
+        }
+
+        /* Template Info */
+        .template-info {
+            background: #F0F4FF;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-left: 4px solid #00A79D;
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: #00A79D;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .info-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .info-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .feature-icon {
+            color: #00A79D;
+            font-size: 16px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 20px 16px;
+            display: flex;
+            gap: 12px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            box-shadow: 0 4px 12px rgba(43, 58, 238, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(43, 58, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .resume-preview {
+                min-height: 700px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .resume-modern {
+                padding: 20px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Template Preview</h1>
+                <div class="template-name">Modern Pro</div>
+            </div>
+        </div>
+
+        <!-- Preview Container -->
+        <div class="preview-container slide-up">
+            <div class="preview-actions">
+                <div class="zoom-controls">
+                    <button class="zoom-btn" id="zoomOut">
+                        <span class="material-icons">remove</span>
+                    </button>
+                    <button class="zoom-btn" id="zoomReset">
+                        <span class="material-icons">refresh</span>
+                    </button>
+                    <button class="zoom-btn" id="zoomIn">
+                        <span class="material-icons">add</span>
+                    </button>
+                </div>
+                <div class="page-info">
+                    <span style="font-size: 14px; color: #666;">Page 1 of 1</span>
+                </div>
+            </div>
+
+            <div class="preview-wrapper">
+                <div class="resume-preview resume-modern" id="resumePreview" style="transform: scale(0.8);">
+                    <!-- Resume Content -->
+                    <div class="resume-header">
+                        <div class="resume-name">YASEEN AHMED</div>
+                        <div class="resume-title">AI Engineer & Machine Learning Specialist</div>
+                        <div class="resume-contact">
+                            <div class="contact-item">
+                                <span class="material-icons" style="font-size: 16px;">phone</span>
+                                <span>+1 (555) 123-4567</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="material-icons" style="font-size: 16px;">email</span>
+                                <span>yaseen.ahmed@email.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="material-icons" style="font-size: 16px;">location_on</span>
+                                <span>San Francisco, CA</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="material-icons" style="font-size: 16px;">link</span>
+                                <span>linkedin.com/in/yaseenahmed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="section-title">PROFESSIONAL SUMMARY</div>
+                        <div class="item-description">
+                            Results-driven AI Engineer with 5+ years of experience in developing machine learning models and AI solutions. 
+                            Specialized in natural language processing, computer vision, and deep learning architectures. 
+                            Proven track record of delivering AI projects that improve efficiency and drive business growth.
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="section-title">EXPERIENCE</div>
+                        
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Senior AI Engineer</div>
+                                <div class="item-date">2021 - Present</div>
+                            </div>
+                            <div class="item-subtitle">Tech Innovations Inc., San Francisco, CA</div>
+                            <div class="item-description">
+                                • Developed and deployed NLP models that improved text classification accuracy by 35%<br>
+                                • Led a team of 4 engineers in building computer vision solutions for automated quality control<br>
+                                • Implemented ML pipelines reducing model training time by 60%<br>
+                                • Collaborated with product teams to integrate AI features into customer-facing applications
+                            </div>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Machine Learning Engineer</div>
+                                <div class="item-date">2019 - 2021</div>
+                            </div>
+                            <div class="item-subtitle">Data Systems Corp., Austin, TX</div>
+                            <div class="item-description">
+                                • Built recommendation systems serving 2M+ users with 25% improved engagement<br>
+                                • Optimized neural network architectures reducing inference latency by 40%<br>
+                                • Created automated data preprocessing pipelines handling 10TB+ of data monthly
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="section-title">EDUCATION</div>
+                        
+                        <div class="education-item">
+                            <div class="item-header">
+                                <div class="item-title">M.S. in Artificial Intelligence</div>
+                                <div class="item-date">2017 - 2019</div>
+                            </div>
+                            <div class="item-subtitle">Stanford University, Stanford, CA</div>
+                            <div class="item-description">GPA: 3.8/4.0 | Focus: Deep Learning & Neural Networks</div>
+                        </div>
+
+                        <div class="education-item">
+                            <div class="item-header">
+                                <div class="item-title">B.S. in Computer Science</div>
+                                <div class="item-date">2013 - 2017</div>
+                            </div>
+                            <div class="item-subtitle">University of Texas, Austin, TX</div>
+                            <div class="item-description">GPA: 3.9/4.0 | Minor: Mathematics</div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="section-title">TECHNICAL SKILLS</div>
+                        <div class="skills-grid">
+                            <div class="skill-item">Python</div>
+                            <div class="skill-item">TensorFlow</div>
+                            <div class="skill-item">PyTorch</div>
+                            <div class="skill-item">Machine Learning</div>
+                            <div class="skill-item">Deep Learning</div>
+                            <div class="skill-item">NLP</div>
+                            <div class="skill-item">Computer Vision</div>
+                            <div class="skill-item">AWS/Azure</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Info -->
+        <div class="template-info slide-up">
+            <div class="info-header">
+                <div class="info-icon">
+                    <span class="material-icons">verified</span>
+                </div>
+                <div class="info-title">Optimized for US / EU Hiring Systems (ATS)</div>
+            </div>
+            <div class="info-content">
+                This template is professionally designed to pass through Applicant Tracking Systems while maintaining a modern, visually appealing layout that stands out to recruiters.
+            </div>
+            <div class="features-list">
+                <div class="feature-item">
+                    <span class="material-icons feature-icon">check_circle</span>
+                    <span>ATS-Compatible Formatting</span>
+                </div>
+                <div class="feature-item">
+                    <span class="material-icons feature-icon">check_circle</span>
+                    <span>Clean Section Hierarchy</span>
+                </div>
+                <div class="feature-item">
+                    <span class="material-icons feature-icon">check_circle</span>
+                    <span>Keyword Optimization</span>
+                </div>
+                <div class="feature-item">
+                    <span class="material-icons feature-icon">check_circle</span>
+                    <span>Mobile-Responsive</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <button class="btn btn-secondary" id="backButton">
+            <span class="material-icons">arrow_back</span>
+            Back
+        </button>
+        <button class="btn btn-primary" id="useTemplateBtn">
+            <span class="material-icons">description</span>
+            Use This Template
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const backButton = document.getElementById('backButton');
+            const useTemplateBtn = document.getElementById('useTemplateBtn');
+            const zoomIn = document.getElementById('zoomIn');
+            const zoomOut = document.getElementById('zoomOut');
+            const zoomReset = document.getElementById('zoomReset');
+            const resumePreview = document.getElementById('resumePreview');
+
+            // Zoom state
+            let currentScale = 0.8;
+            const minScale = 0.5;
+            const maxScale = 1.2;
+            const scaleStep = 0.1;
+
+            // Back button functionality
+            backBtn.addEventListener('click', goBack);
+            backButton.addEventListener('click', goBack);
+
+            function goBack() {
+                // Show loading state
+                backButton.innerHTML = '<span class="material-icons pulse">arrow_back</span> Going Back...';
+                backButton.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Returning to template gallery...');
+                    // window.location.href = 'resume-gallery.html';
+                }, 500);
+            }
+
+            // Use Template button functionality
+            useTemplateBtn.addEventListener('click', function() {
+                // Show loading state
+                this.innerHTML = '<span class="material-icons pulse">autorenew</span> Creating Resume...';
+                this.disabled = true;
+                
+                // Simulate template creation
+                setTimeout(() => {
+                    // window.location.href = 'resume-editor.html?template=modern-pro';
+                    window.location.href = 'resume-editor.html';
+                }, 1000);
+            });
+
+            // Zoom functionality
+            zoomIn.addEventListener('click', function() {
+                if (currentScale < maxScale) {
+                    currentScale += scaleStep;
+                    updateZoom();
+                }
+            });
+
+            zoomOut.addEventListener('click', function() {
+                if (currentScale > minScale) {
+                    currentScale -= scaleStep;
+                    updateZoom();
+                }
+            });
+
+            zoomReset.addEventListener('click', function() {
+                currentScale = 0.8;
+                updateZoom();
+            });
+
+            function updateZoom() {
+                resumePreview.style.transform = `scale(${currentScale})`;
+                
+                // Update button states
+                zoomIn.disabled = currentScale >= maxScale;
+                zoomOut.disabled = currentScale <= minScale;
+            }
+
+            // Touch zoom for mobile
+            let initialDistance = null;
+            resumePreview.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 2) {
+                    initialDistance = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                }
+            });
+
+            resumePreview.addEventListener('touchmove', function(e) {
+                if (e.touches.length === 2 && initialDistance !== null) {
+                    e.preventDefault();
+                    const currentDistance = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                    
+                    const scaleChange = (currentDistance - initialDistance) * 0.01;
+                    const newScale = Math.max(minScale, Math.min(maxScale, currentScale + scaleChange));
+                    
+                    if (newScale !== currentScale) {
+                        currentScale = newScale;
+                        updateZoom();
+                    }
+                }
+            });
+
+            resumePreview.addEventListener('touchend', function() {
+                initialDistance = null;
+            });
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .resume-preview');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.9';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    goBack();
+                } else if (e.key === '+' || e.key === '=') {
+                    zoomIn.click();
+                } else if (e.key === '-') {
+                    zoomOut.click();
+                } else if (e.key === '0') {
+                    zoomReset.click();
+                } else if (e.key === 'Enter') {
+                    useTemplateBtn.click();
+                }
+            });
+
+            // Initialize zoom state
+            updateZoom();
+        });
+    </script>
+</body>
+</html>

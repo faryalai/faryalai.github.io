@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Progress Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Progress Overview */
+        .progress-overview {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(43, 58, 238, 0.1);
+            border: 1px solid rgba(43, 58, 238, 0.1);
+            text-align: center;
+        }
+
+        .overview-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00A79D, #2B3AEE);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .overview-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .overview-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Milestone Progress */
+        .milestones-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .milestone-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .milestone-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.15);
+            border-color: #2B3AEE;
+        }
+
+        .milestone-card.completed {
+            border-left: 4px solid #00A79D;
+        }
+
+        .milestone-card.current {
+            border-left: 4px solid #2B3AEE;
+        }
+
+        .milestone-card.upcoming {
+            border-left: 4px solid #E5E7EB;
+        }
+
+        .milestone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .milestone-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .milestone-duration {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .milestone-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 12px;
+        }
+
+        .status-completed {
+            background: #E8F5E8;
+            color: #00A79D;
+        }
+
+        .status-current {
+            background: #F0F4FF;
+            color: #2B3AEE;
+        }
+
+        .status-upcoming {
+            background: #F8FAFC;
+            color: #666;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 16px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .progress-percentage {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2B3AEE;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2B3AEE, #00A79D);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Milestone Actions */
+        .milestone-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-complete {
+            background: #00A79D;
+            color: white;
+        }
+
+        .btn-complete:hover:not(:disabled) {
+            background: #00857D;
+            transform: translateY(-1px);
+        }
+
+        .btn-complete:disabled {
+            background: #D0D5DD;
+            cursor: not-allowed;
+        }
+
+        .btn-complete.completed {
+            background: #E8F5E8;
+            color: #00A79D;
+            border: 1px solid #00A79D;
+        }
+
+        .btn-note {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-note:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .btn-share {
+            background: white;
+            color: #2B3AEE;
+            border: 2px solid #2B3AEE;
+        }
+
+        .btn-share:hover {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #F0F4FF;
+        }
+
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .notes-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .notes-count {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .note-item {
+            background: #F8FAFC;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-left: 3px solid #2B3AEE;
+        }
+
+        .note-content {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #999;
+        }
+
+        .add-note-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px dashed #D0D5DD;
+            border-radius: 8px;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .add-note-btn:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        /* Share Achievement Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .achievement-preview {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid #E5E7EB;
+        }
+
+        .achievement-icon {
+            width: 60px;
+            height: 60px;
+            background: #00A79D;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .achievement-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .achievement-milestone {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .share-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-option:hover {
+            border-color: #2B3AEE;
+            background: #F0F4FF;
+        }
+
+        .share-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .icon-linkedin { background: rgba(10, 102, 194, 0.1); color: #0A66C2; }
+        .icon-twitter { background: rgba(29, 161, 242, 0.1); color: #1DA1F2; }
+        .icon-copy { background: rgba(43, 58, 238, 0.1); color: #2B3AEE; }
+
+        .share-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-cancel:hover {
+            border-color: #666;
+        }
+
+        .btn-share-now {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-share-now:hover {
+            background: #1E2BC2;
+        }
+
+        /* Add Note Modal */
+        .note-modal .modal-body {
+            padding: 24px;
+        }
+
+        .note-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .note-input:focus {
+            outline: none;
+            border-color: #2B3AEE;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .milestone-actions {
+                flex-direction: column;
+            }
+            
+            .share-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Progress Tracker</h1>
+                <p>Track your career development journey</p>
+            </div>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="progress-overview slide-up">
+            <div class="overview-icon">
+                <span class="material-icons">trending_up</span>
+            </div>
+            <div class="overview-title">60% Complete</div>
+            <div class="overview-subtitle">You're making great progress toward your AI Engineer goal!</div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">2/4</div>
+                    <div class="stat-label">Milestones<br>Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Learning<br>Hours</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Projects<br>Done</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Milestones Progress -->
+        <div class="milestones-section">
+            <div class="section-title">
+                <span class="material-icons">flag</span>
+                Milestone Progress
+            </div>
+
+            <!-- Milestone 1 -->
+            <div class="milestone-card completed">
+                <div class="milestone-header">
+                    <div>
+                        <div class="milestone-title">Programming Foundation</div>
+                        <div class="milestone-duration">Month 1-2 • 40 hours</div>
+                    </div>
+                    <div class="milestone-status status-completed">
+                        <span class="material-icons" style="font-size: 14px;">check_circle</span>
+                        Completed
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <div class="progress-label">Learning Progress</div>
+                        <div class="progress-percentage">100%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span>Started: Oct 1, 2023</span>
+                        <span>Completed: Nov 30, 2023</span>
+                    </div>
+                </div>
+
+                <div class="milestone-actions">
+                    <button class="action-btn btn-complete completed">
+                        <span class="material-icons">check</span>
+                        Completed
+                    </button>
+                    <button class="action-btn btn-note" data-milestone="1">
+                        <span class="material-icons">note_add</span>
+                        Add Note
+                    </button>
+                    <button class="action-btn btn-share" data-milestone="1">
+                        <span class="material-icons">share</span>
+                        Share
+                    </button>
+                </div>
+
+                <div class="notes-section">
+                    <div class="notes-header">
+                        <div class="notes-title">Notes & Reflections</div>
+                        <div class="notes-count">2 notes</div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-content">Mastered Python fundamentals and built my first data analysis project. Feeling confident with basic algorithms.</div>
+                        <div class="note-meta">
+                            <span>Nov 15, 2023</span>
+                            <span>Project: Data Analyzer</span>
+                        </div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-content">SQL queries are becoming more intuitive. Completed the database course with 95% score.</div>
+                        <div class="note-meta">
+                            <span>Nov 25, 2023</span>
+                            <span>Course: SQL Fundamentals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Milestone 2 -->
+            <div class="milestone-card completed">
+                <div class="milestone-header">
+                    <div>
+                        <div class="milestone-title">Mathematics & Statistics</div>
+                        <div class="milestone-duration">Month 3-4 • 35 hours</div>
+                    </div>
+                    <div class="milestone-status status-completed">
+                        <span class="material-icons" style="font-size: 14px;">check_circle</span>
+                        Completed
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <div class="progress-label">Learning Progress</div>
+                        <div class="progress-percentage">100%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span>Started: Dec 1, 2023</span>
+                        <span>Completed: Jan 31, 2024</span>
+                    </div>
+                </div>
+
+                <div class="milestone-actions">
+                    <button class="action-btn btn-complete completed">
+                        <span class="material-icons">check</span>
+                        Completed
+                    </button>
+                    <button class="action-btn btn-note" data-milestone="2">
+                        <span class="material-icons">note_add</span>
+                        Add Note
+                    </button>
+                    <button class="action-btn btn-share" data-milestone="2">
+                        <span class="material-icons">share</span>
+                        Share
+                    </button>
+                </div>
+            </div>
+
+            <!-- Milestone 3 -->
+            <div class="milestone-card current">
+                <div class="milestone-header">
+                    <div>
+                        <div class="milestone-title">Machine Learning Projects</div>
+                        <div class="milestone-duration">Month 5-7 • 60 hours</div>
+                    </div>
+                    <div class="milestone-status status-current">
+                        <span class="material-icons" style="font-size: 14px;">autorenew</span>
+                        In Progress
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <div class="progress-label">Learning Progress</div>
+                        <div class="progress-percentage">60%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span>Started: Feb 1, 2024</span>
+                        <span>Est. Completion: Apr 30, 2024</span>
+                    </div>
+                </div>
+
+                <div class="milestone-actions">
+                    <button class="action-btn btn-complete" data-milestone="3">
+                        <span class="material-icons">check</span>
+                        Mark Complete
+                    </button>
+                    <button class="action-btn btn-note" data-milestone="3">
+                        <span class="material-icons">note_add</span>
+                        Add Note
+                    </button>
+                    <button class="action-btn btn-share" data-milestone="3">
+                        <span class="material-icons">share</span>
+                        Share Progress
+                    </button>
+                </div>
+
+                <div class="notes-section">
+                    <div class="notes-header">
+                        <div class="notes-title">Notes & Reflections</div>
+                        <div class="notes-count">1 note</div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-content">Built my first ML model - a spam classifier with 92% accuracy. Excited to learn more about neural networks next.</div>
+                        <div class="note-meta">
+                            <span>Mar 10, 2024</span>
+                            <span>Project: Spam Classifier</span>
+                        </div>
+                    </div>
+                    <button class="add-note-btn" data-milestone="3">
+                        <span class="material-icons">add</span>
+                        Add New Note
+                    </button>
+                </div>
+            </div>
+
+            <!-- Milestone 4 -->
+            <div class="milestone-card upcoming">
+                <div class="milestone-header">
+                    <div>
+                        <div class="milestone-title">Deep Learning & Portfolio</div>
+                        <div class="milestone-duration">Month 8-10 • 70 hours</div>
+                    </div>
+                    <div class="milestone-status status-upcoming">
+                        <span class="material-icons" style="font-size: 14px;">schedule</span>
+                        Upcoming
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <div class="progress-label">Learning Progress</div>
+                        <div class="progress-percentage">0%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span>Starts: May 1, 2024</span>
+                        <span>Est. Completion: Jul 31, 2024</span>
+                    </div>
+                </div>
+
+                <div class="milestone-actions">
+                    <button class="action-btn btn-complete" disabled>
+                        <span class="material-icons">lock</span>
+                        Locked
+                    </button>
+                    <button class="action-btn btn-note" disabled>
+                        <span class="material-icons">note_add</span>
+                        Add Note
+                    </button>
+                    <button class="action-btn btn-share" disabled>
+                        <span class="material-icons">share</span>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Achievement Modal -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Share Achievement</div>
+                <div class="modal-subtitle">Celebrate your progress with others</div>
+            </div>
+            <div class="modal-body">
+                <div class="achievement-preview">
+                    <div class="achievement-icon">
+                        <span class="material-icons">celebration</span>
+                    </div>
+                    <div class="achievement-text" id="achievementText">
+                        I just completed Programming Foundation!
+                    </div>
+                    <div class="achievement-milestone">
+                        AI Career Roadmap • 40 hours
+                    </div>
+                </div>
+
+                <div class="share-options">
+                    <div class="share-option" data-platform="linkedin">
+                        <div class="share-icon icon-linkedin">
+                            <span class="material-icons">work</span>
+                        </div>
+                        <div class="share-label">LinkedIn</div>
+                    </div>
+                    <div class="share-option" data-platform="twitter">
+                        <div class="share-icon icon-twitter">
+                            <span class="material-icons">flutter_dash</span>
+                        </div>
+                        <div class="share-label">Twitter</div>
+                    </div>
+                    <div class="share-option" data-platform="copy">
+                        <div class="share-icon icon-copy">
+                            <span class="material-icons">content_copy</span>
+                        </div>
+                        <div class="share-label">Copy Link</div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="modal-btn btn-cancel" id="cancelShare">
+                        Cancel
+                    </button>
+                    <button class="modal-btn btn-share-now" id="confirmShare">
+                        Share Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Note Modal -->
+    <div class="modal-overlay note-modal" id="noteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Add Note</div>
+                <div class="modal-subtitle">Record your thoughts and progress</div>
+            </div>
+            <div class="modal-body">
+                <textarea class="note-input" id="noteInput" placeholder="Share your learning experience, challenges overcome, or project insights..."></textarea>
+                <div class="modal-actions">
+                    <button class="modal-btn btn-cancel" id="cancelNote">
+                        Cancel
+                    </button>
+                    <button class="modal-btn btn-share-now" id="saveNote">
+                        Save Note
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const completeBtns = document.querySelectorAll('.btn-complete:not(.completed):not(:disabled)');
+            const noteBtns = document.querySelectorAll('.btn-note:not(:disabled)');
+            const shareBtns = document.querySelectorAll('.btn-share:not(:disabled)');
+            const addNoteBtns = document.querySelectorAll('.add-note-btn');
+            const shareModal = document.getElementById('shareModal');
+            const noteModal = document.getElementById('noteModal');
+            const cancelShare = document.getElementById('cancelShare');
+            const confirmShare = document.getElementById('confirmShare');
+            const cancelNote = document.getElementById('cancelNote');
+            const saveNote = document.getElementById('saveNote');
+            const noteInput = document.getElementById('noteInput');
+            const achievementText = document.getElementById('achievementText');
+
+            let currentMilestone = null;
+            let currentPlatform = null;
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Roadmap...');
+                    // window.location.href = 'roadmap-result.html';
+                }, 500);
+            });
+
+            // Mark complete functionality
+            completeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const milestoneCard = this.closest('.milestone-card');
+                    const milestoneTitle = milestoneCard.querySelector('.milestone-title').textContent;
+                    const progressFill = milestoneCard.querySelector('.progress-fill');
+                    const progressPercentage = milestoneCard.querySelector('.progress-percentage');
+                    const status = milestoneCard.querySelector('.milestone-status');
+                    
+                    showLoading(this, 'Updating...');
+                    
+                    setTimeout(() => {
+                        // Update progress to 100%
+                        progressFill.style.width = '100%';
+                        progressPercentage.textContent = '100%';
+                        
+                        // Update status
+                        milestoneCard.classList.remove('current');
+                        milestoneCard.classList.add('completed');
+                        status.innerHTML = '<span class="material-icons" style="font-size: 14px;">check_circle</span> Completed';
+                        status.className = 'milestone-status status-completed';
+                        
+                        // Update button
+                        this.classList.add('completed');
+                        this.innerHTML = '<span class="material-icons">check</span> Completed';
+                        
+                        // Update overall progress
+                        updateOverallProgress();
+                        showToast(`Congratulations! ${milestoneTitle} completed!`);
+                    }, 1000);
+                });
+            });
+
+            // Add note functionality
+            noteBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentMilestone = this.getAttribute('data-milestone');
+                    openNoteModal(currentMilestone);
+                });
+            });
+
+            addNoteBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentMilestone = this.getAttribute('data-milestone');
+                    openNoteModal(currentMilestone);
+                });
+            });
+
+            // Share achievement functionality
+            shareBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentMilestone = this.getAttribute('data-milestone');
+                    const milestoneCard = document.querySelector(`[data-milestone="${currentMilestone}"]`).closest('.milestone-card');
+                    const milestoneTitle = milestoneCard.querySelector('.milestone-title').textContent;
+                    const progressPercentage = milestoneCard.querySelector('.progress-percentage').textContent;
+                    
+                    achievementText.textContent = progressPercentage === '100%' 
+                        ? `I just completed ${milestoneTitle}! 🎉` 
+                        : `I'm ${progressPercentage} through ${milestoneTitle}! 🚀`;
+                    
+                    openShareModal();
+                });
+            });
+
+            // Share platform selection
+            document.querySelectorAll('.share-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active state from all options
+                    document.querySelectorAll('.share-option').forEach(opt => {
+                        opt.style.borderColor = '#E5E7EB';
+                        opt.style.background = 'white';
+                    });
+                    
+                    // Add active state to selected option
+                    this.style.borderColor = '#2B3AEE';
+                    this.style.background = '#F0F4FF';
+                    currentPlatform = this.getAttribute('data-platform');
+                });
+            });
+
+            // Modal close functionality
+            cancelShare.addEventListener('click', closeModals);
+            cancelNote.addEventListener('click', closeModals);
+            confirmShare.addEventListener('click', shareAchievement);
+            saveNote.addEventListener('click', saveNoteHandler);
+
+            // Close modals when clicking outside
+            [shareModal, noteModal].forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeModals();
+                    }
+                });
+            });
+
+            // Function to open share modal
+            function openShareModal() {
+                shareModal.classList.add('active');
+                // Reset platform selection
+                document.querySelectorAll('.share-option').forEach(opt => {
+                    opt.style.borderColor = '#E5E7EB';
+                    opt.style.background = 'white';
+                });
+                currentPlatform = null;
+            }
+
+            // Function to open note modal
+            function openNoteModal(milestone) {
+                noteModal.classList.add('active');
+                noteInput.value = '';
+                currentMilestone = milestone;
+            }
+
+            // Function to close all modals
+            function closeModals() {
+                shareModal.classList.remove('active');
+                noteModal.classList.remove('active');
+                currentMilestone = null;
+                currentPlatform = null;
+            }
+
+            // Function to share achievement
+            function shareAchievement() {
+                if (!currentPlatform) {
+                    showToast('Please select a platform to share');
+                    return;
+                }
+
+                showLoading(confirmShare, 'Sharing...');
+                
+                setTimeout(() => {
+                    let message = '';
+                    switch(currentPlatform) {
+                        case 'linkedin':
+                            message = 'Shared on LinkedIn successfully!';
+                            break;
+                        case 'twitter':
+                            message = 'Shared on Twitter successfully!';
+                            break;
+                        case 'copy':
+                            message = 'Achievement link copied to clipboard!';
+                            break;
+                    }
+                    
+                    closeModals();
+                    showToast(message);
+                }, 1000);
+            }
+
+            // Function to save note
+            function saveNoteHandler() {
+                const noteText = noteInput.value.trim();
+                if (!noteText) {
+                    showToast('Please enter a note');
+                    return;
+                }
+
+                showLoading(saveNote, 'Saving...');
+                
+                setTimeout(() => {
+                    const milestoneCard = document.querySelector(`[data-milestone="${currentMilestone}"]`).closest('.milestone-card');
+                    const notesSection = milestoneCard.querySelector('.notes-section');
+                    const notesCount = milestoneCard.querySelector('.notes-count');
+                    
+                    // Create new note element
+                    const newNote = document.createElement('div');
+                    newNote.className = 'note-item';
+                    newNote.innerHTML = `
+                        <div class="note-content">${noteText}</div>
+                        <div class="note-meta">
+                            <span>${new Date().toLocaleDateString()}</span>
+                            <span>Personal Note</span>
+                        </div>
+                    `;
+                    
+                    // Insert before the add note button
+                    const addNoteBtn = notesSection.querySelector('.add-note-btn');
+                    notesSection.insertBefore(newNote, addNoteBtn);
+                    
+                    // Update notes count
+                    const currentCount = parseInt(notesCount.textContent);
+                    notesCount.textContent = `${currentCount + 1} notes`;
+                    
+                    closeModals();
+                    showToast('Note saved successfully!');
+                }, 800);
+            }
+
+            // Function to update overall progress
+            function updateOverallProgress() {
+                const completedCards = document.querySelectorAll('.milestone-card.completed').length;
+                const totalCards = document.querySelectorAll('.milestone-card').length;
+                const progress = (completedCards / totalCards) * 100;
+                
+                const overviewTitle = document.querySelector('.overview-title');
+                const completedStat = document.querySelector('.stat-item:first-child .stat-value');
+                
+                overviewTitle.textContent = `${Math.round(progress)}% Complete`;
+                completedStat.textContent = `${completedCards}/${totalCards}`;
+                
+                // Update progress in the third milestone if needed
+                if (completedCards === 3) {
+                    const thirdMilestone = document.querySelector('.milestone-card.current');
+                    if (thirdMilestone) {
+                        thirdMilestone.classList.remove('current');
+                        thirdMilestone.classList.add('completed');
+                        const status = thirdMilestone.querySelector('.milestone-status');
+                        status.innerHTML = '<span class="material-icons" style="font-size: 14px;">check_circle</span> Completed';
+                        status.className = 'milestone-status status-completed';
+                        
+                        const completeBtn = thirdMilestone.querySelector('.btn-complete');
+                        completeBtn.classList.add('completed');
+                        completeBtn.innerHTML = '<span class="material-icons">check</span> Completed';
+                    }
+                }
+            }
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Function to show toast notification
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1001;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    max-width: 300px;
+                    text-align: center;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.style.opacity = '1', 100);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .share-option');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModals();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

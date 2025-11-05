@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Interview Prep</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 48px 16px 48px;
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            font-size: 16px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #2B3AEE;
+            box-shadow: 0 0 0 3px rgba(43, 58, 238, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Category Tabs */
+        .tabs-section {
+            margin-bottom: 24px;
+        }
+
+        .tabs-scroll {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            padding: 4px 0 12px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .tabs-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab:hover {
+            border-color: #2B3AEE;
+            color: #2B3AEE;
+        }
+
+        .tab.active {
+            background: #2B3AEE;
+            border-color: #2B3AEE;
+            color: white;
+        }
+
+        .tab-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Topics List */
+        .topics-section {
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2B3AEE;
+        }
+
+        .topics-count {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .topics-list {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .topic-item {
+            padding: 20px;
+            border-bottom: 1px solid #F0F4FF;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .topic-item:hover {
+            background: #F8FAFC;
+        }
+
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+
+        .topic-content {
+            flex: 1;
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .topic-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .topic-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .topic-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .topic-stats {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Difficulty Badges */
+        .difficulty-badge {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .difficulty-easy {
+            background: #E8F5E8;
+            color: #00A79D;
+        }
+
+        .difficulty-medium {
+            background: #FFF4E5;
+            color: #FF9800;
+        }
+
+        .difficulty-hard {
+            background: #FFEBEE;
+            color: #F44336;
+        }
+
+        /* Progress Indicators */
+        .progress-indicator {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .progress-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(#00A79D 0% var(--progress), #E5E7EB var(--progress) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-circle::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .progress-text {
+            position: relative;
+            font-size: 12px;
+            font-weight: 600;
+            color: #00A79D;
+            z-index: 1;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.15);
+            border-color: #2B3AEE;
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(43, 58, 238, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: #2B3AEE;
+            font-size: 24px;
+        }
+
+        .action-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .action-description {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+            flex: 1;
+            padding: 8px 0;
+        }
+
+        .nav-item.active {
+            color: #2B3AEE;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .nav-item.active .nav-icon {
+            transform: translateY(-2px);
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: #E5E7EB;
+            margin-bottom: 16px;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .topic-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Interview Prep</h1>
+                <p>Master technical and behavioral questions</p>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section slide-up">
+            <div class="search-container">
+                <span class="material-icons search-icon">search</span>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search topics (e.g., ML, SQL, DSA)">
+                <button class="clear-search" id="clearSearch">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions slide-up">
+            <div class="action-card" id="mockInterviewBtn">
+                <div class="action-icon">
+                    <span class="material-icons">record_voice_over</span>
+                </div>
+                <div class="action-title">Mock Interview</div>
+                <div class="action-description">AI-powered practice sessions</div>
+            </div>
+            <div class="action-card" id="flashcardsBtn">
+                <div class="action-icon">
+                    <span class="material-icons">style</span>
+                </div>
+                <div class="action-title">Flashcards</div>
+                <div class="action-description">Quick revision cards</div>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="tabs-section slide-up">
+            <div class="tabs-scroll">
+                <div class="tab active" data-category="technical">
+                    <span class="material-icons" style="font-size: 18px;">code</span>
+                    Technical
+                    <span class="tab-count">24</span>
+                </div>
+                <div class="tab" data-category="hr">
+                    <span class="material-icons" style="font-size: 18px;">groups</span>
+                    HR
+                    <span class="tab-count">12</span>
+                </div>
+                <div class="tab" data-category="behavioral">
+                    <span class="material-icons" style="font-size: 18px;">psychology</span>
+                    Behavioral
+                    <span class="tab-count">18</span>
+                </div>
+                <div class="tab" data-category="system-design">
+                    <span class="material-icons" style="font-size: 18px;">architecture</span>
+                    System Design
+                    <span class="tab-count">8</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topics List -->
+        <div class="topics-section slide-up">
+            <div class="section-header">
+                <div class="section-title">Technical Topics</div>
+                <div class="topics-count" id="topicsCount">24 topics</div>
+            </div>
+
+            <div class="topics-list" id="topicsList">
+                <!-- Technical Topics -->
+                <div class="topic-item" data-category="technical" data-difficulty="medium">
+                    <div class="topic-content">
+                        <div class="topic-header">
+                            <div>
+                                <div class="topic-name">Machine Learning Fundamentals</div>
+                                <div class="topic-description">Supervised vs unsupervised learning, model evaluation, bias-variance tradeoff</div>
+                            </div>
+                            <div class="difficulty-badge difficulty-medium">Medium</div>
+                        </div>
+                        <div class="topic-meta">
+                            <div class="topic-stats">
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">quiz</span>
+                                    <span>15 questions</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">schedule</span>
+                                    <span>45 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-circle" style="--progress: 60%">
+                            <div class="progress-text">60%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-item" data-category="technical" data-difficulty="hard">
+                    <div class="topic-content">
+                        <div class="topic-header">
+                            <div>
+                                <div class="topic-name">Deep Learning & Neural Networks</div>
+                                <div class="topic-description">CNN, RNN, transformers, backpropagation, activation functions</div>
+                            </div>
+                            <div class="difficulty-badge difficulty-hard">Hard</div>
+                        </div>
+                        <div class="topic-meta">
+                            <div class="topic-stats">
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">quiz</span>
+                                    <span>22 questions</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">schedule</span>
+                                    <span>60 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-circle" style="--progress: 30%">
+                            <div class="progress-text">30%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-item" data-category="technical" data-difficulty="easy">
+                    <div class="topic-content">
+                        <div class="topic-header">
+                            <div>
+                                <div class="topic-name">Python Programming</div>
+                                <div class="topic-description">Data structures, OOP, list comprehensions, generators</div>
+                            </div>
+                            <div class="difficulty-badge difficulty-easy">Easy</div>
+                        </div>
+                        <div class="topic-meta">
+                            <div class="topic-stats">
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">quiz</span>
+                                    <span>18 questions</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">schedule</span>
+                                    <span>30 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-circle" style="--progress: 85%">
+                            <div class="progress-text">85%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-item" data-category="technical" data-difficulty="medium">
+                    <div class="topic-content">
+                        <div class="topic-header">
+                            <div>
+                                <div class="topic-name">SQL & Database Design</div>
+                                <div class="topic-description">Queries, joins, indexing, normalization, transactions</div>
+                            </div>
+                            <div class="difficulty-badge difficulty-medium">Medium</div>
+                        </div>
+                        <div class="topic-meta">
+                            <div class="topic-stats">
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">quiz</span>
+                                    <span>12 questions</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">schedule</span>
+                                    <span>40 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-circle" style="--progress: 70%">
+                            <div class="progress-text">70%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-item" data-category="technical" data-difficulty="hard">
+                    <div class="topic-content">
+                        <div class="topic-header">
+                            <div>
+                                <div class="topic-name">System Design - Scalability</div>
+                                <div class="topic-description">Load balancing, caching, database partitioning, microservices</div>
+                            </div>
+                            <div class="difficulty-badge difficulty-hard">Hard</div>
+                        </div>
+                        <div class="topic-meta">
+                            <div class="topic-stats">
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">quiz</span>
+                                    <span>8 questions</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">schedule</span>
+                                    <span>90 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-circle" style="--progress: 20%">
+                            <div class="progress-text">20%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-item" data-category="technical" data-difficulty="medium">
+                    <div class="topic-content">
+                        <div class="topic-header">
+                            <div>
+                                <div class="topic-name">Data Structures & Algorithms</div>
+                                <div class="topic-description">Arrays, linked lists, trees, sorting, searching algorithms</div>
+                            </div>
+                            <div class="difficulty-badge difficulty-medium">Medium</div>
+                        </div>
+                        <div class="topic-meta">
+                            <div class="topic-stats">
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">quiz</span>
+                                    <span>25 questions</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="material-icons" style="font-size: 14px;">schedule</span>
+                                    <span>75 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-circle" style="--progress: 45%">
+                            <div class="progress-text">45%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">home</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">work</span>
+            <span class="nav-label">Jobs</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">timeline</span>
+            <span class="nav-label">Roadmap</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <span class="material-icons nav-icon">record_voice_over</span>
+            <span class="nav-label">Practice</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">person</span>
+            <span class="nav-label">Profile</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const searchInput = document.getElementById('searchInput');
+            const clearSearch = document.getElementById('clearSearch');
+            const tabs = document.querySelectorAll('.tab');
+            const topicItems = document.querySelectorAll('.topic-item');
+            const topicsList = document.getElementById('topicsList');
+            const topicsCount = document.getElementById('topicsCount');
+            const mockInterviewBtn = document.getElementById('mockInterviewBtn');
+            const flashcardsBtn = document.getElementById('flashcardsBtn');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            // Current filter state
+            let currentCategory = 'technical';
+            let currentSearch = '';
+
+            // Topics data by category
+            const topicsData = {
+                technical: [
+                    { name: "Machine Learning Fundamentals", difficulty: "medium", progress: 60, questions: 15, duration: "45 min", description: "Supervised vs unsupervised learning, model evaluation, bias-variance tradeoff" },
+                    { name: "Deep Learning & Neural Networks", difficulty: "hard", progress: 30, questions: 22, duration: "60 min", description: "CNN, RNN, transformers, backpropagation, activation functions" },
+                    { name: "Python Programming", difficulty: "easy", progress: 85, questions: 18, duration: "30 min", description: "Data structures, OOP, list comprehensions, generators" },
+                    { name: "SQL & Database Design", difficulty: "medium", progress: 70, questions: 12, duration: "40 min", description: "Queries, joins, indexing, normalization, transactions" },
+                    { name: "System Design - Scalability", difficulty: "hard", progress: 20, questions: 8, duration: "90 min", description: "Load balancing, caching, database partitioning, microservices" },
+                    { name: "Data Structures & Algorithms", difficulty: "medium", progress: 45, questions: 25, duration: "75 min", description: "Arrays, linked lists, trees, sorting, searching algorithms" }
+                ],
+                hr: [
+                    { name: "Career Goals & Motivation", difficulty: "easy", progress: 80, questions: 10, duration: "25 min", description: "Discuss your career aspirations and what motivates you" },
+                    { name: "Strengths & Weaknesses", difficulty: "medium", progress: 65, questions: 8, duration: "20 min", description: "Identify and articulate your key strengths and areas for improvement" },
+                    { name: "Teamwork & Collaboration", difficulty: "easy", progress: 90, questions: 6, duration: "15 min", description: "Examples of successful teamwork and conflict resolution" }
+                ],
+                behavioral: [
+                    { name: "Leadership Experience", difficulty: "medium", progress: 55, questions: 12, duration: "30 min", description: "Discuss leadership roles and how you influenced others" },
+                    { name: "Problem Solving Scenarios", difficulty: "hard", progress: 40, questions: 15, duration: "45 min", description: "Behavioral questions about challenging situations" },
+                    { name: "Adaptability & Change", difficulty: "medium", progress: 70, questions: 8, duration: "20 min", description: "How you handle change and adapt to new environments" }
+                ],
+                'system-design': [
+                    { name: "Design Twitter/News Feed", difficulty: "hard", progress: 25, questions: 5, duration: "60 min", description: "Design a scalable social media feed system" },
+                    { name: "URL Shortener Service", difficulty: "medium", progress: 50, questions: 4, duration: "45 min", description: "Design a service like TinyURL or bit.ly" },
+                    { name: "Ride Sharing System", difficulty: "hard", progress: 15, questions: 6, duration: "75 min", description: "Design a system like Uber or Lyft" }
+                ]
+            };
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Dashboard...');
+                    // window.location.href = 'dashboard.html';
+                }, 500);
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                currentSearch = this.value.toLowerCase().trim();
+                clearSearch.style.display = currentSearch ? 'block' : 'none';
+                filterTopics();
+            });
+
+            clearSearch.addEventListener('click', function() {
+                searchInput.value = '';
+                currentSearch = '';
+                this.style.display = 'none';
+                filterTopics();
+                searchInput.focus();
+            });
+
+            // Tab switching functionality
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Update current category
+                    currentCategory = category;
+                    
+                    // Update section title
+                    const sectionTitle = document.querySelector('.section-title');
+                    sectionTitle.textContent = getCategoryDisplayName(category) + ' Topics';
+                    
+                    filterTopics();
+                });
+            });
+
+            // Topic item click functionality
+            topicItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const topicName = this.querySelector('.topic-name').textContent;
+                    showLoading(this, 'Opening...');
+                    
+                    setTimeout(() => {
+                        alert(`Opening topic: ${topicName}`);
+                        // window.location.href = `topic-detail.html?topic=${encodeURIComponent(topicName)}`;
+                    }, 800);
+                });
+            });
+
+            // Quick actions functionality
+            mockInterviewBtn.addEventListener('click', function() {
+                showLoading(this, 'Starting...');
+                setTimeout(() => {
+                    alert('Starting AI Mock Interview...');
+                    // window.location.href = 'mock-interview.html';
+                }, 800);
+            });
+
+            flashcardsBtn.addEventListener('click', function() {
+                showLoading(this, 'Loading...');
+                setTimeout(() => {
+                    alert('Opening Flashcards...');
+                    // window.location.href = 'flashcards.html';
+                }, 800);
+            });
+
+            // Navigation functionality
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Navigate if not current page
+                    const label = this.querySelector('.nav-label').textContent;
+                    if (label !== 'Practice') {
+                        alert(`Navigating to ${label}...`);
+                        // window.location.href = `${label.toLowerCase()}.html`;
+                    }
+                });
+            });
+
+            // Filter and display topics
+            function filterTopics() {
+                const topics = topicsData[currentCategory] || [];
+                let filteredTopics = topics;
+                
+                // Apply search filter
+                if (currentSearch) {
+                    filteredTopics = topics.filter(topic => 
+                        topic.name.toLowerCase().includes(currentSearch) ||
+                        topic.description.toLowerCase().includes(currentSearch)
+                    );
+                }
+                
+                // Update topics count
+                topicsCount.textContent = `${filteredTopics.length} topic${filteredTopics.length !== 1 ? 's' : ''}`;
+                
+                // Clear current topics
+                topicsList.innerHTML = '';
+                
+                if (filteredTopics.length === 0) {
+                    // Show empty state
+                    topicsList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <span class="material-icons">search_off</span>
+                            </div>
+                            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">No topics found</div>
+                            <div style="font-size: 14px; color: #666;">Try adjusting your search or filter</div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Display filtered topics
+                filteredTopics.forEach(topic => {
+                    const topicEl = document.createElement('div');
+                    topicEl.className = 'topic-item';
+                    topicEl.setAttribute('data-category', currentCategory);
+                    topicEl.setAttribute('data-difficulty', topic.difficulty);
+                    
+                    topicEl.innerHTML = `
+                        <div class="topic-content">
+                            <div class="topic-header">
+                                <div>
+                                    <div class="topic-name">${topic.name}</div>
+                                    <div class="topic-description">${topic.description}</div>
+                                </div>
+                                <div class="difficulty-badge difficulty-${topic.difficulty}">${getDifficultyDisplayName(topic.difficulty)}</div>
+                            </div>
+                            <div class="topic-meta">
+                                <div class="topic-stats">
+                                    <div class="stat-item">
+                                        <span class="material-icons" style="font-size: 14px;">quiz</span>
+                                        <span>${topic.questions} questions</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="material-icons" style="font-size: 14px;">schedule</span>
+                                        <span>${topic.duration}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress-indicator">
+                            <div class="progress-circle" style="--progress: ${topic.progress}%">
+                                <div class="progress-text">${topic.progress}%</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    topicEl.addEventListener('click', function() {
+                        showLoading(this, 'Opening...');
+                        setTimeout(() => {
+                            alert(`Opening topic: ${topic.name}`);
+                            // window.location.href = `topic-detail.html?topic=${encodeURIComponent(topic.name)}`;
+                        }, 800);
+                    });
+                    
+                    topicsList.appendChild(topicEl);
+                });
+            }
+
+            // Helper function to get category display name
+            function getCategoryDisplayName(category) {
+                const names = {
+                    'technical': 'Technical',
+                    'hr': 'HR',
+                    'behavioral': 'Behavioral',
+                    'system-design': 'System Design'
+                };
+                return names[category] || category;
+            }
+
+            // Helper function to get difficulty display name
+            function getDifficultyDisplayName(difficulty) {
+                const names = {
+                    'easy': 'Easy',
+                    'medium': 'Medium',
+                    'hard': 'Hard'
+                };
+                return names[difficulty] || difficulty;
+            }
+
+            // Function to show loading state
+            function showLoading(element, text = 'Loading...') {
+                const originalHTML = element.innerHTML;
+                element.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                element.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    element.innerHTML = originalHTML;
+                    element.style.pointerEvents = 'auto';
+                }, 1000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .topic-item, .action-card, .tab, .nav-item');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && currentSearch) {
+                    searchInput.value = '';
+                    currentSearch = '';
+                    clearSearch.style.display = 'none';
+                    filterTopics();
+                }
+            });
+
+            // Initialize
+            filterTopics();
+        });
+    </script>
+</body>
+</html>

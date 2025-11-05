@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Resume Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #E5E7EB;
+            margin: 0 -16px;
+            padding: 20px 16px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .header-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        /* Resume Preview Container */
+        .preview-container {
+            margin: 24px 0;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1E2BC4;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2B3AEE;
+            border: 2px solid #2B3AEE;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(43, 58, 238, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-outline:hover {
+            border-color: #666;
+            transform: translateY(-1px);
+        }
+
+        /* Resume Preview */
+        .resume-preview {
+            background: white;
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E5E7EB;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .resume-paper {
+            padding: 40px 32px;
+            min-height: 800px;
+            background: white;
+        }
+
+        /* Modern Resume Template */
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 3px solid #2B3AEE;
+        }
+
+        .personal-info {
+            flex: 1;
+        }
+
+        .name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .contact-item .material-icons {
+            font-size: 16px;
+            color: #2B3AEE;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .resume-section {
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(43, 58, 238, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2B3AEE;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2B3AEE;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-content {
+            padding-left: 44px;
+        }
+
+        /* Summary Section */
+        .summary-text {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Experience Section */
+        .experience-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #F0F4FF;
+        }
+
+        .experience-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .job-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .job-company {
+            font-size: 15px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .job-period {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .job-description {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .job-highlights {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .job-highlights li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 4px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .job-highlights li:before {
+            content: "•";
+            color: #2B3AEE;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Education Section */
+        .education-item {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #F0F4FF;
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
+
+        .degree {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .school {
+            font-size: 15px;
+            font-weight: 600;
+            color: #2B3AEE;
+        }
+
+        .education-period {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .education-details {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .skill-category {
+            margin-bottom: 16px;
+        }
+
+        .skill-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: rgba(43, 58, 238, 0.1);
+            color: #2B3AEE;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Projects Section */
+        .project-item {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #F0F4FF;
+        }
+
+        .project-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .project-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .project-period {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 167, 157, 0.1);
+            color: #00A79D;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Export Options */
+        .export-options {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .export-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .export-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .export-btn {
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-btn .material-icons {
+            font-size: 24px;
+        }
+
+        .btn-pdf {
+            background: #FF5252;
+            color: white;
+        }
+
+        .btn-pdf:hover {
+            background: #D32F2F;
+            transform: translateY(-1px);
+        }
+
+        .btn-word {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-word:hover {
+            background: #1976D2;
+            transform: translateY(-1px);
+        }
+
+        .btn-print {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #388E3C;
+            transform: translateY(-1px);
+        }
+
+        .btn-share {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn-share:hover {
+            background: #F57C00;
+            transform: translateY(-1px);
+        }
+
+        /* ATS Optimization Info */
+        .ats-info {
+            background: #E8F5E8;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .ats-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .ats-icon {
+            color: #4CAF50;
+            font-size: 20px;
+        }
+
+        .ats-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2E7D32;
+        }
+
+        .ats-content {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .ats-score {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-body {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(43, 58, 238, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #2B3AEE;
+            font-size: 32px;
+        }
+
+        .modal-text {
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: white;
+            color: #666;
+            border: 2px solid #E5E7EB;
+        }
+
+        .btn-cancel:hover {
+            border-color: #666;
+        }
+
+        .btn-confirm {
+            background: #2B3AEE;
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background: #1E2BC4;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .resume-paper {
+                padding: 50px 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .resume-paper {
+                padding: 24px 20px;
+            }
+            
+            .resume-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .profile-pic {
+                align-self: flex-start;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .export-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Resume Preview</h1>
+                <p>Review your completed resume</p>
+            </div>
+            <div class="header-actions">
+                <button class="header-btn" id="editBtn" title="Edit Resume">
+                    <span class="material-icons">edit</span>
+                </button>
+                <button class="header-btn" id="shareBtn" title="Share Resume">
+                    <span class="material-icons">share</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Preview Actions -->
+        <div class="preview-container slide-up">
+            <div class="preview-actions">
+                <button class="action-btn btn-primary" id="saveResume">
+                    <span class="material-icons">save</span>
+                    Save Resume
+                </button>
+                <button class="action-btn btn-secondary" id="compareJD">
+                    <span class="material-icons">compare</span>
+                    Compare with JD
+                </button>
+                <button class="action-btn btn-outline" id="toggleATS">
+                    <span class="material-icons">visibility</span>
+                    ATS View
+                </button>
+            </div>
+
+            <!-- ATS Optimization Info -->
+            <div class="ats-info">
+                <div class="ats-header">
+                    <span class="material-icons ats-icon">check_circle</span>
+                    <div class="ats-title">ATS Optimized</div>
+                </div>
+                <div class="ats-content">
+                    Your resume is optimized for Applicant Tracking Systems with a 
+                    <span class="ats-score">92% Match Score</span>. 
+                    Key keywords detected: Python, Machine Learning, AI, Data Analysis, SQL
+                </div>
+            </div>
+
+            <!-- Resume Preview -->
+            <div class="resume-preview">
+                <div class="resume-paper">
+                    <!-- Resume Header -->
+                    <div class="resume-header">
+                        <div class="personal-info">
+                            <div class="name" id="preview-name">Muhammad Yaseen</div>
+                            <div class="title" id="preview-title">AI Engineer & Data Scientist</div>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <span class="material-icons">phone</span>
+                                    <span id="preview-phone">+1 (555) 123-4567</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="material-icons">email</span>
+                                    <span id="preview-email">yaseen.ai@email.com</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="material-icons">location_on</span>
+                                    <span id="preview-location">San Francisco, CA</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="material-icons">link</span>
+                                    <span id="preview-linkedin">linkedin.com/in/yaseen-ai</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-pic" id="preview-profile-pic">
+                            MY
+                        </div>
+                    </div>
+
+                    <!-- Professional Summary -->
+                    <div class="resume-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <span class="material-icons">person</span>
+                            </div>
+                            <div class="section-title">Professional Summary</div>
+                        </div>
+                        <div class="section-content">
+                            <div class="summary-text" id="preview-summary">
+                                Results-driven AI Engineer with 4+ years of experience in developing machine learning models and AI solutions. 
+                                Specialized in natural language processing, computer vision, and predictive analytics. 
+                                Proven track record of delivering AI projects that improve efficiency by 40% and reduce costs by 25%.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Work Experience -->
+                    <div class="resume-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <span class="material-icons">work</span>
+                            </div>
+                            <div class="section-title">Work Experience</div>
+                        </div>
+                        <div class="section-content">
+                            <div class="experience-item">
+                                <div class="job-header">
+                                    <div>
+                                        <div class="job-title" id="preview-job-title-1">Senior AI Engineer</div>
+                                        <div class="job-company" id="preview-company-1">TechInnovate Inc.</div>
+                                    </div>
+                                    <div class="job-period" id="preview-period-1">2022 - Present</div>
+                                </div>
+                                <div class="job-description" id="preview-job-desc-1">
+                                    Lead AI development team in creating innovative machine learning solutions for enterprise clients.
+                                </div>
+                                <ul class="job-highlights" id="preview-highlights-1">
+                                    <li>Developed NLP models that improved text classification accuracy by 35%</li>
+                                    <li>Led a team of 5 engineers in delivering AI-powered analytics platform</li>
+                                    <li>Reduced model training time by 60% through optimization techniques</li>
+                                </ul>
+                            </div>
+
+                            <div class="experience-item">
+                                <div class="job-header">
+                                    <div>
+                                        <div class="job-title" id="preview-job-title-2">Machine Learning Engineer</div>
+                                        <div class="job-company" id="preview-company-2">DataSystems Corp</div>
+                                    </div>
+                                    <div class="job-period" id="preview-period-2">2020 - 2022</div>
+                                </div>
+                                <div class="job-description" id="preview-job-desc-2">
+                                    Designed and implemented ML models for predictive analytics and recommendation systems.
+                                </div>
+                                <ul class="job-highlights" id="preview-highlights-2">
+                                    <li>Built recommendation engine serving 1M+ users with 85% accuracy</li>
+                                    <li>Implemented real-time fraud detection system reducing false positives by 40%</li>
+                                    <li>Collaborated with data scientists to productionize ML models</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="resume-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <span class="material-icons">school</span>
+                            </div>
+                            <div class="section-title">Education</div>
+                        </div>
+                        <div class="section-content">
+                            <div class="education-item">
+                                <div class="education-header">
+                                    <div>
+                                        <div class="degree" id="preview-degree-1">M.S. in Artificial Intelligence</div>
+                                        <div class="school" id="preview-school-1">Stanford University</div>
+                                    </div>
+                                    <div class="education-period" id="preview-edu-period-1">2018 - 2020</div>
+                                </div>
+                                <div class="education-details" id="preview-edu-details-1">
+                                    GPA: 3.9/4.0 | Focus: Machine Learning, Deep Learning, NLP
+                                </div>
+                            </div>
+
+                            <div class="education-item">
+                                <div class="education-header">
+                                    <div>
+                                        <div class="degree" id="preview-degree-2">B.S. in Computer Science</div>
+                                        <div class="school" id="preview-school-2">MIT</div>
+                                    </div>
+                                    <div class="education-period" id="preview-edu-period-2">2014 - 2018</div>
+                                </div>
+                                <div class="education-details" id="preview-edu-details-2">
+                                    GPA: 3.8/4.0 | Minor: Mathematics
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="resume-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <span class="material-icons">code</span>
+                            </div>
+                            <div class="section-title">Skills</div>
+                        </div>
+                        <div class="section-content">
+                            <div class="skills-grid">
+                                <div class="skill-category">
+                                    <div class="category-title">Programming</div>
+                                    <div class="skill-tags" id="preview-skills-programming">
+                                        <span class="skill-tag">Python</span>
+                                        <span class="skill-tag">R</span>
+                                        <span class="skill-tag">SQL</span>
+                                        <span class="skill-tag">Java</span>
+                                    </div>
+                                </div>
+                                <div class="skill-category">
+                                    <div class="category-title">ML Frameworks</div>
+                                    <div class="skill-tags" id="preview-skills-ml">
+                                        <span class="skill-tag">TensorFlow</span>
+                                        <span class="skill-tag">PyTorch</span>
+                                        <span class="skill-tag">Scikit-learn</span>
+                                        <span class="skill-tag">Keras</span>
+                                    </div>
+                                </div>
+                                <div class="skill-category">
+                                    <div class="category-title">Tools & Technologies</div>
+                                    <div class="skill-tags" id="preview-skills-tools">
+                                        <span class="skill-tag">Git</span>
+                                        <span class="skill-tag">Docker</span>
+                                        <span class="skill-tag">AWS</span>
+                                        <span class="skill-tag">Spark</span>
+                                    </div>
+                                </div>
+                                <div class="skill-category">
+                                    <div class="category-title">Domains</div>
+                                    <div class="skill-tags" id="preview-skills-domains">
+                                        <span class="skill-tag">NLP</span>
+                                        <span class="skill-tag">Computer Vision</span>
+                                        <span class="skill-tag">Predictive Analytics</span>
+                                        <span class="skill-tag">Deep Learning</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projects -->
+                    <div class="resume-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <span class="material-icons">folder</span>
+                            </div>
+                            <div class="section-title">Projects</div>
+                        </div>
+                        <div class="section-content">
+                            <div class="project-item">
+                                <div class="project-header">
+                                    <div class="project-name" id="preview-project-name-1">AI-Powered Customer Support Chatbot</div>
+                                    <div class="project-period" id="preview-project-period-1">2023</div>
+                                </div>
+                                <div class="project-description" id="preview-project-desc-1">
+                                    Developed an intelligent chatbot using transformer models that reduced customer support tickets by 65% and improved response time by 80%.
+                                </div>
+                                <div class="project-tech" id="preview-project-tech-1">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Transformers</span>
+                                    <span class="tech-tag">NLP</span>
+                                    <span class="tech-tag">FastAPI</span>
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-header">
+                                    <div class="project-name" id="preview-project-name-2">Real-time Fraud Detection System</div>
+                                    <div class="project-period" id="preview-project-period-2">2022</div>
+                                </div>
+                                <div class="project-description" id="preview-project-desc-2">
+                                    Built a machine learning system that detects fraudulent transactions in real-time with 94% accuracy, saving $2M annually.
+                                </div>
+                                <div class="project-tech" id="preview-project-tech-2">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">XGBoost</span>
+                                    <span class="tech-tag">Kafka</span>
+                                    <span class="tech-tag">Redis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Options -->
+            <div class="export-options">
+                <div class="export-title">Export Your Resume</div>
+                <div class="export-buttons">
+                    <button class="export-btn btn-pdf" id="exportPDF">
+                        <span class="material-icons">picture_as_pdf</span>
+                        Export PDF
+                    </button>
+                    <button class="export-btn btn-word" id="exportWord">
+                        <span class="material-icons">description</span>
+                        Export Word
+                    </button>
+                    <button class="export-btn btn-print" id="printResume">
+                        <span class="material-icons">print</span>
+                        Print
+                    </button>
+                    <button class="export-btn btn-share" id="shareResume">
+                        <span class="material-icons">ios_share</span>
+                        Share
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn btn-secondary" id="backToEditor" style="flex: 2;">
+                    <span class="material-icons">arrow_back</span>
+                    Back to Editor
+                </button>
+                <button class="action-btn btn-primary" id="useThisResume" style="flex: 3;">
+                    <span class="material-icons">check_circle</span>
+                    Use This Resume
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Success Modal -->
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Export Successful</div>
+                <div class="modal-subtitle">Your resume has been exported</div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <span class="material-icons">check</span>
+                </div>
+                <div class="modal-text">
+                    <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">
+                        Resume Downloaded
+                    </div>
+                    <div style="font-size: 14px; color: #666;">
+                        Your resume has been successfully exported and downloaded to your device.
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn btn-confirm" id="closeExportModal">
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const editBtn = document.getElementById('editBtn');
+            const shareBtn = document.getElementById('shareBtn');
+            const saveResumeBtn = document.getElementById('saveResume');
+            const compareJDBtn = document.getElementById('compareJD');
+            const toggleATSBtn = document.getElementById('toggleATS');
+            const exportPDFBtn = document.getElementById('exportPDF');
+            const exportWordBtn = document.getElementById('exportWord');
+            const printResumeBtn = document.getElementById('printResume');
+            const shareResumeBtn = document.getElementById('shareResume');
+            const backToEditorBtn = document.getElementById('backToEditor');
+            const useThisResumeBtn = document.getElementById('useThisResume');
+            const exportModal = document.getElementById('exportModal');
+            const closeExportModal = document.getElementById('closeExportModal');
+
+            // Load resume data from localStorage (simulating data from editor)
+            function loadResumeData() {
+                // In a real app, this would come from your resume editor
+                const sampleData = {
+                    name: "Muhammad Yaseen",
+                    title: "AI Engineer & Data Scientist",
+                    phone: "+1 (555) 123-4567",
+                    email: "yaseen.ai@email.com",
+                    location: "San Francisco, CA",
+                    linkedin: "linkedin.com/in/yaseen-ai",
+                    summary: "Results-driven AI Engineer with 4+ years of experience in developing machine learning models and AI solutions. Specialized in natural language processing, computer vision, and predictive analytics. Proven track record of delivering AI projects that improve efficiency by 40% and reduce costs by 25%.",
+                    experiences: [
+                        {
+                            title: "Senior AI Engineer",
+                            company: "TechInnovate Inc.",
+                            period: "2022 - Present",
+                            description: "Lead AI development team in creating innovative machine learning solutions for enterprise clients.",
+                            highlights: [
+                                "Developed NLP models that improved text classification accuracy by 35%",
+                                "Led a team of 5 engineers in delivering AI-powered analytics platform",
+                                "Reduced model training time by 60% through optimization techniques"
+                            ]
+                        },
+                        {
+                            title: "Machine Learning Engineer",
+                            company: "DataSystems Corp",
+                            period: "2020 - 2022",
+                            description: "Designed and implemented ML models for predictive analytics and recommendation systems.",
+                            highlights: [
+                                "Built recommendation engine serving 1M+ users with 85% accuracy",
+                                "Implemented real-time fraud detection system reducing false positives by 40%",
+                                "Collaborated with data scientists to productionize ML models"
+                            ]
+                        }
+                    ],
+                    education: [
+                        {
+                            degree: "M.S. in Artificial Intelligence",
+                            school: "Stanford University",
+                            period: "2018 - 2020",
+                            details: "GPA: 3.9/4.0 | Focus: Machine Learning, Deep Learning, NLP"
+                        },
+                        {
+                            degree: "B.S. in Computer Science",
+                            school: "MIT",
+                            period: "2014 - 2018",
+                            details: "GPA: 3.8/4.0 | Minor: Mathematics"
+                        }
+                    ],
+                    skills: {
+                        programming: ["Python", "R", "SQL", "Java"],
+                        ml: ["TensorFlow", "PyTorch", "Scikit-learn", "Keras"],
+                        tools: ["Git", "Docker", "AWS", "Spark"],
+                        domains: ["NLP", "Computer Vision", "Predictive Analytics", "Deep Learning"]
+                    },
+                    projects: [
+                        {
+                            name: "AI-Powered Customer Support Chatbot",
+                            period: "2023",
+                            description: "Developed an intelligent chatbot using transformer models that reduced customer support tickets by 65% and improved response time by 80%.",
+                            tech: ["Python", "Transformers", "NLP", "FastAPI"]
+                        },
+                        {
+                            name: "Real-time Fraud Detection System",
+                            period: "2022",
+                            description: "Built a machine learning system that detects fraudulent transactions in real-time with 94% accuracy, saving $2M annually.",
+                            tech: ["Python", "XGBoost", "Kafka", "Redis"]
+                        }
+                    ]
+                };
+
+                // Populate the resume with data
+                document.getElementById('preview-name').textContent = sampleData.name;
+                document.getElementById('preview-title').textContent = sampleData.title;
+                document.getElementById('preview-phone').textContent = sampleData.phone;
+                document.getElementById('preview-email').textContent = sampleData.email;
+                document.getElementById('preview-location').textContent = sampleData.location;
+                document.getElementById('preview-linkedin').textContent = sampleData.linkedin;
+                document.getElementById('preview-summary').textContent = sampleData.summary;
+
+                // Populate experiences
+                sampleData.experiences.forEach((exp, index) => {
+                    document.getElementById(`preview-job-title-${index + 1}`).textContent = exp.title;
+                    document.getElementById(`preview-company-${index + 1}`).textContent = exp.company;
+                    document.getElementById(`preview-period-${index + 1}`).textContent = exp.period;
+                    document.getElementById(`preview-job-desc-${index + 1}`).textContent = exp.description;
+                    
+                    const highlightsList = document.getElementById(`preview-highlights-${index + 1}`);
+                    highlightsList.innerHTML = '';
+                    exp.highlights.forEach(highlight => {
+                        const li = document.createElement('li');
+                        li.textContent = highlight;
+                        highlightsList.appendChild(li);
+                    });
+                });
+
+                // Populate education
+                sampleData.education.forEach((edu, index) => {
+                    document.getElementById(`preview-degree-${index + 1}`).textContent = edu.degree;
+                    document.getElementById(`preview-school-${index + 1}`).textContent = edu.school;
+                    document.getElementById(`preview-edu-period-${index + 1}`).textContent = edu.period;
+                    document.getElementById(`preview-edu-details-${index + 1}`).textContent = edu.details;
+                });
+
+                // Populate skills
+                Object.keys(sampleData.skills).forEach(category => {
+                    const container = document.getElementById(`preview-skills-${category}`);
+                    container.innerHTML = '';
+                    sampleData.skills[category].forEach(skill => {
+                        const tag = document.createElement('span');
+                        tag.className = 'skill-tag';
+                        tag.textContent = skill;
+                        container.appendChild(tag);
+                    });
+                });
+
+                // Populate projects
+                sampleData.projects.forEach((project, index) => {
+                    document.getElementById(`preview-project-name-${index + 1}`).textContent = project.name;
+                    document.getElementById(`preview-project-period-${index + 1}`).textContent = project.period;
+                    document.getElementById(`preview-project-desc-${index + 1}`).textContent = project.description;
+                    
+                    const techContainer = document.getElementById(`preview-project-tech-${index + 1}`);
+                    techContainer.innerHTML = '';
+                    project.tech.forEach(tech => {
+                        const tag = document.createElement('span');
+                        tag.className = 'tech-tag';
+                        tag.textContent = tech;
+                        techContainer.appendChild(tag);
+                    });
+                });
+            }
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Resume Editor...');
+                    // window.location.href = 'resume-editor.html';
+                }, 500);
+            });
+
+            // Edit button
+            editBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Opening Resume Editor...');
+                    // window.location.href = 'resume-editor.html';
+                }, 500);
+            });
+
+            // Share button
+            shareBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    // Simulate share functionality
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'My Resume - Muhammad Yaseen',
+                            text: 'Check out my professional resume',
+                            url: window.location.href
+                        });
+                    } else {
+                        alert('Share functionality not available in this browser');
+                    }
+                }, 500);
+            });
+
+            // Save resume
+            saveResumeBtn.addEventListener('click', function() {
+                showLoading(this, 'Saving...');
+                setTimeout(() => {
+                    showToast('Resume saved successfully');
+                    this.innerHTML = '<span class="material-icons">save</span> Save Resume';
+                }, 1000);
+            });
+
+            // Compare with JD
+            compareJDBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Opening JD Analyzer...');
+                    // window.location.href = 'jd-analyzer.html';
+                }, 500);
+            });
+
+            // Toggle ATS View
+            let atsView = false;
+            toggleATSBtn.addEventListener('click', function() {
+                atsView = !atsView;
+                const resumePaper = document.querySelector('.resume-paper');
+                
+                if (atsView) {
+                    resumePaper.style.fontFamily = 'Arial, sans-serif';
+                    resumePaper.style.color = '#000';
+                    resumePaper.style.background = '#fff';
+                    this.innerHTML = '<span class="material-icons">visibility</span> Normal View';
+                    showToast('ATS View Enabled - Simple formatting for better parsing');
+                } else {
+                    resumePaper.style.fontFamily = '';
+                    resumePaper.style.color = '';
+                    resumePaper.style.background = '';
+                    this.innerHTML = '<span class="material-icons">visibility</span> ATS View';
+                    showToast('Normal View Enabled');
+                }
+            });
+
+            // Export PDF
+            exportPDFBtn.addEventListener('click', function() {
+                showLoading(this, 'Generating PDF...');
+                setTimeout(() => {
+                    exportModal.classList.add('active');
+                    this.innerHTML = '<span class="material-icons">picture_as_pdf</span> Export PDF';
+                }, 2000);
+            });
+
+            // Export Word
+            exportWordBtn.addEventListener('click', function() {
+                showLoading(this, 'Generating Word...');
+                setTimeout(() => {
+                    exportModal.classList.add('active');
+                    this.innerHTML = '<span class="material-icons">description</span> Export Word';
+                }, 2000);
+            });
+
+            // Print Resume
+            printResumeBtn.addEventListener('click', function() {
+                showLoading(this, 'Preparing...');
+                setTimeout(() => {
+                    window.print();
+                    this.innerHTML = '<span class="material-icons">print</span> Print';
+                }, 1000);
+            });
+
+            // Share Resume
+            shareResumeBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    // Simulate share functionality
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'My Resume - Muhammad Yaseen',
+                            text: 'Check out my professional resume',
+                            url: window.location.href
+                        });
+                    } else {
+                        alert('Share functionality not available in this browser');
+                    }
+                    this.innerHTML = '<span class="material-icons">ios_share</span> Share';
+                }, 500);
+            });
+
+            // Back to Editor
+            backToEditorBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Resume Editor...');
+                    // window.location.href = 'resume-editor.html';
+                }, 500);
+            });
+
+            // Use This Resume
+            useThisResumeBtn.addEventListener('click', function() {
+                showLoading(this, 'Setting as active...');
+                setTimeout(() => {
+                    showToast('Resume set as active for job applications');
+                    this.innerHTML = '<span class="material-icons">check_circle</span> Use This Resume';
+                }, 1000);
+            });
+
+            // Close export modal
+            closeExportModal.addEventListener('click', function() {
+                exportModal.classList.remove('active');
+            });
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Function to show toast notification
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1001;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    max-width: 300px;
+                    text-align: center;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.style.opacity = '1', 100);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Load resume data when page loads
+            loadResumeData();
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .resume-preview');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (exportModal.classList.contains('active')) {
+                        exportModal.classList.remove('active');
+                    } else {
+                        backBtn.click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

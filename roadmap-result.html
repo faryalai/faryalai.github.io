@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Your Career Roadmap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0 16px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Roadmap Header */
+        .roadmap-header {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(43, 58, 238, 0.1);
+            border: 1px solid rgba(43, 58, 238, 0.1);
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00A79D, #2B3AEE);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .roadmap-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 8px;
+        }
+
+        .roadmap-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .roadmap-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .meta-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2B3AEE;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #2B3AEE, #00A79D);
+            border-radius: 2px;
+        }
+
+        /* Timeline Cards */
+        .timeline-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            position: relative;
+            margin-left: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.15);
+            border-color: #2B3AEE;
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            left: -43px;
+            top: 32px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #2B3AEE;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #2B3AEE;
+        }
+
+        .timeline-card.current::before {
+            background: #00A79D;
+            box-shadow: 0 0 0 3px #00A79D;
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-card.completed::before {
+            background: #00A79D;
+            box-shadow: 0 0 0 3px #00A79D;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .card-time {
+            background: #2B3AEE;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .card-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+
+        .status-upcoming {
+            background: #F0F4FF;
+            color: #2B3AEE;
+        }
+
+        .status-current {
+            background: #00A79D;
+            color: white;
+        }
+
+        .status-completed {
+            background: #E8F5E8;
+            color: #00A79D;
+        }
+
+        .card-content {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .icon-foundation { background: rgba(43, 58, 238, 0.1); color: #2B3AEE; }
+        .icon-math { background: rgba(0, 167, 157, 0.1); color: #00A79D; }
+        .icon-ml { background: rgba(255, 152, 0, 0.1); color: #FF9800; }
+        .icon-deep { background: rgba(156, 39, 176, 0.1); color: #9C27B0; }
+        .icon-portfolio { background: rgba(33, 150, 243, 0.1); color: #2196F3; }
+
+        .card-details {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .card-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .skill-badge {
+            padding: 4px 8px;
+            background: #F0F4FF;
+            border: 1px solid #2B3AEE;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #2B3AEE;
+            font-weight: 500;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .resources-btn {
+            padding: 10px 20px;
+            background: #2B3AEE;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .resources-btn:hover {
+            background: #1E2BC2;
+            transform: translateY(-1px);
+        }
+
+        .mark-complete-btn {
+            padding: 10px 16px;
+            background: transparent;
+            color: #00A79D;
+            border: 2px solid #00A79D;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mark-complete-btn:hover {
+            background: #00A79D;
+            color: white;
+        }
+
+        .mark-complete-btn.completed {
+            background: #00A79D;
+            color: white;
+        }
+
+        /* Progress Summary */
+        .progress-summary {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 32px 0 24px 60px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2B3AEE;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2B3AEE, #00A79D);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Action Button */
+        .action-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 20px 16px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .track-progress-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.3);
+        }
+
+        .track-progress-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(43, 58, 238, 0.4);
+        }
+
+        /* Resources Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            color: white;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: 24px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .resource-category {
+            margin-bottom: 24px;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #F0F4FF;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .resource-item:hover {
+            border-color: #2B3AEE;
+            background: #F0F4FF;
+        }
+
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #2B3AEE;
+            background: rgba(43, 58, 238, 0.1);
+            flex-shrink: 0;
+        }
+
+        .resource-details {
+            flex: 1;
+        }
+
+        .resource-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .resource-meta {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .timeline-card {
+                margin-left: 50px;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-card::before {
+                left: -33px;
+            }
+            
+            .progress-summary {
+                margin-left: 50px;
+            }
+            
+            .card-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .card-icon {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <button class="back-btn" id="backBtn">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <div class="header-content">
+                <h1>Career Roadmap</h1>
+                <p>Your personalized AI learning path</p>
+            </div>
+        </div>
+
+        <!-- Roadmap Header -->
+        <div class="roadmap-header slide-up">
+            <div class="success-icon">
+                <span class="material-icons">auto_awesome</span>
+            </div>
+            <div class="roadmap-title">Your AI Career Roadmap</div>
+            <div class="roadmap-subtitle">Personalized path to become an AI Engineer</div>
+            <div class="roadmap-meta">
+                <div class="meta-item">
+                    <div class="meta-value">10 Months</div>
+                    <div class="meta-label">Total Duration</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">20 hrs/week</div>
+                    <div class="meta-label">Time Commitment</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">4/5 Milestones</div>
+                    <div class="meta-label">Completed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <!-- Month 1-2 -->
+            <div class="timeline-card completed">
+                <div class="card-header">
+                    <div class="card-time">Month 1-2</div>
+                    <div class="card-status status-completed">
+                        <span class="material-icons" style="font-size: 14px;">check_circle</span>
+                        Completed
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-icon icon-foundation">
+                        <span class="material-icons">code</span>
+                    </div>
+                    <div class="card-details">
+                        <div class="card-title">Programming Foundation</div>
+                        <div class="card-description">
+                            Build strong programming fundamentals with Python and SQL. Learn data structures, algorithms, and basic database operations.
+                        </div>
+                        <div class="card-skills">
+                            <div class="skill-badge">Python</div>
+                            <div class="skill-badge">SQL</div>
+                            <div class="skill-badge">Data Structures</div>
+                            <div class="skill-badge">Algorithms</div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="resources-btn" data-milestone="1">
+                                <span class="material-icons">menu_book</span>
+                                View Resources
+                            </button>
+                            <button class="mark-complete-btn completed">
+                                <span class="material-icons">check</span>
+                                Done
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Month 3-4 -->
+            <div class="timeline-card completed">
+                <div class="card-header">
+                    <div class="card-time">Month 3-4</div>
+                    <div class="card-status status-completed">
+                        <span class="material-icons" style="font-size: 14px;">check_circle</span>
+                        Completed
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-icon icon-math">
+                        <span class="material-icons">calculate</span>
+                    </div>
+                    <div class="card-details">
+                        <div class="card-title">Mathematics & Statistics</div>
+                        <div class="card-description">
+                            Master essential math concepts including linear algebra, calculus, probability, and statistics for machine learning.
+                        </div>
+                        <div class="card-skills">
+                            <div class="skill-badge">Linear Algebra</div>
+                            <div class="skill-badge">Calculus</div>
+                            <div class="skill-badge">Probability</div>
+                            <div class="skill-badge">Statistics</div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="resources-btn" data-milestone="2">
+                                <span class="material-icons">menu_book</span>
+                                View Resources
+                            </button>
+                            <button class="mark-complete-btn completed">
+                                <span class="material-icons">check</span>
+                                Done
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Month 5-7 -->
+            <div class="timeline-card current">
+                <div class="card-header">
+                    <div class="card-time">Month 5-7</div>
+                    <div class="card-status status-current">
+                        <span class="material-icons" style="font-size: 14px;">autorenew</span>
+                        In Progress
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-icon icon-ml">
+                        <span class="material-icons">psychology</span>
+                    </div>
+                    <div class="card-details">
+                        <div class="card-title">Machine Learning Projects</div>
+                        <div class="card-description">
+                            Build real-world ML projects using Scikit-learn and TensorFlow. Implement classification, regression, and clustering algorithms.
+                        </div>
+                        <div class="card-skills">
+                            <div class="skill-badge">Scikit-learn</div>
+                            <div class="skill-badge">TensorFlow</div>
+                            <div class="skill-badge">ML Algorithms</div>
+                            <div class="skill-badge">Model Evaluation</div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="resources-btn" data-milestone="3">
+                                <span class="material-icons">menu_book</span>
+                                View Resources
+                            </button>
+                            <button class="mark-complete-btn">
+                                <span class="material-icons">check</span>
+                                Mark Complete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Month 8-10 -->
+            <div class="timeline-card">
+                <div class="card-header">
+                    <div class="card-time">Month 8-10</div>
+                    <div class="card-status status-upcoming">
+                        <span class="material-icons" style="font-size: 14px;">schedule</span>
+                        Upcoming
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-icon icon-deep">
+                        <span class="material-icons">model_training</span>
+                    </div>
+                    <div class="card-details">
+                        <div class="card-title">Deep Learning & Portfolio</div>
+                        <div class="card-description">
+                            Advanced neural networks, NLP, computer vision, and build a professional portfolio with 3+ projects for job applications.
+                        </div>
+                        <div class="card-skills">
+                            <div class="skill-badge">Deep Learning</div>
+                            <div class="skill-badge">NLP</div>
+                            <div class="skill-badge">Computer Vision</div>
+                            <div class="skill-badge">Portfolio</div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="resources-btn" data-milestone="4">
+                                <span class="material-icons">menu_book</span>
+                                View Resources
+                            </button>
+                            <button class="mark-complete-btn" disabled>
+                                <span class="material-icons">lock</span>
+                                Locked
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Summary -->
+        <div class="progress-summary slide-up">
+            <div class="summary-header">
+                <div class="summary-title">Overall Progress</div>
+                <div style="font-size: 14px; color: #00A79D; font-weight: 600;">60% Complete</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+            </div>
+            <div class="progress-text">
+                <span>Started: Oct 2023</span>
+                <span>Est. Completion: Jul 2024</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Button -->
+    <div class="action-button">
+        <button class="track-progress-btn" id="trackProgressBtn">
+            <span class="material-icons">trending_up</span>
+            Track Progress
+        </button>
+    </div>
+
+    <!-- Resources Modal -->
+    <div class="modal-overlay" id="resourcesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Learning Resources</div>
+                <button class="close-modal" id="closeModal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Resources will be loaded here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const backBtn = document.getElementById('backBtn');
+            const trackProgressBtn = document.getElementById('trackProgressBtn');
+            const resourcesBtns = document.querySelectorAll('.resources-btn');
+            const markCompleteBtns = document.querySelectorAll('.mark-complete-btn');
+            const resourcesModal = document.getElementById('resourcesModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            // Resources data for each milestone
+            const resourcesData = {
+                1: {
+                    title: "Programming Foundation Resources",
+                    categories: [
+                        {
+                            title: "Online Courses",
+                            resources: [
+                                { name: "Python for Everybody", platform: "Coursera", duration: "15 hours", free: true },
+                                { name: "SQL Fundamentals", platform: "DataCamp", duration: "8 hours", free: false },
+                                { name: "Python Data Structures", platform: "edX", duration: "12 hours", free: true }
+                            ]
+                        },
+                        {
+                            title: "Practice Platforms",
+                            resources: [
+                                { name: "LeetCode - Easy Problems", platform: "LeetCode", duration: "Self-paced", free: true },
+                                { name: "HackerRank - Python", platform: "HackerRank", duration: "Self-paced", free: true },
+                                { name: "Codecademy - Python 3", platform: "Codecademy", duration: "25 hours", free: false }
+                            ]
+                        },
+                        {
+                            title: "Recommended Books",
+                            resources: [
+                                { name: "Python Crash Course", author: "Eric Matthes", type: "Book", free: false },
+                                { name: "Automate the Boring Stuff", author: "Al Sweigart", type: "Book", free: true }
+                            ]
+                        }
+                    ]
+                },
+                2: {
+                    title: "Mathematics & Statistics Resources",
+                    categories: [
+                        {
+                            title: "Linear Algebra",
+                            resources: [
+                                { name: "Khan Academy - Linear Algebra", platform: "Khan Academy", duration: "20 hours", free: true },
+                                { name: "3Blue1Brown - Essence of Linear Algebra", platform: "YouTube", duration: "4 hours", free: true }
+                            ]
+                        },
+                        {
+                            title: "Probability & Statistics",
+                            resources: [
+                                { name: "Statistics with Python", platform: "Coursera", duration: "18 hours", free: true },
+                                { name: "Probability Theory", platform: "edX", duration: "16 hours", free: false }
+                            ]
+                        }
+                    ]
+                },
+                3: {
+                    title: "Machine Learning Projects Resources",
+                    categories: [
+                        {
+                            title: "ML Fundamentals",
+                            resources: [
+                                { name: "Machine Learning by Andrew Ng", platform: "Coursera", duration: "55 hours", free: true },
+                                { name: "Hands-On ML with Scikit-Learn", platform: "Book", duration: "Self-paced", free: false }
+                            ]
+                        },
+                        {
+                            title: "Project Ideas",
+                            resources: [
+                                { name: "Spam Detection System", platform: "Kaggle", duration: "10 hours", free: true },
+                                { name: "House Price Prediction", platform: "Kaggle", duration: "8 hours", free: true },
+                                { name: "Customer Segmentation", platform: "UCI Dataset", duration: "12 hours", free: true }
+                            ]
+                        }
+                    ]
+                },
+                4: {
+                    title: "Deep Learning & Portfolio Resources",
+                    categories: [
+                        {
+                            title: "Deep Learning",
+                            resources: [
+                                { name: "Deep Learning Specialization", platform: "Coursera", duration: "65 hours", free: false },
+                                { name: "Fast.ai - Practical Deep Learning", platform: "fast.ai", duration: "30 hours", free: true }
+                            ]
+                        },
+                        {
+                            title: "Portfolio Building",
+                            resources: [
+                                { name: "Build a GitHub Portfolio", platform: "Guide", duration: "Self-paced", free: true },
+                                { name: "NLP Project: Sentiment Analysis", platform: "Project", duration: "15 hours", free: true },
+                                { name: "CV Project: Object Detection", platform: "Project", duration: "20 hours", free: true }
+                            ]
+                        }
+                    ]
+                }
+            };
+
+            // Back button functionality
+            backBtn.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    alert('Returning to Career Setup...');
+                    // window.location.href = 'roadmap-setup.html';
+                }, 500);
+            });
+
+            // Track progress button functionality
+            trackProgressBtn.addEventListener('click', function() {
+                showLoading(this, 'Opening Tracker...');
+                setTimeout(() => {
+                    window.location.href = 'progress-tracker.html';
+                }, 800);
+            });
+
+            // Resources button functionality
+            resourcesBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const milestone = this.getAttribute('data-milestone');
+                    openResourcesModal(milestone);
+                });
+            });
+
+            // Mark complete button functionality
+            markCompleteBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.disabled || this.classList.contains('completed')) return;
+                    
+                    const card = this.closest('.timeline-card');
+                    const status = card.querySelector('.card-status');
+                    const nextCard = card.nextElementSibling;
+                    
+                    showLoading(this, 'Updating...');
+                    
+                    setTimeout(() => {
+                        // Mark current as completed
+                        card.classList.remove('current');
+                        card.classList.add('completed');
+                        status.innerHTML = '<span class="material-icons" style="font-size: 14px;">check_circle</span> Completed';
+                        status.className = 'card-status status-completed';
+                        this.classList.add('completed');
+                        this.innerHTML = '<span class="material-icons">check</span> Done';
+                        
+                        // Activate next card if exists
+                        if (nextCard && nextCard.classList.contains('timeline-card')) {
+                            nextCard.classList.add('current');
+                            const nextStatus = nextCard.querySelector('.card-status');
+                            nextStatus.innerHTML = '<span class="material-icons" style="font-size: 14px;">autorenew</span> In Progress';
+                            nextStatus.className = 'card-status status-current';
+                            const nextButton = nextCard.querySelector('.mark-complete-btn');
+                            if (nextButton) {
+                                nextButton.disabled = false;
+                                nextButton.innerHTML = '<span class="material-icons">check</span> Mark Complete';
+                            }
+                        }
+                        
+                        // Update progress
+                        updateProgress();
+                        showToast('Milestone completed! Great work!');
+                    }, 1000);
+                });
+            });
+
+            // Close modal functionality
+            closeModal.addEventListener('click', function() {
+                resourcesModal.classList.remove('active');
+            });
+
+            // Close modal when clicking outside
+            resourcesModal.addEventListener('click', function(e) {
+                if (e.target === resourcesModal) {
+                    resourcesModal.classList.remove('active');
+                }
+            });
+
+            // Function to open resources modal
+            function openResourcesModal(milestone) {
+                const data = resourcesData[milestone];
+                if (!data) return;
+
+                modalTitle.textContent = data.title;
+                modalBody.innerHTML = '';
+
+                data.categories.forEach(category => {
+                    const categoryEl = document.createElement('div');
+                    categoryEl.className = 'resource-category';
+                    
+                    categoryEl.innerHTML = `
+                        <div class="category-title">${category.title}</div>
+                    `;
+
+                    category.resources.forEach(resource => {
+                        const resourceEl = document.createElement('div');
+                        resourceEl.className = 'resource-item';
+                        resourceEl.innerHTML = `
+                            <div class="resource-icon">
+                                <span class="material-icons">school</span>
+                            </div>
+                            <div class="resource-details">
+                                <div class="resource-name">${resource.name}</div>
+                                <div class="resource-meta">
+                                    ${resource.platform || resource.author} • ${resource.duration}
+                                    ${resource.free ? ' • Free' : ' • Paid'}
+                                </div>
+                            </div>
+                        `;
+                        
+                        resourceEl.addEventListener('click', function() {
+                            showToast(`Opening ${resource.name}...`);
+                        });
+                        
+                        categoryEl.appendChild(resourceEl);
+                    });
+
+                    modalBody.appendChild(categoryEl);
+                });
+
+                resourcesModal.classList.add('active');
+            }
+
+            // Function to update progress
+            function updateProgress() {
+                const completedCards = document.querySelectorAll('.timeline-card.completed').length;
+                const totalCards = document.querySelectorAll('.timeline-card').length;
+                const progress = (completedCards / totalCards) * 100;
+                
+                const progressFill = document.querySelector('.progress-fill');
+                const progressText = document.querySelector('.progress-summary .summary-header div:last-child');
+                
+                progressFill.style.width = `${progress}%`;
+                progressText.textContent = `${Math.round(progress)}% Complete`;
+            }
+
+            // Function to show loading state
+            function showLoading(button, text = 'Loading...') {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 1000);
+            }
+
+            // Function to show toast notification
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1001;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    max-width: 300px;
+                    text-align: center;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.style.opacity = '1', 100);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Add touch feedback
+            const interactiveElements = document.querySelectorAll('button, .resource-item');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (resourcesModal.classList.contains('active')) {
+                        resourcesModal.classList.remove('active');
+                    }
+                }
+            });
+
+            // Initialize progress
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
