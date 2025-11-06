@@ -44,10 +44,17 @@
             margin-right: 12px;
             border-radius: 50%;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .back-btn:hover {
             background-color: rgba(43, 58, 238, 0.1);
+        }
+
+        .back-text {
+            display: none; /* Hide the back text */
         }
 
         .header-content {
@@ -661,6 +668,7 @@
         <div class="header fade-in">
             <button class="back-btn" id="backBtn">
                 <span class="material-icons">arrow_back</span>
+                <span class="back-text">Back</span>
             </button>
             <div class="header-content">
                 <div class="topic-title">Machine Learning – Core Concepts</div>
@@ -1050,7 +1058,8 @@
             mockInterviewBtn.addEventListener('click', function() {
                 showLoading(this, 'Starting...');
                 setTimeout(() => {
-                    window.location.href = 'mock-interview.html?topic=machine-learning';
+                    alert('Starting AI Mock Interview for Machine Learning...');
+                    // window.location.href = 'mock-interview.html?topic=machine-learning';
                 }, 1000);
             });
 
@@ -1159,4 +1168,3 @@
     </script>
 </body>
 </html>
-
