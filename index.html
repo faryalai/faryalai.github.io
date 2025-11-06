@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career App - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FBFBFD;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 70px; /* Space for bottom nav */
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+
+        /* Top Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            margin-bottom: 12px;
+        }
+
+        .greeting h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 2px;
+        }
+
+        .greeting p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2B3AEE, #00A79D);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(43, 58, 238, 0.2);
+        }
+
+        /* Quick Stats Section */
+        .stats-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2B3AEE;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .view-all {
+            font-size: 12px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .stats-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 2px 0 12px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .stats-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .stat-card {
+            min-width: 120px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            flex-shrink: 0;
+        }
+
+        .stat-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .jobs-icon { background: rgba(43, 58, 238, 0.1); color: #2B3AEE; }
+        .apps-icon { background: rgba(0, 167, 157, 0.1); color: #00A79D; }
+        .resume-icon { background: rgba(255, 152, 0, 0.1); color: #FF9800; }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2B3AEE;
+            margin-bottom: 2px;
+        }
+
+        .jobs-value { color: #2B3AEE; }
+        .apps-value { color: #00A79D; }
+        .resume-value { color: #FF9800; }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Features Grid */
+        .features-section {
+            margin-bottom: 24px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E5E7EB;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(43, 58, 238, 0.15);
+            border-color: #2B3AEE;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 22px;
+        }
+
+        .resume-builder { background: rgba(43, 58, 238, 0.1); color: #2B3AEE; }
+        .job-finder { background: rgba(0, 167, 157, 0.1); color: #00A79D; }
+        .roadmap { background: rgba(255, 152, 0, 0.1); color: #FF9800; }
+        .interview { background: rgba(156, 39, 176, 0.1); color: #9C27B0; }
+
+        .feature-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .feature-desc {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+            flex: 1;
+            padding: 6px 0;
+        }
+
+        .nav-item.active {
+            color: #2B3AEE;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .nav-item.active .nav-icon {
+            transform: translateY(-1px);
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Pulse animation for loading states */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Header -->
+        <div class="header fade-in">
+            <div class="greeting">
+                <h1>Hi, Yaseen!</h1>
+                <p>Ready to advance your career?</p>
+            </div>
+            <div class="profile-pic" id="profilePic">
+                Y
+            </div>
+        </div>
+
+        <!-- Quick Stats Section -->
+        <div class="stats-section slide-up">
+            <div class="section-title">
+                Today's Overview
+                <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="stats-scroll">
+                <div class="stat-card">
+                    <div class="stat-icon jobs-icon">
+                        <span class="material-icons">work_outline</span>
+                    </div>
+                    <div class="stat-value jobs-value" id="jobsCount">24</div>
+                    <div class="stat-label">Jobs Found Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon apps-icon">
+                        <span class="material-icons">send</span>
+                    </div>
+                    <div class="stat-value apps-value" id="appsCount">3</div>
+                    <div class="stat-label">Applications Sent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon resume-icon">
+                        <span class="material-icons">grading</span>
+                    </div>
+                    <div class="stat-value resume-value" id="resumeScore">87%</div>
+                    <div class="stat-label">Resume Score</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Features Grid -->
+        <div class="features-section slide-up">
+            <div class="section-title">
+                Quick Actions
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" id="resumeBuilder">
+                    <div class="feature-icon resume-builder">
+                        <span class="material-icons">description</span>
+                    </div>
+                    <div class="feature-title">Resume Builder</div>
+                    <div class="feature-desc">Create ATS-friendly resumes with AI suggestions</div>
+                </div>
+                <div class="feature-card" id="jobFinder">
+                    <div class="feature-icon job-finder">
+                        <span class="material-icons">search</span>
+                    </div>
+                    <div class="feature-title">Job Finder</div>
+                    <div class="feature-desc">AI-powered job matching and applications</div>
+                </div>
+                <div class="feature-card" id="careerRoadmap">
+                    <div class="feature-icon roadmap">
+                        <span class="material-icons">timeline</span>
+                    </div>
+                    <div class="feature-title">Career Roadmap</div>
+                    <div class="feature-desc">Personalized learning path to your goals</div>
+                </div>
+                <div class="feature-card" id="interviewPrep">
+                    <div class="feature-icon interview">
+                        <span class="material-icons">record_voice_over</span>
+                    </div>
+                    <div class="feature-title">Interview Prep</div>
+                    <div class="feature-desc">Practice with AI mock interviews</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <span class="material-icons nav-icon">home</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">work</span>
+            <span class="nav-label">Jobs</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">timeline</span>
+            <span class="nav-label">Roadmap</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">record_voice_over</span>
+            <span class="nav-label">Practice</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">person</span>
+            <span class="nav-label">Profile</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const profilePic = document.getElementById('profilePic');
+            const jobsCount = document.getElementById('jobsCount');
+            const appsCount = document.getElementById('appsCount');
+            const resumeScore = document.getElementById('resumeScore');
+            
+            // Feature cards
+            const resumeBuilder = document.getElementById('resumeBuilder');
+            const jobFinder = document.getElementById('jobFinder');
+            const careerRoadmap = document.getElementById('careerRoadmap');
+            const interviewPrep = document.getElementById('interviewPrep');
+            
+            // Navigation items
+            const navItems = document.querySelectorAll('.nav-item');
+
+            // Simulate data loading
+            function loadDashboardData() {
+                // Simulate API call delay
+                setTimeout(() => {
+                    // Update stats with animation
+                    animateValue(jobsCount, 0, 24, 1000);
+                    animateValue(appsCount, 0, 3, 1000);
+                    animateValue(resumeScore, 0, 87, 1000, '%');
+                }, 500);
+            }
+
+            // Animate number values
+            function animateValue(element, start, end, duration, suffix = '') {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    element.textContent = value + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // Feature card click handlers
+            resumeBuilder.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    window.location.href = 'resume-gallery.html';
+                }, 500);
+            });
+
+            jobFinder.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    window.location.href = 'job-feed.html';
+                }, 500);
+            });
+
+            careerRoadmap.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    window.location.href = 'roadmap-setup.html';
+                }, 500);
+            });
+
+            interviewPrep.addEventListener('click', function() {
+                showLoading(this);
+                setTimeout(() => {
+                    window.location.href = 'interview-topics.html';
+                }, 500);
+            });
+
+            // Show loading state on feature cards
+            function showLoading(element) {
+                const originalHTML = element.innerHTML;
+                element.innerHTML = '<span class="material-icons pulse">autorenew</span>';
+                element.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    element.innerHTML = originalHTML;
+                    element.style.pointerEvents = 'auto';
+                }, 1000);
+            }
+
+            // Navigation click handlers
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Simulate navigation
+                    const label = this.querySelector('.nav-label').textContent;
+                    if (label !== 'Home') {
+                        showLoading(this);
+                        setTimeout(() => {
+                            alert(`Navigating to ${label}...`);
+                        }, 300);
+                    }
+                });
+            });
+
+            // Profile picture click handler
+            profilePic.addEventListener('click', function() {
+                window.location.href = 'profile.html';
+            });
+
+            // Pull to refresh simulation
+            let touchStartY = 0;
+            document.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+            });
+
+            document.addEventListener('touchend', (e) => {
+                const touchEndY = e.changedTouches[0].clientY;
+                const pullDistance = touchStartY - touchEndY;
+                
+                // If pulled down significantly from top
+                if (pullDistance > 100 && window.scrollY === 0) {
+                    loadDashboardData();
+                    showRefreshIndicator();
+                }
+            });
+
+            function showRefreshIndicator() {
+                const indicator = document.createElement('div');
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    background: #2B3AEE;
+                    color: white;
+                    text-align: center;
+                    padding: 8px;
+                    font-size: 12px;
+                    z-index: 1001;
+                `;
+                indicator.textContent = 'Refreshing data...';
+                document.body.appendChild(indicator);
+                
+                setTimeout(() => {
+                    indicator.remove();
+                }, 1000);
+            }
+
+            // Initialize dashboard
+            loadDashboardData();
+
+            // Add touch feedback for interactive elements
+            const interactiveElements = document.querySelectorAll('.feature-card, .stat-card, .nav-item, .profile-pic');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
