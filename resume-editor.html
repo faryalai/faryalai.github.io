@@ -1254,35 +1254,33 @@
 
             // Preview button functionality
             previewBtn.addEventListener('click', function() {
-                saveResumeData();
                 showLoading(this, 'Generating Preview...');
                 setTimeout(() => {
-                    window.location.href = 'resume-preview-filled.html';
+                    window.location.href = 'resume-preview-filled.html?mode=editor';
+                    this.innerHTML = '<span class="material-icons">visibility</span> Preview';
                 }, 800);
             });
 
             // Export button functionality
             exportBtn.addEventListener('click', function() {
-                saveResumeData();
                 const exportMenu = document.createElement('div');
                 exportMenu.style.cssText = `
                     position: fixed;
-                    bottom: 70px;
-                    right: 16px;
+                    bottom: 80px;
+                    right: 20px;
                     background: white;
-                    border-radius: 10px;
-                    padding: 14px;
-                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                    border-radius: 12px;
+                    padding: 16px;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
                     border: 1px solid #E5E7EB;
                     z-index: 1001;
-                    min-width: 180px;
+                    min-width: 200px;
                 `;
                 
                 exportMenu.innerHTML = `
-                    <div style="font-weight: 600; margin-bottom: 10px; color: #333; font-size: 14px;">Export As:</div>
-                    <button class="export-option" data-format="pdf" style="width: 100%; padding: 10px; background: #2B3AEE; color: white; border: none; border-radius: 6px; margin-bottom: 6px; cursor: pointer; font-size: 13px;">PDF Document</button>
-                    <button class="export-option" data-format="word" style="width: 100%; padding: 10px; background: #00A79D; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">Word Document</button>
-                    <button class="export-option" data-format="text" style="width: 100%; padding: 10px; background: #666; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">Plain Text</button>
+                    <div style="font-weight: 600; margin-bottom: 12px; color: #333;">Export As:</div>
+                    <button class="export-option" data-format="pdf" style="width: 100%; padding: 12px; background: #2B3AEE; color: white; border: none; border-radius: 8px; margin-bottom: 8px; cursor: pointer;">PDF Document</button>
+                    <button class="export-option" data-format="word" style="width: 100%; padding: 12px; background: #00A79D; color: white; border: none; border-radius: 8px; cursor: pointer;">Word Document</button>
                 `;
                 
                 document.body.appendChild(exportMenu);
@@ -1295,7 +1293,6 @@
                         setTimeout(() => {
                             exportBtn.innerHTML = '<span class="material-icons">download</span> Export';
                             exportMenu.remove();
-                            alert(`Resume exported as ${format.toUpperCase()} successfully!`);
                         }, 1500);
                     });
                 });
@@ -1310,7 +1307,7 @@
                     };
                     document.addEventListener('click', closeMenu);
                 }, 100);
-            });
+            }); 
 
             // AI Suggestion functionality
             document.addEventListener('click', function(e) {
@@ -1823,4 +1820,5 @@
     </script>
 </body>
 </html>
+
 
