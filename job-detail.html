@@ -19,7 +19,7 @@
             color: #333;
             line-height: 1.5;
             min-height: 100vh;
-            padding-bottom: 80px; /* Added padding to prevent content from being hidden behind buttons */
+            padding-bottom: 80px;
         }
 
         .container {
@@ -719,7 +719,10 @@
     </div>
 
     <script>
+        // Simple JavaScript that should work in WebView
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded - setting up event listeners');
+            
             // Get DOM elements
             const backBtn = document.getElementById('backBtn');
             const saveJobBtn = document.getElementById('saveJobBtn');
@@ -732,73 +735,109 @@
             let isJobSaved = false;
 
             // Back button functionality
-            backBtn.addEventListener('click', function() {
-                showLoading(this);
-                setTimeout(() => {
-                    // window.location.href = 'job-feed.html';
-                    alert('Returning to job feed...');
-                }, 500);
-            });
+            if (backBtn) {
+                backBtn.addEventListener('click', function() {
+                    console.log('Back button clicked');
+                    showLoading(this);
+                    setTimeout(() => {
+                        // For WebView, you might want to use Android interface
+                        if (typeof Android !== 'undefined' && Android.backPressed) {
+                            Android.backPressed();
+                        } else {
+                            window.history.back();
+                        }
+                    }, 500);
+                });
+            }
 
             // Save job functionality
-            saveJobBtn.addEventListener('click', function() {
-                isJobSaved = !isJobSaved;
-                const icon = this.querySelector('.material-icons');
-                const text = this.querySelector('span:last-child');
-                
-                if (isJobSaved) {
-                    icon.textContent = 'bookmark';
-                    text.textContent = 'Saved';
-                    this.style.color = '#2B3AEE';
-                    showToast('Job saved to your collection');
-                } else {
-                    icon.textContent = 'bookmark_border';
-                    text.textContent = 'Save';
-                    this.style.color = '';
-                    showToast('Job removed from saved');
-                }
-            });
+            if (saveJobBtn) {
+                saveJobBtn.addEventListener('click', function() {
+                    console.log('Save job clicked');
+                    isJobSaved = !isJobSaved;
+                    const icon = this.querySelector('.material-icons');
+                    const text = this.querySelector('span:last-child');
+                    
+                    if (isJobSaved) {
+                        icon.textContent = 'bookmark';
+                        text.textContent = 'Saved';
+                        this.style.color = '#2B3AEE';
+                        showToast('Job saved to your collection');
+                    } else {
+                        icon.textContent = 'bookmark_border';
+                        text.textContent = 'Save';
+                        this.style.color = '';
+                        showToast('Job removed from saved');
+                    }
+                });
+            }
 
             // Generate cover letter functionality
-            generateCoverLetterBtn.addEventListener('click', function() {
-                showLoading(this, 'Generating...');
-                setTimeout(() => {
-                    alert('Cover letter generated! You can review it before applying.');
-                    this.innerHTML = '<span class="material-icons">description</span> Cover Letter';
-                }, 1500);
-            });
+            if (generateCoverLetterBtn) {
+                generateCoverLetterBtn.addEventListener('click', function() {
+                    console.log('Generate cover letter clicked');
+                    showLoading(this, 'Generating...');
+                    setTimeout(() => {
+                        alert('Cover letter generated! You can review it before applying.');
+                        this.innerHTML = '<span class="material-icons">description</span> Cover Letter';
+                    }, 1500);
+                });
+            }
 
             // Apply button functionality - opens AI email popup
-            applyBtn.addEventListener('click', function() {
-                aiEmailPopup.classList.add('active');
-            });
+            if (applyBtn) {
+                applyBtn.addEventListener('click', function() {
+                    console.log('AI Apply button clicked');
+                    if (aiEmailPopup) {
+                        aiEmailPopup.classList.add('active');
+                        console.log('Popup should be visible now');
+                    } else {
+                        console.error('Popup element not found');
+                    }
+                });
+            }
 
             // Cancel button in popup
-            cancelBtn.addEventListener('click', function() {
-                aiEmailPopup.classList.remove('active');
-            });
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', function() {
+                    console.log('Cancel button clicked');
+                    if (aiEmailPopup) {
+                        aiEmailPopup.classList.remove('active');
+                    console.log('Popup should be hidden now');
+                    }
+                });
+            }
 
             // Continue button in popup - triggers email intent
-            continueBtn.addEventListener('click', function() {
-                showLoading(this, 'Preparing...');
-                
-                // Simulate AI processing and email preparation
-                setTimeout(() => {
-                    triggerEmailIntent();
-                    aiEmailPopup.classList.remove('active');
-                    this.innerHTML = '<span class="material-icons">send</span> Continue';
-                }, 1000);
-            });
+            if (continueBtn) {
+                continueBtn.addEventListener('click', function() {
+                    console.log('Continue button clicked');
+                    showLoading(this, 'Preparing...');
+                    
+                    // Simulate AI processing and email preparation
+                    setTimeout(() => {
+                        triggerEmailIntent();
+                        if (aiEmailPopup) {
+                            aiEmailPopup.classList.remove('active');
+                        }
+                        this.innerHTML = '<span class="material-icons">send</span> Continue';
+                    }, 1000);
+                });
+            }
 
             // Close popup when clicking outside
-            aiEmailPopup.addEventListener('click', function(e) {
-                if (e.target === aiEmailPopup) {
-                    aiEmailPopup.classList.remove('active');
-                }
-            });
+            if (aiEmailPopup) {
+                aiEmailPopup.addEventListener('click', function(e) {
+                    if (e.target === aiEmailPopup) {
+                        console.log('Clicked outside popup - closing');
+                        aiEmailPopup.classList.remove('active');
+                    }
+                });
+            }
 
             // Function to trigger email intent
             function triggerEmailIntent() {
+                console.log('Triggering email intent');
                 const jobTitle = "Senior AI Engineer";
                 const company = "Tech Innovations Inc.";
                 const hrEmail = "careers@techinnovations.com";
@@ -824,18 +863,23 @@ ${userName}
 +1 (555) 123-4567
 linkedin.com/in/muhammadyaseen`;
 
-                // In a real mobile app, this would use Intent.ACTION_SEND
-                // For web demonstration, we'll create a mock email client simulation
-                simulateEmailClient({
-                    to: hrEmail,
-                    subject: `Application for ${jobTitle} - ${userName}`,
-                    body: coverLetter,
-                    attachment: "resume_yaseen_ahmed.pdf"
-                });
+                // For WebView, use Android interface to open email
+                if (typeof Android !== 'undefined' && Android.openEmailComposer) {
+                    Android.openEmailComposer(hrEmail, `Application for ${jobTitle} - ${userName}`, coverLetter);
+                } else {
+                    // Fallback for web
+                    simulateEmailClient({
+                        to: hrEmail,
+                        subject: `Application for ${jobTitle} - ${userName}`,
+                        body: coverLetter,
+                        attachment: "resume_yaseen_ahmed.pdf"
+                    });
+                }
             }
 
             // Simulate email client (for demo purposes)
             function simulateEmailClient(emailData) {
+                console.log('Simulating email client');
                 const emailWindow = document.createElement('div');
                 emailWindow.style.cssText = `
                     position: fixed;
@@ -962,7 +1006,7 @@ linkedin.com/in/muhammadyaseen`;
                 }, 3000);
             }
 
-            // Add touch feedback
+            // Add touch feedback for better mobile experience
             const interactiveElements = document.querySelectorAll('button');
             interactiveElements.forEach(element => {
                 element.addEventListener('touchstart', function() {
@@ -977,11 +1021,18 @@ linkedin.com/in/muhammadyaseen`;
             // Keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    if (aiEmailPopup.classList.contains('active')) {
+                    if (aiEmailPopup && aiEmailPopup.classList.contains('active')) {
                         aiEmailPopup.classList.remove('active');
                     }
                 }
             });
+
+            console.log('All event listeners set up successfully');
+        });
+
+        // Fallback in case DOMContentLoaded doesn't fire
+        window.addEventListener('load', function() {
+            console.log('Window loaded');
         });
     </script>
 </body>
