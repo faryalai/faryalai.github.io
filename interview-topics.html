@@ -795,8 +795,7 @@
                     showLoading(this, 'Opening...');
                     
                     setTimeout(() => {
-                        alert(`Opening topic: ${topicName}`);
-                        // window.location.href = `topic-detail.html?topic=${encodeURIComponent(topicName)}`;
+                        window.location.href = `topic-detail.html?topic=${encodeURIComponent(topicName)}`;
                     }, 800);
                 });
             });
@@ -890,8 +889,7 @@
                     topicEl.addEventListener('click', function() {
                         showLoading(this, 'Opening...');
                         setTimeout(() => {
-                            alert(`Opening topic: ${topic.name}`);
-                            // window.location.href = `topic-detail.html?topic=${encodeURIComponent(topic.name)}`;
+                            window.location.href = `topic-detail.html?topic=${encodeURIComponent(topic.name)}`;
                         }, 800);
                     });
                     
@@ -960,3 +958,4 @@
     </script>
 </body>
 </html>
+
