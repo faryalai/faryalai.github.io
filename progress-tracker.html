@@ -17,31 +17,30 @@
         body {
             background: linear-gradient(135deg, #FBFBFD 0%, #F0F4FF 100%);
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5;
             min-height: 100vh;
-            padding-bottom: 100px;
         }
 
         .container {
             max-width: 100%;
-            padding: 0 16px;
+            padding: 0 12px;
         }
 
         /* Header */
         .header {
             display: flex;
             align-items: center;
-            padding: 20px 0 16px 0;
+            padding: 12px 0 8px 0;
         }
 
         .back-btn {
             background: none;
             border: none;
             color: #2B3AEE;
-            font-size: 24px;
+            font-size: 18px;
             cursor: pointer;
-            padding: 8px;
-            margin-right: 16px;
+            padding: 4px;
+            margin-right: 8px;
             border-radius: 50%;
             transition: background-color 0.3s;
         }
@@ -55,150 +54,151 @@
         }
 
         .header h1 {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 700;
             color: #2B3AEE;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .header p {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
         }
 
         /* Progress Overview */
         .progress-overview {
             background: white;
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 32px rgba(43, 58, 238, 0.1);
+            border-radius: 16px;
+            padding: 20px 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(43, 58, 238, 0.1);
             border: 1px solid rgba(43, 58, 238, 0.1);
             text-align: center;
         }
 
         .overview-icon {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #00A79D, #2B3AEE);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 12px;
             color: white;
-            font-size: 32px;
+            font-size: 24px;
         }
 
         .overview-title {
-            font-size: 28px;
+            font-size: 20px;
             font-weight: 700;
             color: #2B3AEE;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .overview-subtitle {
-            font-size: 16px;
+            font-size: 13px;
             color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 16px;
         }
 
         .stat-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
         }
 
         .stat-value {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
             color: #2B3AEE;
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 10px;
             color: #666;
             text-align: center;
+            line-height: 1.2;
         }
 
         /* Milestone Progress */
         .milestones-section {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 600;
             color: #2B3AEE;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .milestone-card {
             background: white;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid #E5E7EB;
             transition: all 0.3s ease;
         }
 
         .milestone-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(43, 58, 238, 0.15);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(43, 58, 238, 0.15);
             border-color: #2B3AEE;
         }
 
         .milestone-card.completed {
-            border-left: 4px solid #00A79D;
+            border-left: 3px solid #00A79D;
         }
 
         .milestone-card.current {
-            border-left: 4px solid #2B3AEE;
+            border-left: 3px solid #2B3AEE;
         }
 
         .milestone-card.upcoming {
-            border-left: 4px solid #E5E7EB;
+            border-left: 3px solid #E5E7EB;
         }
 
         .milestone-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .milestone-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .milestone-duration {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
         }
 
         .milestone-status {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 12px;
+            gap: 4px;
+            font-size: 10px;
             font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 12px;
+            padding: 4px 8px;
+            border-radius: 10px;
         }
 
         .status-completed {
@@ -218,61 +218,61 @@
 
         /* Progress Bar */
         .progress-container {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .progress-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .progress-label {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
         }
 
         .progress-percentage {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             color: #2B3AEE;
         }
 
         .progress-bar {
-            height: 8px;
+            height: 6px;
             background: #E5E7EB;
-            border-radius: 4px;
+            border-radius: 3px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #2B3AEE, #00A79D);
-            border-radius: 4px;
+            border-radius: 3px;
             transition: width 0.5s ease;
         }
 
         .progress-details {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: 10px;
             color: #666;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         /* Milestone Actions */
         .milestone-actions {
             display: flex;
-            gap: 12px;
-            margin-top: 16px;
+            gap: 8px;
+            margin-top: 12px;
         }
 
         .action-btn {
             flex: 1;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 14px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -280,7 +280,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .btn-complete {
@@ -307,7 +307,7 @@
         .btn-note {
             background: white;
             color: #666;
-            border: 2px solid #E5E7EB;
+            border: 1.5px solid #E5E7EB;
         }
 
         .btn-note:hover {
@@ -318,7 +318,7 @@
         .btn-share {
             background: white;
             color: #2B3AEE;
-            border: 2px solid #2B3AEE;
+            border: 1.5px solid #2B3AEE;
         }
 
         .btn-share:hover {
@@ -328,8 +328,8 @@
 
         /* Notes Section */
         .notes-section {
-            margin-top: 16px;
-            padding-top: 16px;
+            margin-top: 12px;
+            padding-top: 12px;
             border-top: 1px solid #F0F4FF;
         }
 
@@ -337,56 +337,56 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .notes-title {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             color: #333;
         }
 
         .notes-count {
-            font-size: 12px;
+            font-size: 10px;
             color: #666;
         }
 
         .note-item {
             background: #F8FAFC;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 8px;
-            border-left: 3px solid #2B3AEE;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 6px;
+            border-left: 2px solid #2B3AEE;
         }
 
         .note-content {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             line-height: 1.4;
         }
 
         .note-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 11px;
+            font-size: 9px;
             color: #999;
         }
 
         .add-note-btn {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: transparent;
-            border: 2px dashed #D0D5DD;
-            border-radius: 8px;
+            border: 1.5px dashed #D0D5DD;
+            border-radius: 6px;
             color: #666;
-            font-size: 14px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .add-note-btn:hover {
@@ -405,7 +405,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
             z-index: 2000;
         }
 
@@ -415,85 +415,85 @@
 
         .modal-content {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 0;
-            max-width: 400px;
+            max-width: 360px;
             width: 100%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
             animation: modalSlideIn 0.3s ease;
         }
 
         .modal-header {
             background: linear-gradient(135deg, #2B3AEE, #00A79D);
             color: white;
-            padding: 24px;
+            padding: 20px;
             text-align: center;
-            border-radius: 20px 20px 0 0;
+            border-radius: 16px 16px 0 0;
         }
 
         .modal-title {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .modal-subtitle {
-            font-size: 14px;
+            font-size: 12px;
             opacity: 0.9;
         }
 
         .modal-body {
-            padding: 24px;
+            padding: 20px;
         }
 
         .achievement-preview {
             background: #F8FAFC;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 10px;
+            padding: 16px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             border: 1px solid #E5E7EB;
         }
 
         .achievement-icon {
-            width: 60px;
-            height: 60px;
+            width: 48px;
+            height: 48px;
             background: #00A79D;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px;
+            margin: 0 auto 8px;
             color: white;
-            font-size: 24px;
+            font-size: 20px;
         }
 
         .achievement-text {
-            font-size: 16px;
+            font-size: 14px;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .achievement-milestone {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
         }
 
         .share-options {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
         .share-option {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            padding: 16px;
-            border: 2px solid #E5E7EB;
-            border-radius: 12px;
+            gap: 6px;
+            padding: 12px;
+            border: 1.5px solid #E5E7EB;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -504,13 +504,13 @@
         }
 
         .share-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 16px;
         }
 
         .icon-linkedin { background: rgba(10, 102, 194, 0.1); color: #0A66C2; }
@@ -518,21 +518,21 @@
         .icon-copy { background: rgba(43, 58, 238, 0.1); color: #2B3AEE; }
 
         .share-label {
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
             color: #333;
         }
 
         .modal-actions {
             display: flex;
-            gap: 12px;
+            gap: 8px;
         }
 
         .modal-btn {
             flex: 1;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -542,7 +542,7 @@
         .btn-cancel {
             background: white;
             color: #666;
-            border: 2px solid #E5E7EB;
+            border: 1.5px solid #E5E7EB;
         }
 
         .btn-cancel:hover {
@@ -560,18 +560,18 @@
 
         /* Add Note Modal */
         .note-modal .modal-body {
-            padding: 24px;
+            padding: 20px;
         }
 
         .note-input {
             width: 100%;
-            min-height: 120px;
-            padding: 16px;
-            border: 2px solid #E5E7EB;
-            border-radius: 12px;
-            font-size: 16px;
+            min-height: 100px;
+            padding: 12px;
+            border: 1.5px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 13px;
             resize: vertical;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             transition: border-color 0.3s ease;
         }
 
@@ -582,7 +582,7 @@
 
         .note-actions {
             display: flex;
-            gap: 12px;
+            gap: 8px;
         }
 
         /* Loading States */
@@ -604,7 +604,7 @@
         @keyframes modalSlideIn {
             from {
                 opacity: 0;
-                transform: translateY(-20px) scale(0.95);
+                transform: translateY(-16px) scale(0.95);
             }
             to {
                 opacity: 1;
@@ -629,7 +629,7 @@
         @keyframes slideUp {
             from { 
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(16px);
             }
             to { 
                 opacity: 1;
@@ -640,7 +640,7 @@
         /* Responsive adjustments */
         @media (min-width: 768px) {
             .container {
-                max-width: 500px;
+                max-width: 450px;
                 margin: 0 auto;
             }
         }
@@ -700,7 +700,7 @@
         <!-- Milestones Progress -->
         <div class="milestones-section">
             <div class="section-title">
-                <span class="material-icons">flag</span>
+                <span class="material-icons" style="font-size: 16px;">flag</span>
                 Milestone Progress
             </div>
 
@@ -712,7 +712,7 @@
                         <div class="milestone-duration">Month 1-2 • 40 hours</div>
                     </div>
                     <div class="milestone-status status-completed">
-                        <span class="material-icons" style="font-size: 14px;">check_circle</span>
+                        <span class="material-icons" style="font-size: 12px;">check_circle</span>
                         Completed
                     </div>
                 </div>
@@ -733,15 +733,15 @@
 
                 <div class="milestone-actions">
                     <button class="action-btn btn-complete completed">
-                        <span class="material-icons">check</span>
+                        <span class="material-icons" style="font-size: 14px;">check</span>
                         Completed
                     </button>
                     <button class="action-btn btn-note" data-milestone="1">
-                        <span class="material-icons">note_add</span>
+                        <span class="material-icons" style="font-size: 14px;">note_add</span>
                         Add Note
                     </button>
                     <button class="action-btn btn-share" data-milestone="1">
-                        <span class="material-icons">share</span>
+                        <span class="material-icons" style="font-size: 14px;">share</span>
                         Share
                     </button>
                 </div>
@@ -776,7 +776,7 @@
                         <div class="milestone-duration">Month 3-4 • 35 hours</div>
                     </div>
                     <div class="milestone-status status-completed">
-                        <span class="material-icons" style="font-size: 14px;">check_circle</span>
+                        <span class="material-icons" style="font-size: 12px;">check_circle</span>
                         Completed
                     </div>
                 </div>
@@ -797,15 +797,15 @@
 
                 <div class="milestone-actions">
                     <button class="action-btn btn-complete completed">
-                        <span class="material-icons">check</span>
+                        <span class="material-icons" style="font-size: 14px;">check</span>
                         Completed
                     </button>
                     <button class="action-btn btn-note" data-milestone="2">
-                        <span class="material-icons">note_add</span>
+                        <span class="material-icons" style="font-size: 14px;">note_add</span>
                         Add Note
                     </button>
                     <button class="action-btn btn-share" data-milestone="2">
-                        <span class="material-icons">share</span>
+                        <span class="material-icons" style="font-size: 14px;">share</span>
                         Share
                     </button>
                 </div>
@@ -819,7 +819,7 @@
                         <div class="milestone-duration">Month 5-7 • 60 hours</div>
                     </div>
                     <div class="milestone-status status-current">
-                        <span class="material-icons" style="font-size: 14px;">autorenew</span>
+                        <span class="material-icons" style="font-size: 12px;">autorenew</span>
                         In Progress
                     </div>
                 </div>
@@ -840,15 +840,15 @@
 
                 <div class="milestone-actions">
                     <button class="action-btn btn-complete" data-milestone="3">
-                        <span class="material-icons">check</span>
+                        <span class="material-icons" style="font-size: 14px;">check</span>
                         Mark Complete
                     </button>
                     <button class="action-btn btn-note" data-milestone="3">
-                        <span class="material-icons">note_add</span>
+                        <span class="material-icons" style="font-size: 14px;">note_add</span>
                         Add Note
                     </button>
                     <button class="action-btn btn-share" data-milestone="3">
-                        <span class="material-icons">share</span>
+                        <span class="material-icons" style="font-size: 14px;">share</span>
                         Share Progress
                     </button>
                 </div>
@@ -866,7 +866,7 @@
                         </div>
                     </div>
                     <button class="add-note-btn" data-milestone="3">
-                        <span class="material-icons">add</span>
+                        <span class="material-icons" style="font-size: 14px;">add</span>
                         Add New Note
                     </button>
                 </div>
@@ -880,7 +880,7 @@
                         <div class="milestone-duration">Month 8-10 • 70 hours</div>
                     </div>
                     <div class="milestone-status status-upcoming">
-                        <span class="material-icons" style="font-size: 14px;">schedule</span>
+                        <span class="material-icons" style="font-size: 12px;">schedule</span>
                         Upcoming
                     </div>
                 </div>
@@ -901,15 +901,15 @@
 
                 <div class="milestone-actions">
                     <button class="action-btn btn-complete" disabled>
-                        <span class="material-icons">lock</span>
+                        <span class="material-icons" style="font-size: 14px;">lock</span>
                         Locked
                     </button>
                     <button class="action-btn btn-note" disabled>
-                        <span class="material-icons">note_add</span>
+                        <span class="material-icons" style="font-size: 14px;">note_add</span>
                         Add Note
                     </button>
                     <button class="action-btn btn-share" disabled>
-                        <span class="material-icons">share</span>
+                        <span class="material-icons" style="font-size: 14px;">share</span>
                         Share
                     </button>
                 </div>
@@ -1039,12 +1039,12 @@
                         // Update status
                         milestoneCard.classList.remove('current');
                         milestoneCard.classList.add('completed');
-                        status.innerHTML = '<span class="material-icons" style="font-size: 14px;">check_circle</span> Completed';
+                        status.innerHTML = '<span class="material-icons" style="font-size: 12px;">check_circle</span> Completed';
                         status.className = 'milestone-status status-completed';
                         
                         // Update button
                         this.classList.add('completed');
-                        this.innerHTML = '<span class="material-icons">check</span> Completed';
+                        this.innerHTML = '<span class="material-icons" style="font-size: 14px;">check</span> Completed';
                         
                         // Update overall progress
                         updateOverallProgress();
@@ -1227,12 +1227,12 @@
                         thirdMilestone.classList.remove('current');
                         thirdMilestone.classList.add('completed');
                         const status = thirdMilestone.querySelector('.milestone-status');
-                        status.innerHTML = '<span class="material-icons" style="font-size: 14px;">check_circle</span> Completed';
+                        status.innerHTML = '<span class="material-icons" style="font-size: 12px;">check_circle</span> Completed';
                         status.className = 'milestone-status status-completed';
                         
                         const completeBtn = thirdMilestone.querySelector('.btn-complete');
                         completeBtn.classList.add('completed');
-                        completeBtn.innerHTML = '<span class="material-icons">check</span> Completed';
+                        completeBtn.innerHTML = '<span class="material-icons" style="font-size: 14px;">check</span> Completed';
                     }
                 }
             }
@@ -1240,7 +1240,7 @@
             // Function to show loading state
             function showLoading(button, text = 'Loading...') {
                 const originalHTML = button.innerHTML;
-                button.innerHTML = `<span class="material-icons pulse">autorenew</span> ${text}`;
+                button.innerHTML = `<span class="material-icons pulse" style="font-size: 14px;">autorenew</span> ${text}`;
                 button.disabled = true;
                 
                 setTimeout(() => {
@@ -1254,18 +1254,18 @@
                 const toast = document.createElement('div');
                 toast.style.cssText = `
                     position: fixed;
-                    bottom: 100px;
+                    bottom: 20px;
                     left: 50%;
                     transform: translateX(-50%);
                     background: #333;
                     color: white;
-                    padding: 12px 20px;
-                    border-radius: 8px;
-                    font-size: 14px;
+                    padding: 10px 16px;
+                    border-radius: 6px;
+                    font-size: 12px;
                     z-index: 1001;
                     opacity: 0;
                     transition: opacity 0.3s ease;
-                    max-width: 300px;
+                    max-width: 280px;
                     text-align: center;
                 `;
                 toast.textContent = message;
