@@ -147,6 +147,7 @@
             height: 6px;
             border-radius: 50%;
             background: #10B981;
+            display: none;
         }
 
         /* Main Content */
@@ -167,6 +168,15 @@
             border: 1px solid #E5E7EB;
             max-height: 500px;
             overflow-y: auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         .section-title {
@@ -649,7 +659,7 @@
                 <div class="tab active" data-tab="personal">
                     <span class="material-icons">person</span>
                     Personal
-                    <span class="tab-completion" style="display: none;"></span>
+                    <span class="tab-completion"></span>
                 </div>
                 <div class="tab" data-tab="experience">
                     <span class="material-icons">work</span>
@@ -693,6 +703,7 @@
         <div class="editor-container">
             <!-- Form Section -->
             <div class="form-section slide-up" id="formSection">
+                
                 <!-- Personal Info Tab Content -->
                 <div class="tab-content active" data-tab="personal">
                     <div class="section-title">
@@ -1082,6 +1093,7 @@
                         <textarea class="form-textarea" placeholder="Describe your career goals and aspirations...">Seeking to leverage my expertise in AI and machine learning to drive innovation in cutting-edge technology projects. Passionate about solving complex problems and contributing to AI research and development.</textarea>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -1208,7 +1220,10 @@
                     
                     // Add active class to clicked tab and corresponding content
                     this.classList.add('active');
-                    document.querySelector(`.tab-content[data-tab="${tabName}"]`).classList.add('active');
+                    const activeContent = document.querySelector(`.tab-content[data-tab="${tabName}"]`);
+                    if (activeContent) {
+                        activeContent.classList.add('active');
+                    }
                     
                     // Load AI suggestions for this tab
                     loadAiSuggestions(tabName);
@@ -1242,7 +1257,8 @@
                 saveResumeData();
                 showLoading(this, 'Generating Preview...');
                 setTimeout(() => {
-                    window.location.href = 'resume-preview-filled.html?mode=editor';
+                    // window.location.href = 'resume-preview-filled.html?mode=editor';
+                    alert('Preview generated successfully!');
                     this.innerHTML = '<span class="material-icons">visibility</span> Preview';
                 }, 800);
             });
@@ -1373,6 +1389,11 @@
                 location: document.getElementById('location').value,
                 linkedin: document.getElementById('linkedin').value,
                 portfolio: document.getElementById('portfolio').value
+            };
+
+            // Summary
+            resumeData.summary = {
+                professionalSummary: document.getElementById('professionalSummary').value
             };
 
             // Save to localStorage
