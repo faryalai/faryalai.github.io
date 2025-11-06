@@ -67,6 +67,34 @@
             color: #666;
         }
 
+        /* Progress Bar */
+        .progress-section {
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #E5E7EB;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2B3AEE, #00A79D);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            width: 30%;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
         /* Tabs */
         .tabs-container {
             margin-bottom: 16px;
@@ -98,6 +126,9 @@
             transition: all 0.3s ease;
             white-space: nowrap;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .tab:hover {
@@ -109,6 +140,13 @@
             background: #2B3AEE;
             border-color: #2B3AEE;
             color: white;
+        }
+
+        .tab-completion {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
         }
 
         /* Main Content */
@@ -127,6 +165,8 @@
             padding: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid #E5E7EB;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         .section-title {
@@ -188,6 +228,27 @@
             gap: 10px;
         }
 
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #E5E7EB;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+        }
+
         /* Dynamic Items */
         .dynamic-item {
             background: #F8FAFC;
@@ -247,6 +308,59 @@
             border-color: #2B3AEE;
             color: #2B3AEE;
             background-color: rgba(43, 58, 238, 0.05);
+        }
+
+        /* Skills Tags */
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .skill-tag {
+            background: #F0F4FF;
+            border: 1px solid #2B3AEE;
+            border-radius: 16px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #2B3AEE;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .remove-skill {
+            background: none;
+            border: none;
+            color: #2B3AEE;
+            cursor: pointer;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .add-skill-input {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .add-skill-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            font-size: 12px;
+        }
+
+        .add-skill-btn {
+            padding: 8px 16px;
+            background: #2B3AEE;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 12px;
+            cursor: pointer;
         }
 
         /* AI Suggestions Panel */
@@ -521,16 +635,57 @@
             </div>
         </div>
 
+        <!-- Progress Bar -->
+        <div class="progress-section slide-up">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">30% Complete</div>
+        </div>
+
         <!-- Tabs -->
         <div class="tabs-container slide-up">
             <div class="tabs-scroll">
-                <div class="tab active" data-tab="personal">Personal Info</div>
-                <div class="tab" data-tab="experience">Experience</div>
-                <div class="tab" data-tab="education">Education</div>
-                <div class="tab" data-tab="projects">Projects</div>
-                <div class="tab" data-tab="skills">Skills</div>
-                <div class="tab" data-tab="certifications">Certifications</div>
-                <div class="tab" data-tab="summary">Summary</div>
+                <div class="tab active" data-tab="personal">
+                    <span class="material-icons">person</span>
+                    Personal
+                    <span class="tab-completion" style="display: none;"></span>
+                </div>
+                <div class="tab" data-tab="experience">
+                    <span class="material-icons">work</span>
+                    Experience
+                    <span class="tab-completion"></span>
+                </div>
+                <div class="tab" data-tab="education">
+                    <span class="material-icons">school</span>
+                    Education
+                    <span class="tab-completion"></span>
+                </div>
+                <div class="tab" data-tab="projects">
+                    <span class="material-icons">folder</span>
+                    Projects
+                    <span class="tab-completion"></span>
+                </div>
+                <div class="tab" data-tab="skills">
+                    <span class="material-icons">psychology</span>
+                    Skills
+                    <span class="tab-completion"></span>
+                </div>
+                <div class="tab" data-tab="certifications">
+                    <span class="material-icons">verified</span>
+                    Certifications
+                    <span class="tab-completion"></span>
+                </div>
+                <div class="tab" data-tab="languages">
+                    <span class="material-icons">language</span>
+                    Languages
+                    <span class="tab-completion"></span>
+                </div>
+                <div class="tab" data-tab="summary">
+                    <span class="material-icons">description</span>
+                    Summary
+                    <span class="tab-completion"></span>
+                </div>
             </div>
         </div>
 
@@ -546,30 +701,30 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Full Name</label>
+                        <label class="form-label">Full Name *</label>
                         <input type="text" class="form-input" id="fullName" placeholder="Enter your full name" value="Yaseen Ahmed">
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Professional Title</label>
+                        <label class="form-label">Professional Title *</label>
                         <input type="text" class="form-input" id="professionalTitle" placeholder="e.g., AI Engineer" value="AI Engineer & Machine Learning Specialist">
                     </div>
 
                     <div class="form-group">
                         <div class="input-row">
                             <div>
-                                <label class="form-label">Email</label>
+                                <label class="form-label">Email *</label>
                                 <input type="email" class="form-input" id="email" placeholder="your.email@example.com" value="yaseen.ahmed@email.com">
                             </div>
                             <div>
-                                <label class="form-label">Phone</label>
+                                <label class="form-label">Phone *</label>
                                 <input type="tel" class="form-input" id="phone" placeholder="+1 (555) 123-4567" value="+1 (555) 123-4567">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Location</label>
+                        <label class="form-label">Location *</label>
                         <input type="text" class="form-input" id="location" placeholder="City, Country" value="San Francisco, CA">
                     </div>
 
@@ -594,28 +749,32 @@
                     <div class="dynamic-items" id="experienceItems">
                         <div class="dynamic-item">
                             <div class="item-header">
-                                <div class="item-title">Experience #1</div>
+                                <div class="item-title">Senior AI Engineer</div>
                                 <button class="remove-btn" onclick="removeItem(this)">
                                     <span class="material-icons">delete</span>
                                 </button>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Job Title</label>
+                                <label class="form-label">Job Title *</label>
                                 <input type="text" class="form-input" value="Senior AI Engineer">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Company</label>
+                                <label class="form-label">Company *</label>
                                 <input type="text" class="form-input" value="Tech Innovations Inc.">
                             </div>
                             <div class="form-group">
                                 <div class="input-row">
                                     <div>
-                                        <label class="form-label">Start Date</label>
+                                        <label class="form-label">Start Date *</label>
                                         <input type="month" class="form-input" value="2021-01">
                                     </div>
                                     <div>
                                         <label class="form-label">End Date</label>
                                         <input type="month" class="form-input" value="2023-12">
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" class="checkbox" id="currentJob1">
+                                            <label class="checkbox-label" for="currentJob1">I currently work here</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -638,6 +797,110 @@
                     </button>
                 </div>
 
+                <!-- Education Tab Content -->
+                <div class="tab-content" data-tab="education">
+                    <div class="section-title">
+                        <span class="material-icons">school</span>
+                        Education
+                    </div>
+
+                    <div class="dynamic-items" id="educationItems">
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <div class="item-title">Master's Degree</div>
+                                <button class="remove-btn" onclick="removeItem(this)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Degree *</label>
+                                <input type="text" class="form-input" value="M.S. in Artificial Intelligence">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Institution *</label>
+                                <input type="text" class="form-input" value="Stanford University">
+                            </div>
+                            <div class="form-group">
+                                <div class="input-row">
+                                    <div>
+                                        <label class="form-label">Start Date *</label>
+                                        <input type="month" class="form-input" value="2017-09">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">End Date *</label>
+                                        <input type="month" class="form-input" value="2019-06">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-input" value="Stanford, CA">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">GPA</label>
+                                <input type="text" class="form-input" value="3.8/4.0">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Achievements</label>
+                                <textarea class="form-textarea">• Focus: Deep Learning & Neural Networks
+• Published research on transformer architectures
+• Teaching Assistant for Machine Learning course</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-more-btn" onclick="addEducation()">
+                        <span class="material-icons">add</span>
+                        Add Another Education
+                    </button>
+                </div>
+
+                <!-- Projects Tab Content -->
+                <div class="tab-content" data-tab="projects">
+                    <div class="section-title">
+                        <span class="material-icons">folder</span>
+                        Projects
+                    </div>
+
+                    <div class="dynamic-items" id="projectItems">
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <div class="item-title">AI-Powered Resume Analyzer</div>
+                                <button class="remove-btn" onclick="removeItem(this)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Project Name *</label>
+                                <input type="text" class="form-input" value="AI-Powered Resume Analyzer">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Technologies Used</label>
+                                <input type="text" class="form-input" value="Python, TensorFlow, NLP, FastAPI">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Project Duration</label>
+                                <input type="text" class="form-input" value="6 months">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Project Description</label>
+                                <textarea class="form-textarea">• Developed an AI system that analyzes resumes and provides personalized career recommendations
+• Implemented NLP algorithms for skill extraction and job matching
+• Achieved 92% accuracy in resume parsing and classification</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Project URL</label>
+                                <input type="url" class="form-input" placeholder="https://github.com/yourname/project">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-more-btn" onclick="addProject()">
+                        <span class="material-icons">add</span>
+                        Add Another Project
+                    </button>
+                </div>
+
                 <!-- Skills Tab Content -->
                 <div class="tab-content" data-tab="skills">
                     <div class="section-title">
@@ -647,27 +910,159 @@
 
                     <div class="form-group">
                         <label class="form-label">Technical Skills</label>
-                        <textarea class="form-textarea" placeholder="Enter your skills (one per line)">Python
-TensorFlow
-PyTorch
-Machine Learning
-Deep Learning
-Natural Language Processing
-Computer Vision
-AWS
-Docker
-SQL</textarea>
+                        <div class="skills-tags" id="technicalSkills">
+                            <div class="skill-tag">
+                                Python
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                            <div class="skill-tag">
+                                TensorFlow
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                            <div class="skill-tag">
+                                PyTorch
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                            <div class="skill-tag">
+                                Machine Learning
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                        </div>
+                        <div class="add-skill-input">
+                            <input type="text" id="newTechnicalSkill" placeholder="Add a technical skill">
+                            <button class="add-skill-btn" onclick="addTechnicalSkill()">Add</button>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Soft Skills</label>
-                        <textarea class="form-textarea" placeholder="Enter your soft skills">Leadership
-Team Management
-Problem Solving
-Communication
-Project Management
-Agile Methodology</textarea>
+                        <div class="skills-tags" id="softSkills">
+                            <div class="skill-tag">
+                                Leadership
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                            <div class="skill-tag">
+                                Communication
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                            <div class="skill-tag">
+                                Problem Solving
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                        </div>
+                        <div class="add-skill-input">
+                            <input type="text" id="newSoftSkill" placeholder="Add a soft skill">
+                            <button class="add-skill-btn" onclick="addSoftSkill()">Add</button>
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tools & Platforms</label>
+                        <div class="skills-tags" id="toolsSkills">
+                            <div class="skill-tag">
+                                AWS
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                            <div class="skill-tag">
+                                Docker
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                            <div class="skill-tag">
+                                Git
+                                <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                            </div>
+                        </div>
+                        <div class="add-skill-input">
+                            <input type="text" id="newToolSkill" placeholder="Add a tool or platform">
+                            <button class="add-skill-btn" onclick="addToolSkill()">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications Tab Content -->
+                <div class="tab-content" data-tab="certifications">
+                    <div class="section-title">
+                        <span class="material-icons">verified</span>
+                        Certifications
+                    </div>
+
+                    <div class="dynamic-items" id="certificationItems">
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <div class="item-title">AWS Certified Machine Learning</div>
+                                <button class="remove-btn" onclick="removeItem(this)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Certification Name *</label>
+                                <input type="text" class="form-input" value="AWS Certified Machine Learning - Specialty">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Issuing Organization *</label>
+                                <input type="text" class="form-input" value="Amazon Web Services">
+                            </div>
+                            <div class="form-group">
+                                <div class="input-row">
+                                    <div>
+                                        <label class="form-label">Issue Date</label>
+                                        <input type="month" class="form-input" value="2022-03">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Expiration Date</label>
+                                        <input type="month" class="form-input" value="2025-03">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Credential ID</label>
+                                <input type="text" class="form-input" placeholder="Certification ID or URL">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-more-btn" onclick="addCertification()">
+                        <span class="material-icons">add</span>
+                        Add Another Certification
+                    </button>
+                </div>
+
+                <!-- Languages Tab Content -->
+                <div class="tab-content" data-tab="languages">
+                    <div class="section-title">
+                        <span class="material-icons">language</span>
+                        Languages
+                    </div>
+
+                    <div class="dynamic-items" id="languageItems">
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <div class="item-title">English</div>
+                                <button class="remove-btn" onclick="removeItem(this)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Language *</label>
+                                <input type="text" class="form-input" value="English">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Proficiency Level *</label>
+                                <select class="form-select">
+                                    <option>Native</option>
+                                    <option selected>Fluent</option>
+                                    <option>Professional</option>
+                                    <option>Intermediate</option>
+                                    <option>Basic</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-more-btn" onclick="addLanguage()">
+                        <span class="material-icons">add</span>
+                        Add Another Language
+                    </button>
                 </div>
 
                 <!-- Summary Tab Content -->
@@ -678,8 +1073,13 @@ Agile Methodology</textarea>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Summary</label>
+                        <label class="form-label">Summary *</label>
                         <textarea class="form-textarea" id="professionalSummary">Results-driven AI Engineer with 5+ years of experience in developing machine learning models and AI solutions. Specialized in natural language processing, computer vision, and deep learning architectures. Proven track record of delivering AI projects that improve efficiency and drive business growth.</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Career Objectives</label>
+                        <textarea class="form-textarea" placeholder="Describe your career goals and aspirations...">Seeking to leverage my expertise in AI and machine learning to drive innovation in cutting-edge technology projects. Passionate about solving complex problems and contributing to AI research and development.</textarea>
                     </div>
                 </div>
             </div>
@@ -749,7 +1149,27 @@ Agile Methodology</textarea>
     <script>
         // Global variables
         let experienceCount = 1;
+        let educationCount = 1;
+        let projectCount = 1;
+        let certificationCount = 1;
+        let languageCount = 1;
         let isAiPanelOpen = false;
+
+        // Resume data storage
+        let resumeData = {
+            personal: {},
+            experience: [],
+            education: [],
+            projects: [],
+            skills: {
+                technical: [],
+                soft: [],
+                tools: []
+            },
+            certifications: [],
+            languages: [],
+            summary: {}
+        };
 
         document.addEventListener('DOMContentLoaded', function() {
             // Get DOM elements
@@ -762,7 +1182,11 @@ Agile Methodology</textarea>
             const saveBtn = document.getElementById('saveBtn');
             const previewBtn = document.getElementById('previewBtn');
             const exportBtn = document.getElementById('exportBtn');
-            const professionalSummary = document.getElementById('professionalSummary');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            // Initialize resume data
+            initializeResumeData();
 
             // Back button functionality
             backBtn.addEventListener('click', function() {
@@ -804,15 +1228,18 @@ Agile Methodology</textarea>
 
             // Save button functionality
             saveBtn.addEventListener('click', function() {
+                saveResumeData();
                 showLoading(this, 'Saving...');
                 setTimeout(() => {
                     alert('Resume saved successfully!');
                     this.innerHTML = '<span class="material-icons">save</span> Save';
+                    updateProgress();
                 }, 1000);
             });
 
             // Preview button functionality
             previewBtn.addEventListener('click', function() {
+                saveResumeData();
                 showLoading(this, 'Generating Preview...');
                 setTimeout(() => {
                     window.location.href = 'resume-preview-filled.html?mode=editor';
@@ -822,6 +1249,7 @@ Agile Methodology</textarea>
 
             // Export button functionality
             exportBtn.addEventListener('click', function() {
+                saveResumeData();
                 const exportMenu = document.createElement('div');
                 exportMenu.style.cssText = `
                     position: fixed;
@@ -840,6 +1268,7 @@ Agile Methodology</textarea>
                     <div style="font-weight: 600; margin-bottom: 10px; color: #333; font-size: 14px;">Export As:</div>
                     <button class="export-option" data-format="pdf" style="width: 100%; padding: 10px; background: #2B3AEE; color: white; border: none; border-radius: 6px; margin-bottom: 6px; cursor: pointer; font-size: 13px;">PDF Document</button>
                     <button class="export-option" data-format="word" style="width: 100%; padding: 10px; background: #00A79D; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">Word Document</button>
+                    <button class="export-option" data-format="text" style="width: 100%; padding: 10px; background: #666; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">Plain Text</button>
                 `;
                 
                 document.body.appendChild(exportMenu);
@@ -852,6 +1281,7 @@ Agile Methodology</textarea>
                         setTimeout(() => {
                             exportBtn.innerHTML = '<span class="material-icons">download</span> Export';
                             exportMenu.remove();
+                            alert(`Resume exported as ${format.toUpperCase()} successfully!`);
                         }, 1500);
                     });
                 });
@@ -883,14 +1313,14 @@ Agile Methodology</textarea>
 
             // Auto-save on input change
             let saveTimeout;
-            const inputs = document.querySelectorAll('.form-input, .form-textarea');
+            const inputs = document.querySelectorAll('.form-input, .form-textarea, .form-select');
             inputs.forEach(input => {
                 input.addEventListener('input', function() {
                     clearTimeout(saveTimeout);
                     saveTimeout = setTimeout(() => {
-                        // Auto-save logic would go here
-                        console.log('Auto-saving...');
-                    }, 2000);
+                        saveResumeData();
+                        updateProgress();
+                    }, 1000);
                 });
             });
 
@@ -908,7 +1338,88 @@ Agile Methodology</textarea>
 
             // Load initial AI suggestions
             loadAiSuggestions('personal');
+            
+            // Initial progress update
+            updateProgress();
         });
+
+        // Function to initialize resume data
+        function initializeResumeData() {
+            // Load from localStorage if available
+            const savedData = localStorage.getItem('resumeData');
+            if (savedData) {
+                resumeData = JSON.parse(savedData);
+                populateFormData();
+            }
+        }
+
+        // Function to populate form data from resumeData
+        function populateFormData() {
+            // Personal info
+            if (resumeData.personal.fullName) {
+                document.getElementById('fullName').value = resumeData.personal.fullName;
+            }
+            // Add similar population for other fields...
+        }
+
+        // Function to save resume data
+        function saveResumeData() {
+            // Personal info
+            resumeData.personal = {
+                fullName: document.getElementById('fullName').value,
+                professionalTitle: document.getElementById('professionalTitle').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value,
+                linkedin: document.getElementById('linkedin').value,
+                portfolio: document.getElementById('portfolio').value
+            };
+
+            // Save to localStorage
+            localStorage.setItem('resumeData', JSON.stringify(resumeData));
+            console.log('Resume data saved:', resumeData);
+        }
+
+        // Function to update progress
+        function updateProgress() {
+            let completedFields = 0;
+            let totalFields = 0;
+
+            // Calculate completion percentage
+            // Personal info (7 fields)
+            const personalFields = ['fullName', 'professionalTitle', 'email', 'phone', 'location'];
+            personalFields.forEach(field => {
+                totalFields++;
+                if (resumeData.personal[field] && resumeData.personal[field].trim() !== '') {
+                    completedFields++;
+                }
+            });
+
+            // Add similar calculations for other sections...
+
+            const completionPercentage = Math.round((completedFields / totalFields) * 100);
+            progressFill.style.width = `${completionPercentage}%`;
+            progressText.textContent = `${completionPercentage}% Complete`;
+
+            // Update tab completion indicators
+            updateTabCompletion();
+        }
+
+        // Function to update tab completion indicators
+        function updateTabCompletion() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                const tabName = tab.getAttribute('data-tab');
+                const completionIndicator = tab.querySelector('.tab-completion');
+                
+                // Simple logic to show completion - in real app, check actual data
+                if (tabName === 'personal' && resumeData.personal.fullName) {
+                    completionIndicator.style.display = 'inline-block';
+                } else if (tabName !== 'personal') {
+                    completionIndicator.style.display = 'inline-block';
+                }
+            });
+        }
 
         // Function to show loading state
         function showLoading(button, text = 'Loading...') {
@@ -922,7 +1433,7 @@ Agile Methodology</textarea>
             }, 1000);
         }
 
-        // Function to add new experience
+        // Experience functions
         function addExperience() {
             experienceCount++;
             const experienceItems = document.getElementById('experienceItems');
@@ -936,22 +1447,26 @@ Agile Methodology</textarea>
                     </button>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Job Title</label>
+                    <label class="form-label">Job Title *</label>
                     <input type="text" class="form-input" placeholder="e.g., Senior AI Engineer">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Company</label>
+                    <label class="form-label">Company *</label>
                     <input type="text" class="form-input" placeholder="e.g., Tech Company Inc.">
                 </div>
                 <div class="form-group">
                     <div class="input-row">
                         <div>
-                            <label class="form-label">Start Date</label>
+                            <label class="form-label">Start Date *</label>
                             <input type="month" class="form-input">
                         </div>
                         <div>
                             <label class="form-label">End Date</label>
                             <input type="month" class="form-input">
+                            <div class="checkbox-group">
+                                <input type="checkbox" class="checkbox">
+                                <label class="checkbox-label">I currently work here</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -970,6 +1485,230 @@ Agile Methodology</textarea>
             newExperience.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
+        // Education functions
+        function addEducation() {
+            educationCount++;
+            const educationItems = document.getElementById('educationItems');
+            const newEducation = document.createElement('div');
+            newEducation.className = 'dynamic-item';
+            newEducation.innerHTML = `
+                <div class="item-header">
+                    <div class="item-title">Education #${educationCount}</div>
+                    <button class="remove-btn" onclick="removeItem(this)">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Degree *</label>
+                    <input type="text" class="form-input" placeholder="e.g., Bachelor of Science in Computer Science">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Institution *</label>
+                    <input type="text" class="form-input" placeholder="e.g., University Name">
+                </div>
+                <div class="form-group">
+                    <div class="input-row">
+                        <div>
+                            <label class="form-label">Start Date *</label>
+                            <input type="month" class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">End Date *</label>
+                            <input type="month" class="form-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-input" placeholder="City, Country">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">GPA</label>
+                    <input type="text" class="form-input" placeholder="e.g., 3.8/4.0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Achievements</label>
+                    <textarea class="form-textarea" placeholder="• Academic honors&#10;• Relevant coursework&#10;• Extracurricular activities"></textarea>
+                </div>
+            `;
+            educationItems.appendChild(newEducation);
+            newEducation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Project functions
+        function addProject() {
+            projectCount++;
+            const projectItems = document.getElementById('projectItems');
+            const newProject = document.createElement('div');
+            newProject.className = 'dynamic-item';
+            newProject.innerHTML = `
+                <div class="item-header">
+                    <div class="item-title">Project #${projectCount}</div>
+                    <button class="remove-btn" onclick="removeItem(this)">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Name *</label>
+                    <input type="text" class="form-input" placeholder="e.g., Machine Learning Model for X">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Technologies Used</label>
+                    <input type="text" class="form-input" placeholder="e.g., Python, TensorFlow, React">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Duration</label>
+                    <input type="text" class="form-input" placeholder="e.g., 3 months">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Description</label>
+                    <textarea class="form-textarea" placeholder="• Describe the project and your role&#10;• Technologies and methodologies used&#10;• Results and impact achieved"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project URL</label>
+                    <input type="url" class="form-input" placeholder="https://github.com/yourname/project">
+                </div>
+            `;
+            projectItems.appendChild(newProject);
+            newProject.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Certification functions
+        function addCertification() {
+            certificationCount++;
+            const certificationItems = document.getElementById('certificationItems');
+            const newCertification = document.createElement('div');
+            newCertification.className = 'dynamic-item';
+            newCertification.innerHTML = `
+                <div class="item-header">
+                    <div class="item-title">Certification #${certificationCount}</div>
+                    <button class="remove-btn" onclick="removeItem(this)">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Certification Name *</label>
+                    <input type="text" class="form-input" placeholder="e.g., AWS Certified Solutions Architect">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Issuing Organization *</label>
+                    <input type="text" class="form-input" placeholder="e.g., Amazon Web Services">
+                </div>
+                <div class="form-group">
+                    <div class="input-row">
+                        <div>
+                            <label class="form-label">Issue Date</label>
+                            <input type="month" class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Expiration Date</label>
+                            <input type="month" class="form-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Credential ID</label>
+                    <input type="text" class="form-input" placeholder="Certification ID or URL">
+                </div>
+            `;
+            certificationItems.appendChild(newCertification);
+            newCertification.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Language functions
+        function addLanguage() {
+            languageCount++;
+            const languageItems = document.getElementById('languageItems');
+            const newLanguage = document.createElement('div');
+            newLanguage.className = 'dynamic-item';
+            newLanguage.innerHTML = `
+                <div class="item-header">
+                    <div class="item-title">Language #${languageCount}</div>
+                    <button class="remove-btn" onclick="removeItem(this)">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Language *</label>
+                    <input type="text" class="form-input" placeholder="e.g., Spanish">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Proficiency Level *</label>
+                    <select class="form-select">
+                        <option>Native</option>
+                        <option>Fluent</option>
+                        <option>Professional</option>
+                        <option>Intermediate</option>
+                        <option>Basic</option>
+                    </select>
+                </div>
+            `;
+            languageItems.appendChild(newLanguage);
+            newLanguage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Skill functions
+        function addTechnicalSkill() {
+            const skillInput = document.getElementById('newTechnicalSkill');
+            const skill = skillInput.value.trim();
+            if (skill) {
+                const skillsContainer = document.getElementById('technicalSkills');
+                const skillTag = document.createElement('div');
+                skillTag.className = 'skill-tag';
+                skillTag.innerHTML = `
+                    ${skill}
+                    <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                `;
+                skillsContainer.appendChild(skillTag);
+                skillInput.value = '';
+                
+                // Add to resume data
+                if (!resumeData.skills.technical.includes(skill)) {
+                    resumeData.skills.technical.push(skill);
+                }
+            }
+        }
+
+        function addSoftSkill() {
+            const skillInput = document.getElementById('newSoftSkill');
+            const skill = skillInput.value.trim();
+            if (skill) {
+                const skillsContainer = document.getElementById('softSkills');
+                const skillTag = document.createElement('div');
+                skillTag.className = 'skill-tag';
+                skillTag.innerHTML = `
+                    ${skill}
+                    <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                `;
+                skillsContainer.appendChild(skillTag);
+                skillInput.value = '';
+                
+                if (!resumeData.skills.soft.includes(skill)) {
+                    resumeData.skills.soft.push(skill);
+                }
+            }
+        }
+
+        function addToolSkill() {
+            const skillInput = document.getElementById('newToolSkill');
+            const skill = skillInput.value.trim();
+            if (skill) {
+                const skillsContainer = document.getElementById('toolsSkills');
+                const skillTag = document.createElement('div');
+                skillTag.className = 'skill-tag';
+                skillTag.innerHTML = `
+                    ${skill}
+                    <button class="remove-skill" onclick="removeSkill(this)">×</button>
+                `;
+                skillsContainer.appendChild(skillTag);
+                skillInput.value = '';
+                
+                if (!resumeData.skills.tools.includes(skill)) {
+                    resumeData.skills.tools.push(skill);
+                }
+            }
+        }
+
         // Function to remove item
         function removeItem(button) {
             const item = button.closest('.dynamic-item');
@@ -977,6 +1716,22 @@ Agile Methodology</textarea>
             item.style.transform = 'translateX(-20px)';
             setTimeout(() => {
                 item.remove();
+                updateProgress();
+            }, 300);
+        }
+
+        // Function to remove skill
+        function removeSkill(button) {
+            const skillTag = button.closest('.skill-tag');
+            const skill = skillTag.textContent.replace('×', '').trim();
+            skillTag.style.opacity = '0';
+            setTimeout(() => {
+                skillTag.remove();
+                
+                // Remove from resume data
+                resumeData.skills.technical = resumeData.skills.technical.filter(s => s !== skill);
+                resumeData.skills.soft = resumeData.skills.soft.filter(s => s !== skill);
+                resumeData.skills.tools = resumeData.skills.tools.filter(s => s !== skill);
             }, 300);
         }
 
