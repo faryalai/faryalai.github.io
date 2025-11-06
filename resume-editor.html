@@ -19,7 +19,7 @@
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
-            padding-bottom: 80px;
+            padding-bottom: 70px;
         }
 
         .container {
@@ -31,18 +31,18 @@
         .header {
             display: flex;
             align-items: center;
-            padding: 20px 0;
-            margin-bottom: 8px;
+            padding: 16px 0;
+            margin-bottom: 6px;
         }
 
         .back-btn {
             background: none;
             border: none;
             color: #2B3AEE;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
-            padding: 8px;
-            margin-right: 16px;
+            padding: 6px;
+            margin-right: 12px;
             border-radius: 50%;
             transition: background-color 0.3s;
         }
@@ -56,20 +56,20 @@
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             color: #2B3AEE;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .template-name {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
         }
 
         /* Tabs */
         .tabs-container {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             position: relative;
         }
 
@@ -77,7 +77,7 @@
             display: flex;
             gap: 4px;
             overflow-x: auto;
-            padding: 4px 0 12px 0;
+            padding: 2px 0 8px 0;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -87,11 +87,11 @@
         }
 
         .tab {
-            padding: 12px 20px;
+            padding: 10px 16px;
             background: white;
             border: 2px solid #E5E7EB;
-            border-radius: 12px;
-            font-size: 14px;
+            border-radius: 10px;
+            font-size: 12px;
             font-weight: 500;
             color: #666;
             cursor: pointer;
@@ -114,48 +114,49 @@
         /* Main Content */
         .editor-container {
             display: flex;
-            gap: 16px;
-            min-height: 500px;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 400px;
         }
 
         /* Form Section */
         .form-section {
             flex: 1;
             background: white;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid #E5E7EB;
         }
 
         .section-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: #2B3AEE;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .form-label {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .form-input, .form-textarea, .form-select {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: 2px solid #E5E7EB;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 14px;
             transition: all 0.3s ease;
             background-color: #FBFBFD;
         }
@@ -169,7 +170,7 @@
 
         .form-textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 100px;
             line-height: 1.5;
         }
 
@@ -177,36 +178,37 @@
             appearance: none;
             background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
             background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-size: 12px;
+            background-position: right 14px center;
+            background-size: 10px;
         }
 
         .input-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         /* Dynamic Items */
         .dynamic-item {
             background: #F8FAFC;
             border: 1px solid #E5E7EB;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
             position: relative;
         }
 
         .item-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .item-title {
             font-weight: 600;
             color: #333;
+            font-size: 14px;
         }
 
         .remove-btn {
@@ -217,6 +219,7 @@
             padding: 4px;
             border-radius: 6px;
             transition: background-color 0.3s;
+            font-size: 16px;
         }
 
         .remove-btn:hover {
@@ -225,19 +228,19 @@
 
         .add-more-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: transparent;
             border: 2px dashed #D0D5DD;
-            border-radius: 12px;
+            border-radius: 10px;
             color: #666;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .add-more-btn:hover {
@@ -248,76 +251,87 @@
 
         /* AI Suggestions Panel */
         .ai-panel {
-            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid #E5E7EB;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .ai-panel.expanded {
-            width: 300px;
-            opacity: 1;
-            visibility: visible;
+            transform: translateX(0);
         }
 
         .ai-header {
             background: linear-gradient(135deg, #2B3AEE, #00A79D);
             color: white;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
         }
 
         .ai-title {
             font-size: 16px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .close-ai-panel {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
         }
 
         .ai-content {
-            padding: 20px;
-            max-height: 400px;
+            flex: 1;
+            padding: 16px;
             overflow-y: auto;
         }
 
         .suggestion-item {
             background: #F0F4FF;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border-left: 4px solid #2B3AEE;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            border-left: 3px solid #2B3AEE;
         }
 
         .suggestion-type {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: #2B3AEE;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-transform: uppercase;
         }
 
         .suggestion-text {
-            font-size: 14px;
+            font-size: 13px;
             color: #333;
-            margin-bottom: 12px;
-            line-height: 1.5;
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
 
         .suggestion-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
         .suggestion-btn {
             padding: 6px 12px;
             border: 1px solid #2B3AEE;
-            border-radius: 8px;
-            font-size: 12px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -343,22 +357,22 @@
 
         .ai-loading {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px 16px;
             color: #666;
         }
 
         .toggle-ai-panel {
             position: fixed;
-            right: 20px;
-            bottom: 100px;
-            width: 56px;
-            height: 56px;
+            right: 16px;
+            bottom: 80px;
+            width: 48px;
+            height: 48px;
             background: linear-gradient(135deg, #2B3AEE, #00A79D);
             border: none;
             border-radius: 50%;
             color: white;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(43, 58, 238, 0.3);
+            box-shadow: 0 2px 8px rgba(43, 58, 238, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -378,18 +392,18 @@
             right: 0;
             background: white;
             border-top: 1px solid #E5E7EB;
-            padding: 16px;
+            padding: 12px 16px;
             display: flex;
-            gap: 12px;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            gap: 8px;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
             z-index: 1000;
         }
 
         .toolbar-btn {
             flex: 1;
-            padding: 14px 20px;
-            border-radius: 12px;
-            font-size: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -397,7 +411,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn-save {
@@ -412,7 +426,7 @@
         .btn-preview {
             background: white;
             color: #666;
-            border: 2px solid #E5E7EB;
+            border: 1px solid #E5E7EB;
         }
 
         .btn-preview:hover {
@@ -471,24 +485,18 @@
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .editor-container {
-                flex-direction: column;
-            }
-            
-            .ai-panel.expanded {
-                width: 100%;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 1000;
-                border-radius: 0;
-            }
-            
+        @media (max-width: 380px) {
             .input-row {
                 grid-template-columns: 1fr;
+            }
+            
+            .tab {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+            
+            .form-section {
+                padding: 16px;
             }
         }
 
@@ -675,38 +683,43 @@ Agile Methodology</textarea>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- AI Suggestions Panel -->
-            <div class="ai-panel" id="aiPanel">
-                <div class="ai-header">
-                    <span class="material-icons">auto_awesome</span>
-                    <div class="ai-title">AI Suggestions</div>
+    <!-- AI Suggestions Panel -->
+    <div class="ai-panel" id="aiPanel">
+        <div class="ai-header">
+            <div class="ai-title">
+                <span class="material-icons">auto_awesome</span>
+                AI Suggestions
+            </div>
+            <button class="close-ai-panel" id="closeAiPanel">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <div class="ai-content" id="aiContent">
+            <div class="suggestion-item">
+                <div class="suggestion-type">Wording Improvement</div>
+                <div class="suggestion-text">Consider changing "Results-driven" to "Accomplished" for a more professional tone that resonates with tech recruiters.</div>
+                <div class="suggestion-actions">
+                    <button class="suggestion-btn btn-accept">Apply</button>
+                    <button class="suggestion-btn btn-dismiss">Dismiss</button>
                 </div>
-                <div class="ai-content" id="aiContent">
-                    <div class="suggestion-item">
-                        <div class="suggestion-type">Wording Improvement</div>
-                        <div class="suggestion-text">Consider changing "Results-driven" to "Accomplished" for a more professional tone that resonates with tech recruiters.</div>
-                        <div class="suggestion-actions">
-                            <button class="suggestion-btn btn-accept">Apply</button>
-                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
-                        </div>
-                    </div>
-                    <div class="suggestion-item">
-                        <div class="suggestion-type">Keyword Optimization</div>
-                        <div class="suggestion-text">Add "Transformer Models" and "LLM Fine-tuning" to match current AI job market trends.</div>
-                        <div class="suggestion-actions">
-                            <button class="suggestion-btn btn-accept">Apply</button>
-                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
-                        </div>
-                    </div>
-                    <div class="suggestion-item">
-                        <div class="suggestion-type">Impact Statement</div>
-                        <div class="suggestion-text">Quantify your achievements: "Improved model accuracy by 35%" could be "Boosted classification accuracy by 35% through optimized neural architectures"</div>
-                        <div class="suggestion-actions">
-                            <button class="suggestion-btn btn-accept">Apply</button>
-                            <button class="suggestion-btn btn-dismiss">Dismiss</button>
-                        </div>
-                    </div>
+            </div>
+            <div class="suggestion-item">
+                <div class="suggestion-type">Keyword Optimization</div>
+                <div class="suggestion-text">Add "Transformer Models" and "LLM Fine-tuning" to match current AI job market trends.</div>
+                <div class="suggestion-actions">
+                    <button class="suggestion-btn btn-accept">Apply</button>
+                    <button class="suggestion-btn btn-dismiss">Dismiss</button>
+                </div>
+            </div>
+            <div class="suggestion-item">
+                <div class="suggestion-type">Impact Statement</div>
+                <div class="suggestion-text">Quantify your achievements: "Improved model accuracy by 35%" could be "Boosted classification accuracy by 35% through optimized neural architectures"</div>
+                <div class="suggestion-actions">
+                    <button class="suggestion-btn btn-accept">Apply</button>
+                    <button class="suggestion-btn btn-dismiss">Dismiss</button>
                 </div>
             </div>
         </div>
@@ -744,6 +757,7 @@ Agile Methodology</textarea>
             const tabs = document.querySelectorAll('.tab');
             const tabContents = document.querySelectorAll('.tab-content');
             const toggleAiPanel = document.getElementById('toggleAiPanel');
+            const closeAiPanel = document.getElementById('closeAiPanel');
             const aiPanel = document.getElementById('aiPanel');
             const saveBtn = document.getElementById('saveBtn');
             const previewBtn = document.getElementById('previewBtn');
@@ -779,12 +793,13 @@ Agile Methodology</textarea>
 
             // AI Panel toggle functionality
             toggleAiPanel.addEventListener('click', function() {
-                isAiPanelOpen = !isAiPanelOpen;
-                aiPanel.classList.toggle('expanded', isAiPanelOpen);
-                
-                // Update icon
-                const icon = this.querySelector('.material-icons');
-                icon.textContent = isAiPanelOpen ? 'close' : 'auto_awesome';
+                isAiPanelOpen = true;
+                aiPanel.classList.add('expanded');
+            });
+
+            closeAiPanel.addEventListener('click', function() {
+                isAiPanelOpen = false;
+                aiPanel.classList.remove('expanded');
             });
 
             // Save button functionality
@@ -810,21 +825,21 @@ Agile Methodology</textarea>
                 const exportMenu = document.createElement('div');
                 exportMenu.style.cssText = `
                     position: fixed;
-                    bottom: 80px;
-                    right: 20px;
+                    bottom: 70px;
+                    right: 16px;
                     background: white;
-                    border-radius: 12px;
-                    padding: 16px;
-                    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+                    border-radius: 10px;
+                    padding: 14px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
                     border: 1px solid #E5E7EB;
                     z-index: 1001;
-                    min-width: 200px;
+                    min-width: 180px;
                 `;
                 
                 exportMenu.innerHTML = `
-                    <div style="font-weight: 600; margin-bottom: 12px; color: #333;">Export As:</div>
-                    <button class="export-option" data-format="pdf" style="width: 100%; padding: 12px; background: #2B3AEE; color: white; border: none; border-radius: 8px; margin-bottom: 8px; cursor: pointer;">PDF Document</button>
-                    <button class="export-option" data-format="word" style="width: 100%; padding: 12px; background: #00A79D; color: white; border: none; border-radius: 8px; cursor: pointer;">Word Document</button>
+                    <div style="font-weight: 600; margin-bottom: 10px; color: #333; font-size: 14px;">Export As:</div>
+                    <button class="export-option" data-format="pdf" style="width: 100%; padding: 10px; background: #2B3AEE; color: white; border: none; border-radius: 6px; margin-bottom: 6px; cursor: pointer; font-size: 13px;">PDF Document</button>
+                    <button class="export-option" data-format="word" style="width: 100%; padding: 10px; background: #00A79D; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">Word Document</button>
                 `;
                 
                 document.body.appendChild(exportMenu);
