@@ -19,7 +19,7 @@
             color: #333;
             line-height: 1.5;
             min-height: 100vh;
-            padding: 0 10px;
+            padding: 0 10px 60px; /* Added bottom padding for navigation */
         }
 
         .container {
@@ -362,6 +362,50 @@
             margin-left: 4px;
         }
 
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+            flex: 1;
+            padding: 4px 0;
+        }
+
+        .nav-item.active {
+            color: #2B3AEE;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .nav-item.active .nav-icon {
+            transform: translateY(-1px);
+        }
+
         /* Loading States */
         .loading {
             opacity: 0.7;
@@ -488,6 +532,9 @@
                             San Francisco, CA • Remote
                         </div>
                     </div>
+                    <button class="bookmark-btn" data-job="1">
+                        <span class="material-icons">bookmark_border</span>
+                    </button>
                 </div>
 
                 <div class="job-tags">
@@ -526,6 +573,9 @@
                             London, UK • Hybrid
                         </div>
                     </div>
+                    <button class="bookmark-btn" data-job="2">
+                        <span class="material-icons">bookmark_border</span>
+                    </button>
                 </div>
 
                 <div class="job-tags">
@@ -563,6 +613,9 @@
                             San Francisco, CA • On-site
                         </div>
                     </div>
+                    <button class="bookmark-btn" data-job="3">
+                        <span class="material-icons">bookmark_border</span>
+                    </button>
                 </div>
 
                 <div class="job-tags">
@@ -640,6 +693,9 @@
                             Palo Alto, CA • On-site
                         </div>
                     </div>
+                    <button class="bookmark-btn" data-job="5">
+                        <span class="material-icons">bookmark_border</span>
+                    </button>
                 </div>
 
                 <div class="job-tags">
@@ -667,6 +723,30 @@
         </div>
     </div>
 
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">home</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <span class="material-icons nav-icon">work</span>
+            <span class="nav-label">Jobs</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">timeline</span>
+            <span class="nav-label">Roadmap</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">record_voice_over</span>
+            <span class="nav-label">Practice</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">person</span>
+            <span class="nav-label">Profile</span>
+        </a>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get DOM elements
@@ -681,6 +761,7 @@
             const viewJdBtns = document.querySelectorAll('.view-jd-btn');
             const sortSelect = document.getElementById('sortSelect');
             const resultsCount = document.getElementById('resultsCount');
+            const navItems = document.querySelectorAll('.nav-item');
 
             // Current filter state
             let currentFilters = new Set(['all']);
@@ -803,6 +884,26 @@
                 });
             });
 
+            // Navigation functionality
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Navigate if not current page
+                    const label = this.querySelector('.nav-label').textContent;
+                    if (label !== 'Jobs') {
+                        alert(`Navigating to ${label}...`);
+                        // window.location.href = `${label.toLowerCase()}.html`;
+                    }
+                });
+            });
+
             // Filter and sort jobs
             function filterJobs() {
                 let visibleCount = 0;
@@ -879,7 +980,7 @@
                 const toast = document.createElement('div');
                 toast.style.cssText = `
                     position: fixed;
-                    bottom: 20px;
+                    bottom: 70px;
                     left: 50%;
                     transform: translateX(-50%);
                     background: #333;
@@ -914,7 +1015,7 @@
             }
 
             // Add touch feedback
-            const interactiveElements = document.querySelectorAll('button, .job-card, .filter-chip');
+            const interactiveElements = document.querySelectorAll('button, .job-card, .filter-chip, .nav-item');
             interactiveElements.forEach(element => {
                 element.addEventListener('touchstart', function() {
                     this.style.opacity = '0.9';
