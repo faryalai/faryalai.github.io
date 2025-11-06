@@ -1257,9 +1257,7 @@
                 saveResumeData();
                 showLoading(this, 'Generating Preview...');
                 setTimeout(() => {
-                    // window.location.href = 'resume-preview-filled.html?mode=editor';
-                    alert('Preview generated successfully!');
-                    this.innerHTML = '<span class="material-icons">visibility</span> Preview';
+                    window.location.href = 'resume-preview-filled.html';
                 }, 800);
             });
 
@@ -1825,3 +1823,4 @@
     </script>
 </body>
 </html>
+
