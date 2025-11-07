@@ -19,7 +19,7 @@
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
-            padding-bottom: 20px;
+            padding-bottom: 70px;
         }
 
         .container {
@@ -432,6 +432,50 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+            flex: 1;
+            padding: 6px 0;
+        }
+
+        .nav-item.active {
+            color: #2B3AEE;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .nav-item.active .nav-icon {
+            transform: translateY(-1px);
+        }
+
         /* Loading States */
         .loading {
             opacity: 0.7;
@@ -686,6 +730,30 @@
         </div>
     </div>
 
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">home</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">work</span>
+            <span class="nav-label">Jobs</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">timeline</span>
+            <span class="nav-label">Roadmap</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-icons nav-icon">record_voice_over</span>
+            <span class="nav-label">Practice</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <span class="material-icons nav-icon">person</span>
+            <span class="nav-label">Profile</span>
+        </a>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get DOM elements
@@ -704,6 +772,7 @@
             const appearanceSettings = document.getElementById('appearanceSettings');
             const helpSupport = document.getElementById('helpSupport');
             const aboutApp = document.getElementById('aboutApp');
+            const navItems = document.querySelectorAll('.nav-item');
 
             // Back button functionality
             backBtn.addEventListener('click', function() {
@@ -828,6 +897,25 @@
                 }, 500);
             });
 
+            // Navigation functionality
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Navigate if not current page
+                    const label = this.querySelector('.nav-label').textContent;
+                    if (label !== 'Profile') {
+                        window.location.href = `${label.toLowerCase()}.html`;
+                    }
+                });
+            });
+
             // Function to show loading state
             function showLoading(element, text = 'Loading...') {
                 const originalHTML = element.innerHTML;
@@ -841,7 +929,7 @@
             }
 
             // Add touch feedback
-            const interactiveElements = document.querySelectorAll('button, .stat-card, .action-card, .settings-item');
+            const interactiveElements = document.querySelectorAll('button, .stat-card, .action-card, .settings-item, .nav-item');
             interactiveElements.forEach(element => {
                 element.addEventListener('touchstart', function() {
                     this.style.opacity = '0.8';
